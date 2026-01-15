@@ -6868,3 +6868,73 @@ body {
     max-width: 220px;
   }
 }
+
+
+/* =====================================================
+   MOBILE – ESCALADO GLOBAL DEL PANEL DE CONTENIDO
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* CONTENEDOR PRINCIPAL DERECHO */
+  .main-right,
+  .view-main,
+  .office-detail,
+  .detail-grid {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ESCALADO GLOBAL */
+  .office-detail {
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+
+  /* COMPENSAR EL SCALE PARA QUE NO CORTE */
+  .acc-panel-office.open {
+    padding-bottom: 40px;
+  }
+
+  /* TARJETAS */
+  .detail-section,
+  .qr-item,
+  .qr-card {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* GRID DE QRS → UNA COLUMNA */
+  .qr-grid {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  /* CONTENEDOR QR */
+  .qr-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /* QR (NO NECESITA VERSE ENTERO) */
+  .qr-box canvas,
+  .qr-box img {
+    width: 96px !important;
+    height: 96px !important;
+    max-width: 96px;
+    max-height: 96px;
+  }
+
+  /* TEXTO */
+  .qr-label,
+  .qr-description {
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+}
