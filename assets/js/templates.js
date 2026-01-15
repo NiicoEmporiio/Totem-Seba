@@ -81,61 +81,49 @@ function centerInScroll(el, offset = 0, behavior = "smooth") {
 function renderQrTo(container, url) {
   if (!container) return;
 
-  const clean = (url || "").toString().trim();
+  // limpiar SIEMPRE
+  container.innerHTML = "";
+  container.classList.remove("qr-ready");
 
-  // limpieza fuerte (evita duplicados)
-  while (container.firstChild) {
-    container.removeChild(container.firstChild);
-  }
-
+  const clean = (url || "").trim();
   if (!clean) return;
 
-  // contenedor centrado SIEMPRE
+  // layout fijo y centrado
   container.style.display = "flex";
-  container.style.justifyContent = "center";
   container.style.alignItems = "center";
+  container.style.justifyContent = "center";
   container.style.boxSizing = "border-box";
-  container.style.padding = "16px";
 
   // tamaño RESPONSIVE real
-  const isMobile = window.innerWidth <= 768;
-  const size = isMobile ? 110 : 140; // 👈 clave
+  const maxSize = window.innerWidth < 600 ? 140 : 180;
 
-  if (!window.QRCode) {
-    container.textContent = clean;
-    return;
-  }
+  const qrWrap = document.createElement("div");
+  qrWrap.style.width = `${maxSize}px`;
+  qrWrap.style.height = `${maxSize}px`;
+  qrWrap.style.display = "flex";
+  qrWrap.style.alignItems = "center";
+  qrWrap.style.justifyContent = "center";
 
-  const qrWrapper = document.createElement("div");
-  qrWrapper.style.width = `${size}px`;
-  qrWrapper.style.height = `${size}px`;
-  qrWrapper.style.display = "flex";
-  qrWrapper.style.justifyContent = "center";
-  qrWrapper.style.alignItems = "center";
+  container.appendChild(qrWrap);
 
-  container.appendChild(qrWrapper);
-
-  new QRCode(qrWrapper, {
+  new QRCode(qrWrap, {
     text: clean,
-    width: size,
-    height: size,
-    colorDark: "#000000",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.M, // suficiente, menos ruido visual
+    width: maxSize,
+    height: maxSize,
+    correctLevel: QRCode.CorrectLevel.H
   });
 
-  // asegurar UN SOLO QR y bien ajustado
-  setTimeout(() => {
-    const qrs = qrWrapper.querySelectorAll("canvas, img");
-    qrs.forEach((el, i) => {
-      if (i > 0) el.remove();
-      el.style.width = "100%";
-      el.style.height = "100%";
-      el.style.display = "block";
-      el.style.borderRadius = "8px";
-    });
-  }, 0);
+  // asegurar que NO se desborde
+  const qrEl = qrWrap.querySelector("img, canvas");
+  if (qrEl) {
+    qrEl.style.width = "100%";
+    qrEl.style.height = "100%";
+    qrEl.style.display = "block";
+  }
+
+  container.classList.add("qr-ready");
 }
+
 
 
 

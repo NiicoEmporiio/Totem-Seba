@@ -6489,3 +6489,18 @@ html { -webkit-text-size-adjust: 100%; }
     margin-bottom: 20px;
   }
 }
+
+.qr-placeholder {
+  width: 100%;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+@media (max-width: 600px) {
+  .qr-placeholder {
+    min-height: 160px;
+  }
+}
