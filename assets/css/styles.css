@@ -7320,3 +7320,138 @@ body {
     border-radius: 18px;
   }
 }
+/* =====================================================
+   QR – BASE (DESKTOP)
+   ===================================================== */
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.qr-item {
+  background: #fff;
+  border: 1px solid #cfe2ff;
+  border-radius: 18px;
+  padding: 14px;
+  text-align: center;
+}
+
+.qr-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* QR real */
+.qr-placeholder canvas,
+.qr-placeholder img {
+  width: 180px;
+  height: 180px;
+  border-radius: 14px;
+}
+
+/* =====================================================
+   MOBILE – ESCALADO REAL DEL QR
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  .qr-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-item {
+    padding: 12px;
+  }
+
+  .qr-placeholder {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* 🔥 ACÁ ESTÁ LA CLAVE */
+  .qr-placeholder canvas,
+  .qr-placeholder img {
+    transform: scale(1.6);   /* ⬅ agranda el QR */
+    transform-origin: center;
+  }
+}
+
+
+
+/* =========================
+   QR – BASE (desktop / totem)
+========================= */
+
+.qr-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.qr-item {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  text-align: center;
+}
+
+.qr-box {
+  display: grid;
+  place-items: center;
+  margin: 0 auto 12px auto;
+}
+
+/* Tamaño QR desktop */
+.qr-box > div,
+.qr-box canvas {
+  width: 160px !important;
+  height: 160px !important;
+}
+
+/* =========================
+   MOBILE MODE (≤ 768px)
+========================= */
+@media (max-width: 768px) {
+
+  .qr-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .qr-item {
+    padding: 14px;
+    border-radius: 16px;
+  }
+
+  /* 🔑 Caja del QR */
+  .qr-box {
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 10px auto;
+  }
+
+  /* 🔑 QR MÁS CHICO Y PROLIJO */
+  .qr-box > div,
+  .qr-box canvas {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 140px !important;
+    max-height: 140px !important;
+  }
+
+  .qr-label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .qr-text {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+}
