@@ -6417,3 +6417,10 @@ html { -webkit-text-size-adjust: 100%; }
     width: min(78vw, 240px);
   }
 }
+/* por si algún contenedor padre recorta */
+.detail-section,
+.detail-grid,
+.office-detail,
+.qr-item{
+  overflow: visible !important;
+}
