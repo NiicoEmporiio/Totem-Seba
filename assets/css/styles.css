@@ -6756,3 +6756,64 @@ body {
   text-align: center;
   opacity: 0.8;
 }
+
+
+/* =========================
+   MOBILE FIX – QR CENTRADO
+   ========================= */
+@media (max-width: 768px) {
+
+  /* Contenedor general de contacto */
+  .contact-section,
+  .contact-qrs,
+  .qrs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Card individual del QR */
+  .qr-card,
+  .contact-qr-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Caja donde se renderiza el QR */
+  .qr-box,
+  .qr-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Canvas del QR */
+  .qr-box canvas,
+  .qr-container canvas {
+    width: 140px !important;
+    height: 140px !important;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* Texto debajo del QR */
+  .qr-label,
+  .qr-title {
+    text-align: center;
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .qr-description {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 240px;
+  }
+}
