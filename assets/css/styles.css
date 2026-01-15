@@ -7017,3 +7017,73 @@ body {
     text-align: center !important;
   }
 }
+
+/* =====================================================
+   MOBILE – CONTACTO / QRS (FINAL, LIMPIO, ESTABLE)
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* 1️⃣ FORZAMOS CONTENEDORES A NO ROMPER */
+  .office-detail,
+  .detail-grid,
+  .detail-section,
+  .detail-section * {
+    box-sizing: border-box !important;
+  }
+
+  /* 2️⃣ SECCIÓN QRS */
+  .detail-section.contact,
+  .detail-section[data-section="qrs"] {
+    padding: 10px !important;
+  }
+
+  /* 3️⃣ GRID → COLUMNA CENTRADA */
+  .qr-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+  }
+
+  /* 4️⃣ TARJETA QR (MUCHO MÁS CHICA) */
+  .qr-item,
+  .qr-card {
+    width: 100% !important;
+    max-width: 180px !important;
+    padding: 10px !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  /* 5️⃣ CONTENEDOR DEL QR */
+  .qr-box {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 4px !important;
+    margin: 0 auto !important;
+  }
+
+  /* 6️⃣ QR REAL (CLAVE) */
+  .qr-box canvas,
+  .qr-box img {
+    width: 56px !important;
+    height: 56px !important;
+    max-width: 56px !important;
+    max-height: 56px !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  /* 7️⃣ TEXTO MÁS CHICO */
+  .qr-label {
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    margin-top: 6px !important;
+  }
+
+  .qr-description {
+    font-size: 10px !important;
+    line-height: 1.2 !important;
+  }
+}
