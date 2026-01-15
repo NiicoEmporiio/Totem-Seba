@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin - Membrillar Plaza</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h1 class="logo">Panel Admin</h1>
+    <p class="building-name">Membrillar Plaza</p>
+
+    <nav class="menu">
+      <button class="menu-item active" data-view="floors">🏢 Pisos</button>
+      <button class="menu-item" data-view="offices">🏬 Oficinas</button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <small>Conectado a Strapi</small>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- Barra superior -->
+<header class="topbar">
+  <h2 id="topbarTitle">Pisos del edificio</h2>
+  <div class="topbar-right">
+    <button id="btnRefreshTotem" class="btn-secondary">Actualizar tótem</button>
+    <div id="topbarStatus" class="status-badge">Cargando datos...</div>
+  </div>
+</header>
+
+
+
+
+    <!-- ===================================== -->
+    <!--              VISTA PISOS              -->
+    <!-- ===================================== -->
+
+    <section id="view-floors" class="view active">
+      <div class="toolbar">
+        <h3>Pisos del edificio</h3>
+        <div class="toolbar-actions">
+          <button id="btnNewFloor" class="btn-primary">+ Nuevo piso</button>
+        </div>
+      </div>
+            <!-- Vista previa del tótem -->
+      <div class="card preview-card">
+        <div class="preview-header">
+          <div>
+            <h4>Vista previa del tótem</h4>
+            <small>Así se ve la pantalla principal con los datos actuales.</small>
+          </div>
+          <button id="btnRefreshPreview" class="btn-secondary">
+            Refrescar vista
+          </button>
+        </div>
+        <div class="preview-frame-wrapper">
+          <!-- Ajustá la ruta si tu tótem está en otro lugar -->
+          <iframe
+            id="totemPreviewFrame"
+            src="../index.html"
+            loading="lazy"
+            title="Preview tótem"
+          ></iframe>
+        </div>
+      </div>
+
+
+      <!-- Formulario de Piso -->
+      <div id="floorFormCard" class="card hidden">
+        <h4 id="floorFormTitle">Nuevo piso</h4>
+        <form id="floorForm" class="form-grid">
+
+          <div class="form-group">
+            <label for="floorNameInput">Nombre del piso</label>
+            <input type="text" id="floorNameInput" required placeholder="Ej: Piso 1, Planta Baja, etc.">
+          </div>
+
+          <div class="form-group">
+            <label for="floorNumberInput">Número / orden</label>
+            <input type="number" id="floorNumberInput" min="0" placeholder="Ej: 1, 2, 3...">
+          </div>
+
+          <div class="form-group form-full">
+            <label for="floorShortDescInput">Descripción del piso</label>
+            <input type="text" id="floorShortDescInput" placeholder="Ej: INFORMACION DEL PISO">
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar piso</button>
+            <button type="button" id="btnCancelFloorForm" class="btn-secondary-light">Cancelar</button>
+          </div>
+
+          <div id="floorFormMessage" class="form-message"></div>
+
+        </form>
+      </div>
+
+      <!-- Tabla de Pisos -->
+      <div id="floorsTableContainer" class="card">
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre del piso</th>
+            <th>Descripción</th>
+            <th>Total</th>
+            <th>Libres</th>
+            <th>Ocupadas</th>
+            <th>Reservadas</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+          <tbody id="floorsTableBody">
+          <!-- filas JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+
+
+    <!-- ===================================== -->
+    <!--            VISTA OFICINAS             -->
+    <!-- ===================================== -->
+
+    <section id="view-offices" class="view">
+
+   <div class="toolbar toolbar-row">
+  <h3 id="officesToolbarTitle">Oficinas del piso</h3>
+  <div class="toolbar-actions">
+    <button id="btnImportOffices" class="btn-secondary-light">Importar oficinas (CSV)</button>
+    <input type="file" id="importOfficesFile" accept=".csv" style="display:none">
+    <button id="btnNewOffice" class="btn-primary" disabled>+ Nueva oficina</button>
+    <button id="btnBackToFloors" class="btn-secondary">&larr; Volver a pisos</button>
+  </div>
+</div>
+
+
+      <!-- Filtros -->
+      <div class="toolbar-filters">
+        <input type="text" id="officeSearchInput"
+               placeholder="Buscar por nombre, rubro, ubicación o piso">
+        <select id="officeStateFilter">
+          <option value="all">Todos los estados</option>
+          <option value="libre">Solo libres</option>
+          <option value="ocupada">Solo ocupadas</option>
+          <option value="reservada">Solo reservadas</option>
+        </select>
+      </div>
+
+      <!-- Tarjetas de resumen -->
+      <div id="officesSummaryRow" class="summary-row">
+        <div class="summary-card summary-total">
+          <span class="summary-label">Total oficinas</span>
+          <span id="summaryTotalValue" class="summary-value">0</span>
+        </div>
+        <div class="summary-card summary-free">
+          <span class="summary-label">Libres</span>
+          <span id="summaryLibresValue" class="summary-value">0</span>
+        </div>
+        <div class="summary-card summary-occupied">
+          <span class="summary-label">Ocupadas</span>
+          <span id="summaryOcupadasValue" class="summary-value">0</span>
+        </div>
+        <div class="summary-card summary-reserved">
+          <span class="summary-label">Reservadas</span>
+          <span id="summaryReservadasValue" class="summary-value">0</span>
+        </div>
+      </div>
+
+      <div id="officesInfo" class="info-text">
+        Seleccioná un piso en la lista para ver sus oficinas.
+      </div>
+
+
+      <!-- Formulario Oficina -->
+      <div id="officeFormCard" class="card hidden">
+        <h4 id="officeFormTitle">Nueva oficina</h4>
+        <form id="officeForm" class="form-grid">
+
+          <div class="form-group">
+            <label for="officeNameInput">Nombre de la oficina</label>
+            <input type="text" id="officeNameInput" required placeholder="Ej: Estudio Contable López">
+          </div>
+
+          <div class="form-group">
+            <label for="officeSectorInput">Rubro / Sector</label>
+            <input type="text" id="officeSectorInput" placeholder="Ej: Contabilidad, Salud, Abogacía...">
+          </div>
+
+          <div class="form-group">
+            <label for="officeLocationInput">Ubicación / Dpto</label>
+            <input type="text" id="officeLocationInput" placeholder="Ej: Oficina 104, Dpto 3B">
+          </div>
+
+          <div class="form-group">
+            <label for="officeStateSelect">Estado</label>
+            <select id="officeStateSelect">
+              <option value="ocupada">Ocupada</option>
+              <option value="libre">Libre</option>
+              <option value="reservada">Reservada</option>
+            </select>
+          </div>
+          <div class="form-group">
+  <label for="officeDescriptionInput">Descripción / información</label>
+  <textarea
+    id="officeDescriptionInput"
+    class="form-control"
+    rows="3"
+    placeholder="Breve descripción de la oficina, servicios, info útil..."
+  ></textarea>
+</div>
+
+          <div class="form-group form-full">
+            <label for="officeTagsInput">Tags / Servicios (separados por coma)</label>
+            <input type="text" id="officeTagsInput" placeholder="Ej: odontología, implantes, ortodoncia">
+          </div>
+          
+
+          <!-- LINK PRINCIPAL -->
+<div class="form-group">
+  <label for="officeQrMainInput">Link principal / Sitio web / Ficha completa</label>
+  <input
+    type="text"
+    id="officeQrMainInput"
+    class="form-control"
+    placeholder="https://sitio.com/ficha"
+  />
+</div>
+
+<!-- LINK WHATSAPP -->
+<div class="form-group">
+  <label for="officeQrWhatsInput">Link WhatsApp / Turnos</label>
+  <input
+    type="text"
+    id="officeQrWhatsInput"
+    class="form-control"
+    placeholder="https://wa.me/..."
+  />
+</div>
+
+<!-- LINK EXTRA -->
+<div class="form-group">
+  <label for="officeQrExtraInput">Otro link / recurso extra</label>
+  <input
+    type="text"
+    id="officeQrExtraInput"
+    class="form-control"
+    placeholder="https://..."
+  />
+</div>
+
+<!-- HORARIOS / TEXTO LIBRE -->
+<div class="form-group">
+  <label for="officeScheduleInput">Horarios / información adicional</label>
+  <textarea
+    id="officeScheduleInput"
+    class="form-control"
+    rows="3"
+    placeholder="Ej: Lun a vie 9:00–18:00 · Sáb 9:00–13:00"
+  ></textarea>
+</div>
+
+   <div class="form-group form-full">
+  <label for="officeLogoInput">Logo de la oficina (opcional)</label>
+  <input type="file" id="officeLogoInput" accept="image/*">
+</div>
+
+
+
+<div class="form-group form-full">
+  <label>Imagen de QR</label>
+  <input type="file" id="officeQrImageInput" accept="image/*">
+</div>
+
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Guardar oficina</button>
+            <button type="button" id="btnCancelOfficeForm" class="btn-secondary-light">Cancelar</button>
+          </div>
+
+          <div id="officeFormMessage" class="form-message"></div>
+          
+        </form>
+      </div>
+
+
+
+      <!-- Tabla Oficinas -->
+      <div id="officesTableContainer" class="card hidden">
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>Piso</th>
+            <th>Nombre</th>
+            <th>Rubro / Sector</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+            <th>Tags</th>
+            <th>QR / Link</th>
+            <th>Acciones</th>
+          </tr>
+          </thead>
+
+          <tbody id="officesTableBody">
+          <!-- filas JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+<!-- Modal Preview -->
+<div id="previewModal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="previewTitle">Vista previa</h3>
+    <div id="previewBody"></div>
+    <div class="modal-actions">
+      <button id="previewCancel" class="btn-secondary-light">Cancelar</button>
+      <button id="previewConfirm" class="btn-primary">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Contenedor de Toasts -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script src="../assets/js/api.js"></script>
+<script>
+  window.API_BASE = "https://TU-STRAPI-DOMINIO.com/api";
+</script>
+<script>
+  window.API_BASE = "https://nadine-criminative-leif.ngrok-free.dev/api";
+</script>
+
+<script src="js/admin.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,8039 @@
+/* =========================================================
+   TÓTEM – CSS LIMPIO (Acordeón + Dark elegante)
+   Reemplaza TODO tu styles.css por este archivo
+   ========================================================= */
+
+/* ---------- Reset básico ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #0b0d12;
+  color: #e9edf6;
+}
+
+/* ---------- Variables ---------- */
+:root{
+  --bg: #0b0d12;
+  --panel: #11151f;
+  --panel-2: #0f131c;
+  --card: rgba(255,255,255,.06);
+  --card-2: rgba(255,255,255,.08);
+  --stroke: rgba(255,255,255,.10);
+  --stroke-2: rgba(255,255,255,.14);
+
+  --text: #e9edf6;
+  --muted: rgba(233,237,246,.70);
+  --muted2: rgba(233,237,246,.55);
+
+  --shadow: 0 18px 50px rgba(0,0,0,.40);
+  --shadow-soft: 0 10px 30px rgba(0,0,0,.30);
+
+  --r-xl: 22px;
+  --r-lg: 16px;
+  --r-md: 14px;
+  --r-sm: 12px;
+
+  --pad: 18px;
+  --gap: 14px;
+
+  --accent: #6ea8ff;
+  --accent-2: #86f1c6;
+}
+
+/* ---------- Contenedor general ---------- */
+.totem{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header/Footer (si los usás) */
+header { padding: 0; }
+footer{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  gap: 12px;
+  padding: 10px 18px;
+  color: var(--muted2);
+  font-size: 12px;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+/* Toast */
+.refresh-toast{
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  background: rgba(20, 25, 35, .92);
+  border: 1px solid rgba(255,255,255,.10);
+  padding: 10px 14px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-soft);
+  z-index: 9999;
+}
+.hidden{ display:none !important; }
+
+/* ---------- Main layout ---------- */
+main{
+  flex: 1;
+  padding: 18px;
+  display: flex;
+  min-height: 0;
+}
+
+.main-layout{
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 18px;
+  width: 100%;
+  min-height: 0;
+}
+
+/* ---------- Panel izquierdo ---------- */
+.building-panel{
+  background: radial-gradient(1200px 500px at 10% 0%, rgba(110,168,255,.12), transparent 55%),
+              linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--r-xl);
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  min-height: 0;
+}
+
+.directory-header{ margin-bottom: 12px; }
+.directory-title{
+  margin: 0;
+  letter-spacing: .18em;
+  font-weight: 800;
+  font-size: 26px;
+}
+.directory-subtitle{
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.building-image{
+  width: 100%;
+  height: 320px;              /* ✅ más grande (podés subir a 360 si querés) */
+  object-fit: contain;        /* ✅ NO recorta, muestra toda la imagen */
+  background: rgba(0,0,0,.25);/* ✅ relleno cuando sobra espacio */
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,.10);
+  display: block;
+  margin: 12px 0;
+}
+
+.building-caption{
+  display:flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+#buildingNameCaption{ font-weight: 800; font-size: 18px; }
+#buildingSloganCaption{ color: var(--muted); font-size: 12px; }
+
+.directory-info-card{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+  margin: 12px 0 14px;
+}
+.directory-info-row{
+  display:flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.directory-info-row:last-child{ border-bottom: 0; }
+.info-label{
+  color: var(--muted2);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.info-value{ color: var(--text); font-size: 12.5px; }
+
+/* Secciones izquierda */
+.section{
+  margin-top: 12px;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--r-lg);
+  padding: 12px 14px;
+}
+.section-header{
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 8px;
+}
+.section-body{
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* ---------- Panel derecho ---------- */
+.main-right{
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Search */
+.search-bar input{
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
+  outline: none;
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+}
+.search-bar input::placeholder{ color: rgba(233,237,246,.45); }
+.search-bar input:focus{
+  border-color: rgba(110,168,255,.45);
+  box-shadow: 0 14px 35px rgba(110,168,255,.10);
+}
+
+/* contenedor scroll del lado derecho */
+.views-container{
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 6px;
+}
+
+/* Centrado del acordeón */
+#floorsList{
+  width: 100%;
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 6px 4px 24px;
+}
+
+/* ---------- Acordeón (pisos / oficinas) ---------- */
+.acc-header{
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+  border-radius: var(--r-xl);
+  padding: 16px 16px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+  box-shadow: var(--shadow-soft);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+.acc-header:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.16);
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+}
+
+.acc-title{
+  font-weight: 800;
+  font-size: 16px;
+}
+.acc-subtitle{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.acc-chevron{
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(233,237,246,.85);
+  transition: transform .22s ease, background .22s ease;
+}
+.acc-header.open .acc-chevron{ transform: rotate(180deg); }
+
+/* Contenido del acordeón (animación suave) */
+.accordion-content{
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: max-height .38s ease, opacity .22s ease, transform .22s ease;
+}
+.accordion-content.open{
+  max-height: 2400px; /* suficiente para detalle + QRs */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Contenido piso */
+.accordion-content.floor{
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: var(--r-xl);
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* Header oficina dentro del piso */
+.acc-header.office{
+  border-radius: var(--r-lg);
+  box-shadow: none;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  padding: 14px 14px;
+  margin: 10px 0 0;
+}
+.acc-header.office:hover{ transform:none; border-color: rgba(255,255,255,.14); }
+
+.accordion-content.office{
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: var(--r-lg);
+  background: rgba(10,12,18,.55);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+/* ---------- Detalle oficina (dentro del acordeón) ---------- */
+.office-detail{ padding: 4px; }
+
+.detail-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.detail-section{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-lg);
+  padding: 12px 12px;
+}
+.detail-title{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted2);
+  margin-bottom: 8px;
+}
+.detail-body{
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.45;
+}
+.muted{ color: var(--muted2); }
+
+/* Chips */
+.chips{ display:flex; flex-wrap: wrap; gap: 8px; }
+.chip{
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(110,168,255,.12);
+  border: 1px solid rgba(110,168,255,.22);
+  color: rgba(233,237,246,.92);
+  font-size: 12px;
+}
+
+/* ---------- QRs ---------- */
+.qr-grid{
+  margin-top: 10px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+/* si hay 2 o 1 QR, lo centramos */
+.qr-grid.qr-count-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.qr-grid.qr-count-1{ grid-template-columns: minmax(0, 1fr); max-width: 340px; margin-left:auto; margin-right:auto; }
+
+.qr-item{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: var(--r-lg);
+  padding: 12px;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 10px;
+  min-height: 220px;
+}
+
+.qr-box{
+  width: 150px;
+  height: 150px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.03);
+  border: 1px dashed rgba(255,255,255,.18);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+
+.qr-label{
+  font-weight: 700;
+  font-size: 12px;
+  color: rgba(233,237,246,.92);
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  text-align:center;
+}
+.qr-icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(110,168,255,.14);
+  border: 1px solid rgba(110,168,255,.24);
+  font-size: 14px;
+}
+
+/* ---------- Scrollbars (suaves) ---------- */
+.views-container::-webkit-scrollbar{ width: 10px; }
+.views-container::-webkit-scrollbar-track{ background: rgba(255,255,255,.03); border-radius: 999px; }
+.views-container::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.10); border-radius: 999px; }
+.views-container::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.16); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1200px){
+  .main-layout{ grid-template-columns: 380px 1fr; }
+}
+@media (max-width: 980px){
+  .main-layout{ grid-template-columns: 1fr; }
+  .building-panel{ order: 2; }
+  .main-right{ order: 1; }
+  #floorsList{ max-width: 100%; }
+  .detail-grid{ grid-template-columns: 1fr; }
+  .qr-grid{ grid-template-columns: 1fr; }
+}
+/* =========================================================
+   PATCH: Acordeón estilo LISTA (compacto y delicado)
+   Pegalo AL FINAL del styles.css
+   ========================================================= */
+
+:root{
+  --list-h: 64px;
+  --list-h-office: 58px;
+  --list-pad-x: 14px;
+  --list-pad-y: 10px;
+  --soft: rgba(255,255,255,.045);
+  --soft2: rgba(255,255,255,.06);
+  --line: rgba(255,255,255,.09);
+  --line2: rgba(255,255,255,.12);
+}
+
+/* Contenedor más “lista” */
+#floorsList{
+  max-width: 980px;
+  gap: 10px;
+  padding: 6px 6px 24px;
+}
+
+/* Header piso = fila */
+.acc-header.floor{
+  border-radius: 14px;
+  padding: var(--list-pad-y) var(--list-pad-x);
+  min-height: var(--list-h);
+  box-shadow: 0 10px 25px rgba(0,0,0,.22);
+  background: linear-gradient(180deg, var(--soft2), var(--soft));
+  border: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 42px 1fr 42px; /* icono | texto | chevron */
+  gap: 12px;
+  align-items: center;
+  transform: none !important;
+}
+
+.acc-header.floor:hover{
+  border-color: var(--line2);
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.05));
+}
+
+/* Icono izquierdo para piso */
+.acc-header.floor::before{
+  content: "🏢";
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(110,168,255,.14);
+  border: 1px solid rgba(110,168,255,.20);
+  filter: saturate(1.05);
+}
+
+/* Texto centrado (izq->der) */
+.acc-header .acc-title{
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.acc-header .acc-subtitle{
+  margin-top: 3px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: rgba(233,237,246,.58);
+}
+
+/* Chevron más chico y a la derecha */
+.acc-header .acc-chevron{
+  width: 34px;
+  height: 34px;
+  justify-self: end;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* Contenido piso más “liviano” */
+.accordion-content.floor{
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+/* Header oficina = fila compacta */
+.acc-header.office{
+  border-radius: 12px;
+  padding: 10px 12px;
+  min-height: var(--list-h-office);
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+  display: grid;
+  grid-template-columns: 34px 1fr 34px; /* icono | texto | chevron */
+  gap: 10px;
+  align-items: center;
+  box-shadow: none;
+  margin: 10px 0 0;
+}
+
+/* Icono izquierdo para oficina */
+.acc-header.office::before{
+  content: "•";
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(233,237,246,.75);
+  font-size: 18px;
+}
+
+/* Ajuste de texto oficina */
+.acc-header.office .acc-title{ font-size: 13.5px; font-weight: 800; }
+.acc-header.office .acc-subtitle{ font-size: 11px; letter-spacing: .06em; }
+
+/* Contenido oficina (detalle) más elegante y menos “bloques gigantes” */
+.accordion-content.office{
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(10,12,18,.48);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+/* Detalle en “tarjetitas” más chicas */
+.detail-grid{
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.detail-section{
+  border-radius: 12px;
+  padding: 10px 10px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.07);
+}
+.detail-title{
+  font-size: 10px;
+  letter-spacing: .20em;
+  margin-bottom: 6px;
+}
+.detail-body{ font-size: 12.5px; }
+
+/* Chips más delicados */
+.chip{
+  padding: 5px 9px;
+  font-size: 11.5px;
+  background: rgba(110,168,255,.10);
+  border: 1px solid rgba(110,168,255,.18);
+}
+
+/* QRs: más compactos y alineados */
+.qr-grid{
+  margin-top: 10px;
+  gap: 10px;
+}
+.qr-item{
+  min-height: 190px;
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.07);
+}
+.qr-box{
+  width: 132px;
+  height: 132px;
+  border-radius: 14px;
+}
+.qr-label{ font-size: 11.5px; }
+.qr-icon{
+  width: 24px;
+  height: 24px;
+  font-size: 13px;
+}
+
+/* Animación aún más suave */
+.accordion-content{
+  transition: max-height .42s cubic-bezier(.2,.8,.2,1),
+              opacity .20s ease,
+              transform .20s ease;
+}
+
+/* Responsive: una columna en detalle si se achica */
+@media (max-width: 980px){
+  .detail-grid{ grid-template-columns: 1fr; }
+}
+/* =========================================================
+   Acordeón LISTA PROLIJO (alineado)
+   Pegalo AL FINAL del styles.css
+   ========================================================= */
+
+#floorsList{ max-width: 980px; margin: 0 auto; padding: 8px 10px 30px; }
+
+/* fila base */
+.acc-row{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 48px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.05);
+  box-shadow: 0 14px 35px rgba(0,0,0,.25);
+  cursor: pointer;
+}
+
+.acc-row:hover{
+  border-color: rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+}
+
+/* izquierda */
+.acc-left{ display:flex; align-items:center; justify-content:center; }
+.acc-dot{
+  width: 34px; height: 34px; border-radius: 999px;
+  display:flex; align-items:center; justify-content:center;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.06);
+  font-size: 14px;
+}
+.acc-dot-floor{
+  background: rgba(110,168,255,.16);
+  border-color: rgba(110,168,255,.25);
+}
+.acc-dot-office{
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.12);
+}
+
+/* centro */
+.acc-mid{ min-width: 0; }
+.acc-title{
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.acc-sub{
+  margin-top: 4px;
+  font-size: 11px;
+  letter-spacing: .08em;
+  color: rgba(233,237,246,.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* derecha */
+.acc-right{ display:flex; align-items:center; justify-content:flex-end; }
+.acc-chevron{
+  width: 34px; height: 34px; border-radius: 999px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.10);
+  transition: transform .25s ease;
+}
+
+/* giro chevron */
+.acc-row.open .acc-chevron{ transform: rotate(180deg); }
+
+/* panel (contenido) */
+.acc-panel{
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .45s cubic-bezier(.2,.8,.2,1),
+              opacity .20s ease,
+              transform .20s ease;
+}
+
+.acc-panel.open{
+  max-height: 2000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* panel piso */
+.acc-panel-floor{
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.03);
+}
+
+/* oficina más compacta */
+.acc-row.acc-office{
+  margin-top: 10px;
+  border-radius: 12px;
+  padding: 10px 12px;
+  box-shadow: none;
+}
+
+/* panel oficina */
+.acc-panel-office{
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+}
+
+/* detalle: que no sea gigante */
+.detail-grid{ gap: 10px; }
+.detail-section{
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+}
+.detail-title{ font-size: 10px; letter-spacing: .22em; }
+.detail-body{ font-size: 12.5px; }
+
+/* QR compactos */
+.qr-grid{ gap: 10px; }
+.qr-item{
+  border-radius: 12px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+}
+.qr-box{ width: 128px; height: 128px; border-radius: 14px; }
+/* =========================================================
+   MEJORA VISUAL GLOBAL – CONTRASTE Y LEGIBILIDAD
+   ========================================================= */
+
+/* Fondo general */
+body {
+  background: radial-gradient(
+    1200px 600px at 20% 0%,
+    #1b2230 0%,
+    #0f141c 55%,
+    #0b0f15 100%
+  );
+  color: #e6e9ef;
+}
+
+/* ======================
+   PANEL IZQUIERDO
+   ====================== */
+.sidebar,
+.left-panel,
+.building-panel {
+  background: linear-gradient(
+    180deg,
+    #1a2130 0%,
+    #111723 100%
+  );
+  border-right: 1px solid rgba(255,255,255,.08);
+  box-shadow: 8px 0 40px rgba(0,0,0,.45);
+}
+
+/* Título DIRECTORIO */
+.sidebar h1,
+.left-panel h1 {
+  color: #f1f4f9;
+  letter-spacing: .08em;
+}
+
+/* Subtítulos */
+.sidebar small,
+.left-panel small {
+  color: rgba(230,235,245,.65);
+}
+
+/* Cards del panel izquierdo */
+.sidebar .card,
+.left-panel .card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 14px;
+}
+
+/* Textos del panel izquierdo */
+.sidebar p,
+.left-panel p,
+.sidebar li {
+  color: rgba(235,238,245,.75);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+/* ======================
+   FILAS / ACORDEÓN
+   ====================== */
+.acc-row {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.06),
+    rgba(255,255,255,.03)
+  );
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+/* Hover más claro */
+.acc-row:hover {
+  background: rgba(255,255,255,.09);
+}
+
+/* Texto principal (títulos) */
+.acc-title {
+  color: #f4f7fb;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+/* Texto secundario */
+.acc-sub {
+  color: rgba(220,225,235,.75);
+  font-size: 12px;
+}
+
+/* ======================
+   ICONOS CIRCULARES
+   ====================== */
+.acc-dot {
+  background: rgba(255,255,255,.10);
+  border: 1px solid rgba(255,255,255,.18);
+  color: #e8ecf4;
+}
+
+/* Piso */
+.acc-dot-floor {
+  background: rgba(90,140,255,.20);
+  border-color: rgba(90,140,255,.35);
+}
+
+/* Chevron */
+.acc-chevron {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.16);
+  color: #e6ebf5;
+}
+
+/* ======================
+   PANEL DESPLEGADO
+   ====================== */
+.acc-panel-floor,
+.acc-panel-office {
+  background: rgba(10,14,20,.65);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+/* ======================
+   DETALLE DE OFICINA
+   ====================== */
+.detail-section {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.12);
+}
+
+.detail-title {
+  color: rgba(190,200,220,.85);
+}
+
+.detail-body {
+  color: #e6e9ef;
+  font-size: 13px;
+}
+
+/* ======================
+   TAGS / CHIPS
+   ====================== */
+.chip {
+  background: rgba(90,140,255,.18);
+  border: 1px solid rgba(90,140,255,.35);
+  color: #eaf0ff;
+  font-size: 11px;
+}
+
+/* ======================
+   QR CARDS
+   ====================== */
+.qr-item {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.qr-label {
+  color: rgba(235,238,245,.9);
+  font-size: 12px;
+}
+
+/* ======================
+   SCROLLBAR (opcional)
+   ====================== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0c1017;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,.18);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,.28);
+}
+
+/* =========================================================
+   COMPACTO + TOUCH + DIFERENCIAR PISOS VS OFICINAS
+   (PEGAR AL FINAL DEL styles.css)
+   ========================================================= */
+
+/* --- Ajustes táctiles globales --- */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.acc-header,
+.acc-row,
+button,
+input {
+  touch-action: manipulation;
+}
+
+/* --- Lista más compacta (tarjetas más "lista") --- */
+.acc-row,
+.acc-header.floor,
+.acc-header.office {
+  min-height: 64px;            /* antes se veía enorme */
+  padding: 12px 14px;
+  border-radius: 14px;
+}
+
+.acc-title {
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.acc-sub,
+.acc-subtitle {
+  font-size: 12px;
+  line-height: 1.25;
+  margin-top: 3px;
+  opacity: .9;
+}
+
+/* Icono redondo: más prolijo */
+.acc-dot {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+}
+
+/* Chevron / botón derecha: más chico y elegante */
+.acc-chevron {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+}
+
+/* Feedback táctil (al tocar) */
+.acc-row:active,
+.acc-header.floor:active,
+.acc-header.office:active {
+  transform: scale(0.995);
+  filter: brightness(1.08);
+}
+
+/* Hover suave (para cuando probás con mouse) */
+.acc-row:hover,
+.acc-header.floor:hover,
+.acc-header.office:hover {
+  transform: translateY(-1px);
+  transition: transform .18s ease, filter .18s ease;
+}
+
+/* =========================================================
+   DIFERENCIAR NIVELES: PISOS vs OFICINAS
+   ========================================================= */
+
+/* 1) Piso: borde/acento azulado + fondo apenas más fuerte */
+.acc-header.floor {
+  border: 1px solid rgba(90, 140, 255, .22);
+  background: linear-gradient(
+    180deg,
+    rgba(90, 140, 255, .10),
+    rgba(255,255,255,.03)
+  );
+}
+
+/* “barrita” izquierda para pisos */
+.acc-header.floor::before {
+  content: "";
+  width: 4px;
+  align-self: stretch;
+  border-radius: 10px;
+  background: rgba(90,140,255,.55);
+  margin-right: 10px;
+}
+
+/* Para que el layout no se rompa con el ::before */
+.acc-header.floor {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* 2) Oficina: borde neutro + leve separación, más “hija” del piso */
+.acc-header.office {
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  margin-left: 18px; /* indent: queda claro que está dentro del piso */
+}
+
+/* “barrita” izquierda para oficinas (gris) */
+.acc-header.office::before {
+  content: "";
+  width: 3px;
+  align-self: stretch;
+  border-radius: 10px;
+  background: rgba(255,255,255,.22);
+  margin-right: 10px;
+}
+
+.acc-header.office {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Panel desplegado de piso: se nota que es “contenido” */
+.accordion-content.floor.open,
+.acc-panel-floor.open,
+.accordion-content.floor {
+  margin: 10px 0 16px;
+  padding: 10px 10px 14px;
+  border-radius: 16px;
+  background: rgba(8, 12, 18, .55);
+  border: 1px dashed rgba(90,140,255,.22);
+}
+
+/* Panel desplegado de oficina: más claro y más “tarjeta” */
+.accordion-content.office.open,
+.acc-panel-office.open,
+.accordion-content.office {
+  margin: 10px 0 16px 18px; /* alineado con la indent de oficinas */
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+/* =========================================================
+   DETALLE: que no se vea gigante
+   ========================================================= */
+.detail-grid {
+  gap: 12px;
+}
+
+.detail-section {
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.detail-title {
+  font-size: 11px;
+  letter-spacing: .12em;
+  opacity: .85;
+  margin-bottom: 6px;
+}
+
+.detail-body {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* QR: más compacto, centrado y parejo */
+.qr-grid {
+  gap: 12px;
+}
+
+.qr-item {
+  padding: 12px;
+  border-radius: 16px;
+}
+
+.qr-box,
+.qr-placeholder {
+  width: 150px;   /* tamaño cómodo para táctil */
+  height: 150px;
+  margin: 0 auto 10px;
+}
+
+/* =========================================================
+   PARA TÓTEM VERTICAL: evitar que todo quede corrido
+   ========================================================= */
+@media (orientation: portrait) {
+  .views-container,
+  .scroll {
+    padding-bottom: 24px;
+  }
+
+  /* filas un poquito más altas para dedo */
+  .acc-row,
+  .acc-header.floor,
+  .acc-header.office {
+    min-height: 70px;
+  }
+}
+/* ===============================
+   FONDO GENERAL
+================================ */
+body {
+  background: radial-gradient(
+      circle at top,
+      #1b1f27 0%,
+      #0f1217 60%,
+      #0b0e13 100%
+  );
+  color: #e6e8ec;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+/* ===============================
+   CONTENEDOR PRINCIPAL
+================================ */
+#app, .app, .main-layout {
+  background: transparent;
+}
+
+/* ===============================
+   TARJETAS / ACORDEÓN
+================================ */
+.acc-header,
+.card,
+.accordion-item {
+  background: linear-gradient(
+    180deg,
+    #1e2430 0%,
+    #171c26 100%
+  );
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.04),
+    0 8px 20px rgba(0,0,0,0.35);
+  transition: 
+    background 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.25s ease;
+}
+
+/* Hover táctil */
+.acc-header:hover {
+  background: linear-gradient(
+    180deg,
+    #242b38 0%,
+    #1b2230 100%
+  );
+}
+
+/* Abierto */
+.acc-header.open {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 12px 28px rgba(0,0,0,0.45);
+}
+
+/* ===============================
+   TITULOS
+================================ */
+.acc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  color: #f1f3f6;
+}
+
+.acc-subtitle {
+  font-size: 0.78rem;
+  color: #9aa3b2;
+  margin-top: 2px;
+}
+
+/* ===============================
+   DIFERENCIAR PISOS vs OFICINAS
+================================ */
+.acc-header.floor {
+  border-left: 4px solid #3b82f6;
+}
+
+.acc-header.office {
+  border-left: 4px solid transparent;
+  padding-left: 1.25rem;
+}
+
+/* ===============================
+   CONTENIDO DESPLEGABLE
+================================ */
+.accordion-content {
+  background: linear-gradient(
+    180deg,
+    #141922 0%,
+    #11151d 100%
+  );
+  border-radius: 12px;
+  margin: 0.5rem 0 1rem;
+  padding: 0 1rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease;
+}
+
+.accordion-content.open {
+  padding: 1rem;
+}
+
+/* ===============================
+   DETALLE DE OFICINA
+================================ */
+.office-detail {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.detail-section {
+  background: #1b2230;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.detail-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8fa3ff;
+  margin-bottom: 4px;
+}
+
+.detail-body {
+  font-size: 0.9rem;
+  color: #e3e6eb;
+}
+
+/* ===============================
+   QR
+================================ */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.qr-item {
+  background: #161c27;
+  border-radius: 12px;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.qr-label {
+  font-size: 0.75rem;
+  color: #cfd5df;
+  margin-top: 6px;
+}
+
+/* ===============================
+   TEXTO MUTED
+================================ */
+.muted {
+  color: #8a94a6;
+}
+
+/* ===============================
+   PANEL IZQUIERDO
+================================ */
+.sidebar,
+.left-panel {
+  background: linear-gradient(
+    180deg,
+    #1a1f2b 0%,
+    #121622 100%
+  );
+  border-right: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Imagen */
+.sidebar img {
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+}
+
+/* Bloques info */
+.sidebar .card,
+.sidebar .info-block {
+  background: #1b2230;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Títulos */
+.sidebar h2,
+.sidebar h3 {
+  color: #f3f5f8;
+}
+
+/* Texto secundario */
+.sidebar small,
+.sidebar .label {
+  color: #9aa3b2;
+}
+
+
+/* ===============================
+   VARIABLES BASE (THEME)
+================================ */
+
+:root {
+  --bg-main: radial-gradient(1200px 800px at 30% -10%, #1c2230, #0b0e14 70%);
+  --panel-bg: linear-gradient(180deg, #161c28, #121620);
+  --card-bg: linear-gradient(180deg, #1d2433, #171c26);
+  --card-hover: #232b3c;
+
+  --border-soft: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.12);
+
+  --text-main: #f1f4fa;
+  --text-secondary: #b7c0d4;
+  --text-muted: #8a94aa;
+
+  --accent: #4f8cff;
+  --accent-soft: rgba(79,140,255,0.15);
+
+  --radius-lg: 18px;
+  --radius-md: 14px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 8px 30px rgba(0,0,0,0.35);
+}
+
+/* ===============================
+   BASE
+================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* ===============================
+   LAYOUT GENERAL
+================================ */
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100vh;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ===============================
+   PANEL IZQUIERDO (EDIFICIO)
+================================ */
+
+.side-panel {
+  background: var(--panel-bg);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.side-panel img {
+  width: 100%;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.side-panel h1 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.side-panel .subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.side-panel .info-box {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+}
+
+.side-panel .info-box h4 {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.side-panel .info-box p {
+  font-size: 13px;
+  margin: 0;
+  color: var(--text-main);
+}
+
+/* ===============================
+   CONTENIDO PRINCIPAL
+================================ */
+
+.main-content {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===============================
+   ACORDEÓN - PISOS
+================================ */
+
+.acc-header.floor {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--border-soft);
+  transition: background .25s ease;
+}
+
+.acc-header.floor:hover {
+  background: var(--card-hover);
+}
+
+.acc-header.floor.open {
+  border-color: var(--accent);
+}
+
+.acc-header.floor .acc-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.acc-header.floor .acc-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ===============================
+   LISTA DE OFICINAS
+================================ */
+
+.accordion-content.floor {
+  margin: 6px 0 16px 28px;
+  border-left: 2px dashed var(--border-soft);
+  padding-left: 14px;
+  display: none;
+}
+
+.accordion-content.floor.open {
+  display: block;
+}
+
+/* ===============================
+   OFICINA
+================================ */
+
+.acc-header.office {
+  background: linear-gradient(180deg, #1b2130, #161c26);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  border: 1px solid var(--border-soft);
+  transition: all .25s ease;
+}
+
+.acc-header.office:hover {
+  background: var(--card-hover);
+}
+
+.acc-header.office.open {
+  border-color: var(--accent);
+}
+
+.acc-header.office .acc-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.acc-header.office .acc-subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ===============================
+   DETALLE OFICINA
+================================ */
+
+.accordion-content.office {
+  display: none;
+  margin: 10px 0 18px 0;
+}
+
+.accordion-content.office.open {
+  display: block;
+}
+
+.office-detail {
+  background: var(--panel-bg);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--border-soft);
+}
+
+/* ===============================
+   DETALLE GRID
+================================ */
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.detail-section {
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  border: 1px solid var(--border-soft);
+}
+
+.detail-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.detail-body {
+  font-size: 13px;
+  color: var(--text-main);
+}
+
+/* ===============================
+   TAGS
+================================ */
+
+.chip {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+/* ===============================
+   QR
+================================ */
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.qr-item {
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--border-soft);
+}
+
+.qr-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+/* ===============================
+   RESPONSIVE (TOTEM CHICO)
+================================ */
+
+@media (max-width: 900px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    display: none;
+  }
+}
+
+
+/* =========================================================
+   TWEAKS VENTA GENÉRICA (pegá al FINAL del styles.css)
+========================================================= */
+
+/* --- Menos aire general en lista --- */
+.main-content {
+  max-width: 1050px; /* un poco más compacto */
+}
+
+/* ===============================
+   PISOS: menos separación + look más "lista"
+================================ */
+.acc-header.floor {
+  padding: 12px 16px;
+  margin-bottom: 8px;       /* antes 10px */
+  border-radius: 14px;      /* un toque menos "almohadón" */
+}
+
+.acc-header.floor .acc-title { font-size: 15px; }
+.acc-header.floor .acc-subtitle { font-size: 11px; opacity: .9; }
+
+/* Iconito del piso (si lo tenés como primer columna) más discreto */
+.acc-header.floor > :first-child {
+  width: 28px;
+  height: 28px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  display: grid;
+  place-items: center;
+}
+
+/* ===============================
+   APERTURA PISO: transición más sutil (sin "golpe")
+   -> usa max-height + opacity + translate
+================================ */
+.accordion-content.floor {
+  display: block;            /* importante para animar */
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+  margin: 4px 0 10px 18px;   /* menos margen */
+  padding-left: 14px;
+  border-left: 2px solid rgba(79,140,255,0.25); /* diferencia más clara */
+  background: rgba(79,140,255,0.04);            /* leve “tinta” para separar */
+  border-radius: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* cuando abre */
+.accordion-content.floor.open {
+  max-height: 1200px;  /* suficiente para varias oficinas */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===============================
+   OFICINAS: que se noten distinto al piso
+   -> más “compacto”, más claro que son "hijas"
+================================ */
+.acc-header.office {
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.035));
+  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+}
+
+/* “Indent” visual de oficinas dentro del piso */
+.accordion-content.floor .acc-header.office {
+  margin-left: 8px;
+}
+
+/* Texto más legible y alineado izquierda-derecha */
+.acc-header.office .acc-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+}
+
+.acc-header.office .acc-subtitle {
+  font-size: 12px;
+  color: rgba(241,244,250,0.75);
+}
+
+/* Hover y open más delicados */
+.acc-header.office:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.045));
+  transform: translateY(-1px);
+  transition: transform .18s ease, background .2s ease;
+}
+
+.acc-header.office.open {
+  border-color: rgba(79,140,255,0.55);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.28);
+}
+
+/* ===============================
+   DETALLE OFICINA: transición suave también
+================================ */
+.accordion-content.office {
+  display: block;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .35s ease, opacity .25s ease, transform .25s ease;
+  margin: 6px 0 14px 8px;
+}
+
+.accordion-content.office.open {
+  max-height: 1800px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Detalle un poco más liviano/compacto */
+.office-detail {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(18,22,32,0.92), rgba(12,15,22,0.92));
+}
+
+/* Secciones del detalle más finas */
+.detail-section {
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.03));
+}
+
+/* ===============================
+   PANEL IZQUIERDO: más premium
+================================ */
+.side-panel {
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(22,28,40,0.92), rgba(14,18,26,0.92));
+}
+
+.side-panel img {
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* Título más “marca” */
+.side-panel h1 {
+  font-size: 18px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Caja de info del edificio más limpia */
+.side-panel .info-box {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+}
+
+/* Mejor legibilidad dentro del panel */
+.side-panel .info-box p {
+  color: rgba(241,244,250,0.9);
+  line-height: 1.35;
+}
+
+/* Pequeño separador elegante */
+.side-panel .info-box + .info-box {
+  position: relative;
+}
+.side-panel .info-box + .info-box::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* ===== PISOS ===== */
+.acc-header.floor {
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.025)
+  );
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.acc-header.floor .acc-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #f1f4fa;
+}
+
+.acc-header.floor .acc-subtitle {
+  font-size: 11px;
+  color: rgba(241,244,250,0.6);
+}
+
+
+/* ===== OFICINAS ===== */
+.accordion-content.floor {
+  margin-left: 18px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(90,140,255,0.35);
+  background: rgba(90,140,255,0.04);
+  border-radius: 8px;
+}
+
+.acc-header.office {
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.acc-header.office .acc-title {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.acc-header.office .acc-subtitle {
+  font-size: 11px;
+  color: rgba(241,244,250,0.65);
+}
+
+
+/* ===== DETALLE ===== */
+.office-detail {
+  margin-top: 10px;
+  padding: 16px;
+  border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(22,26,36,0.96),
+    rgba(14,18,26,0.96)
+  );
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+}
+
+
+.detail-section {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.detail-title {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: rgba(241,244,250,0.55);
+}
+
+.detail-body {
+  font-size: 13px;
+  color: #f1f4fa;
+}
+/* ===== QR GRID ===== */
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-top: 10px;
+}
+
+/* ===== QR ITEM ===== */
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.06),
+    rgba(255,255,255,0.03)
+  );
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* Caja QR */
+.qr-box {
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* Texto QR */
+.qr-label {
+  font-size: 12px;
+  color: #f1f4fa;
+  text-align: center;
+}
+
+/* ===== PANEL IZQUIERDO ===== */
+.side-panel {
+  padding: 18px;
+  background: linear-gradient(
+    180deg,
+    rgba(18,22,32,0.95),
+    rgba(12,16,24,0.95)
+  );
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+.side-panel h1 {
+  font-size: 18px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.side-panel img {
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+
+/* =========================================================
+   PANEL IZQUIERDO (premium / legible / compacto)
+   Pegar al FINAL de styles.css
+========================================================= */
+
+/* 0) Selector “tolerante” (agarra distintos nombres) */
+:root{
+  --lp-bg1: rgba(16,20,28,0.92);
+  --lp-bg2: rgba(10,14,20,0.92);
+  --lp-border: rgba(255,255,255,0.10);
+  --lp-border-soft: rgba(255,255,255,0.07);
+  --lp-text: rgba(245,248,255,0.92);
+  --lp-muted: rgba(245,248,255,0.62);
+  --lp-muted2: rgba(245,248,255,0.45);
+  --lp-accent: rgba(90,140,255,0.95);
+  --lp-card: rgba(255,255,255,0.045);
+  --lp-card2: rgba(255,255,255,0.03);
+  --lp-radius: 18px;
+  --lp-radius-sm: 14px;
+}
+
+/* Intento de contenedor: ajusta si el tuyo es otro */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) {
+  position: relative;
+  padding: clamp(14px, 2.2vw, 18px);
+  border-radius: var(--lp-radius);
+  background: linear-gradient(180deg, var(--lp-bg1), var(--lp-bg2));
+  border: 1px solid var(--lp-border-soft);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.45);
+  overflow: hidden;
+}
+
+/* Halo sutil arriba (da “premium”) */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar)::before{
+  content:"";
+  position:absolute;
+  inset:-80px -60px auto -60px;
+  height: 180px;
+  background: radial-gradient(closest-side, rgba(90,140,255,0.18), transparent 65%);
+  pointer-events:none;
+}
+
+/* Separación general entre bloques */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) > *{
+  margin-bottom: 10px;
+}
+
+/* 1) Título “DIRECTORIO” y subtítulo */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) h1,
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) .header-title,
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) #headerTitle{
+  color: var(--lp-text);
+  font-weight: 750;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  font-size: clamp(18px, 2.2vw, 24px);
+  margin: 0 0 4px 0;
+}
+
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) .header-subtitle,
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) #headerSubtitle{
+  color: var(--lp-muted);
+  font-size: clamp(12px, 1.5vw, 14px);
+  margin: 0 0 10px 0;
+}
+
+/* 2) Foto del edificio: marco prolijo + ratio estable */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) img{
+  width: 100%;
+  display:block;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.40);
+  object-fit: cover;
+  max-height: clamp(160px, 26vh, 260px);
+}
+
+/* 3) Nombre del edificio + “breadcrumb” */
+#buildingNameCaption, .building-name, .building-name-caption{
+  color: var(--lp-text);
+  font-weight: 700;
+  font-size: clamp(14px, 1.9vw, 18px);
+  margin-top: 8px;
+}
+
+.building-slogan, .building-slogan-caption, #buildingSloganCaption{
+  color: var(--lp-muted2);
+  font-size: clamp(11px, 1.4vw, 13px);
+}
+
+/* 4) Tarjetas internas del panel (Dirección/Horarios/Instrucciones/Contacto) */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar)
+  :is(.card, .info-card, .building-card, .panel-card, .building-info-box){
+  background: linear-gradient(180deg, var(--lp-card), var(--lp-card2));
+  border: 1px solid var(--lp-border-soft);
+  border-radius: var(--lp-radius-sm);
+  padding: 12px 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Si tus bloques no tienen .card, agarramos por IDs comunes */
+#buildingInfoBox, #buildingAddressBox, #buildingHoursBox, #buildingInstructionsBox, #buildingContactBox{
+  background: linear-gradient(180deg, var(--lp-card), var(--lp-card2));
+  border: 1px solid var(--lp-border-soft);
+  border-radius: var(--lp-radius-sm);
+  padding: 12px 12px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* “Etiquetas” tipo: DIRECCIÓN / HORARIOS / INSTRUCCIONES */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar)
+  :is(.label, .section-label, .info-label){
+  color: rgba(245,248,255,0.55);
+  font-size: 11px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* Textos dentro (más legibles en oscuro) */
+#buildingContactText, .building-contact-text{
+  color: var(--lp-muted);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* 5) “Grid” de datos (Dirección/Horarios/Instrucciones) — queda más limpio */
+:is(#buildingAddressBox,#buildingHoursBox,#buildingInstructionsBox,#buildingInfoBox,
+    .building-info-box,.info-card,.panel-card) p,
+:is(#buildingAddressBox,#buildingHoursBox,#buildingInstructionsBox,#buildingInfoBox,
+    .building-info-box,.info-card,.panel-card) div{
+  color: var(--lp-text);
+}
+
+/* 6) Separador suave */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) hr{
+  border: 0;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 10px 0;
+}
+
+/* 7) Scroll del panel (si aplica) — más prolijo */
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar)::-webkit-scrollbar{
+  width: 10px;
+}
+:is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar)::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,0.14);
+  border-radius: 10px;
+  border: 2px solid rgba(0,0,0,0.2);
+}
+
+/* 8) Ajuste para pantallas chicas (20") */
+@media (max-width: 900px){
+  :is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar){
+    padding: 12px;
+    border-radius: 14px;
+  }
+  :is(.side-panel,.sidebar-left,.left-panel,#leftPanel,#panelLeft,.panel-left,.sidebar) img{
+    max-height: 160px;
+  }
+}
+/* =========================================================
+   PANEL IZQUIERDO – VERSIÓN FINAL PULIDA
+   Aplica SOLO a .building-panel y su contenido
+========================================================= */
+
+.building-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  padding: 18px;
+  border-radius: 20px;
+
+  background:
+    radial-gradient(1200px 600px at -20% -10%, rgba(90,140,255,0.10), transparent 40%),
+    linear-gradient(180deg, #0e131b 0%, #0a0f16 100%);
+
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* =========================
+   ENCABEZADO DIRECTORIO
+========================= */
+
+.directory-header {
+  margin-bottom: 4px;
+}
+
+.directory-title {
+  color: #f5f7fb;
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.directory-subtitle {
+  margin-top: 4px;
+  color: rgba(245,247,251,0.65);
+  font-size: 13px;
+}
+
+/* =========================
+   IMAGEN EDIFICIO
+========================= */
+
+.building-image {
+  width: 100%;
+  max-height: clamp(180px, 26vh, 260px);
+  object-fit: cover;
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.14);
+
+  box-shadow:
+    0 14px 35px rgba(0,0,0,0.5);
+}
+
+/* =========================
+   NOMBRE / SLOGAN
+========================= */
+
+.building-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#buildingNameCaption {
+  color: #f5f7fb;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+#buildingSloganCaption {
+  color: rgba(245,247,251,0.55);
+  font-size: 12px;
+}
+
+/* =========================
+   TARJETA INFO (Dirección / Horarios / Instrucciones)
+========================= */
+
+.directory-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  padding: 14px;
+  border-radius: 14px;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.02)
+  );
+
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.directory-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,247,251,0.45);
+}
+
+.info-value {
+  font-size: 13px;
+  color: rgba(245,247,251,0.85);
+  line-height: 1.35;
+}
+
+/* =========================
+   SECCIÓN CONTACTO
+========================= */
+
+.section {
+  margin-top: 4px;
+}
+
+.section-header {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,247,251,0.45);
+  margin-bottom: 6px;
+}
+
+.section-body {
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(245,247,251,0.75);
+}
+
+/* =========================
+   AJUSTES PARA TÓTEM (20”–55”)
+========================= */
+
+@media (max-height: 900px) {
+  .building-panel {
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .directory-info-card {
+    padding: 12px;
+  }
+
+  .building-image {
+    max-height: 180px;
+  }
+}
+
+/* =========================================================
+   ACORDEÓN (PISOS / OFICINAS) – COMPACTO + DELICADO
+========================================================= */
+
+:root{
+  --acc-gap: 10px;            /* distancia entre items */
+  --acc-radius: 16px;
+  --acc-border: rgba(255,255,255,.08);
+  --acc-border-strong: rgba(120,170,255,.22);
+  --acc-bg: rgba(255,255,255,.03);
+  --acc-bg-2: rgba(255,255,255,.05);
+  --acc-text: rgba(245,247,251,.92);
+  --acc-muted: rgba(245,247,251,.55);
+  --acc-muted2: rgba(245,247,251,.42);
+}
+
+/* contenedor lista (derecha) */
+.list#floorsList{
+  display:flex;
+  flex-direction:column;
+  gap: var(--acc-gap);
+  padding: 6px 6px 14px;
+}
+
+/* ========= HEADERS ========= */
+.acc-header{
+  width:100%;
+  text-align:left;
+  border: 1px solid var(--acc-border);
+  border-radius: var(--acc-radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  color: var(--acc-text);
+  padding: 12px 14px;
+  cursor:pointer;
+
+  display:grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items:center;
+  gap: 10px;
+
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.acc-header:hover{
+  transform: translateY(-1px);
+  border-color: rgba(255,255,255,.12);
+  box-shadow: 0 14px 28px rgba(0,0,0,.42);
+}
+
+.acc-header .acc-title{
+  font-weight: 700;
+  letter-spacing: .02em;
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.acc-header .acc-subtitle{
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--acc-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ícono circular (izq) */
+.acc-header::before{
+  content:"";
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+  justify-self:start;
+}
+
+/* chevron (der) */
+.acc-chevron{
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display:grid;
+  place-items:center;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  color: rgba(245,247,251,.85);
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+  justify-self:end;
+}
+
+/* ========= DIFERENCIAR PISO vs OFICINA ========= */
+
+/* Piso: más “importante” */
+.acc-header.floor{
+  padding: 12px 14px;
+  background:
+    radial-gradient(700px 220px at 10% 0%, rgba(90,140,255,.10), transparent 60%),
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+}
+.acc-header.floor::before{
+  content:"🏢";
+  font-size: 16px;
+  display:grid;
+  place-items:center;
+  color: rgba(245,247,251,.9);
+}
+.acc-header.floor.open{
+  border-color: var(--acc-border-strong);
+}
+
+/* Oficina: compacta, “subnivel” */
+.acc-header.office{
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,.025);
+  box-shadow: 0 8px 18px rgba(0,0,0,.32);
+}
+.acc-header.office::before{
+  content:"•";
+  font-size: 18px;
+  display:grid;
+  place-items:center;
+  color: rgba(245,247,251,.55);
+}
+.acc-header.office .acc-title{
+  font-size: 14px;
+  font-weight: 650;
+}
+.acc-header.office .acc-subtitle{
+  font-size: 11px;
+  text-transform:none;
+  letter-spacing: .02em;
+  color: var(--acc-muted2);
+}
+
+/* Estado open */
+.acc-header.open .acc-chevron{
+  transform: rotate(180deg);
+  background: rgba(90,140,255,.14);
+  border-color: rgba(120,170,255,.26);
+}
+
+/* ========= CONTENIDOS (animación suave) ========= */
+.accordion-content{
+  overflow:hidden;
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: max-height .32s ease, opacity .22s ease, transform .22s ease;
+}
+
+.accordion-content.open{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Contenido de piso (lista oficinas) */
+.accordion-content.floor.open{
+  max-height: 1600px; /* suficiente */
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  border: 1px dashed rgba(120,170,255,.18);   /* diferencia clara */
+}
+
+/* lista oficinas dentro del piso */
+.accordion-content.floor{
+  display:flex;
+  flex-direction:column;
+  gap: 8px;  /* más compacto */
+}
+
+/* Contenido de oficina (detalle) */
+.accordion-content.office.open{
+  max-height: 2200px;
+  margin-top: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.02);
+  border: 1px solid rgba(255,255,255,.07);
+}
+
+/* ========= DETALLE oficina (dentro acordeón) ========= */
+.office-detail .detail-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+@media (max-width: 900px){
+  .office-detail .detail-grid{ grid-template-columns: 1fr; }
+}
+
+.detail-section{
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.02);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.detail-title{
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(245,247,251,.55);
+  margin-bottom: 6px;
+}
+
+.detail-body{
+  color: rgba(245,247,251,.86);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 6px;
+}
+.chip{
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(120,170,255,.22);
+  background: rgba(90,140,255,.12);
+  color: rgba(245,247,251,.92);
+}
+
+/* QRs centrados y prolijos */
+.qr-grid{
+  display:grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+.qr-grid.qr-count-1{ grid-template-columns: 1fr; justify-items:center; }
+.qr-grid.qr-count-2{ grid-template-columns: repeat(2, minmax(0,1fr)); }
+.qr-grid.qr-count-3{ grid-template-columns: repeat(3, minmax(0,1fr)); }
+
+.qr-item{
+  border: 1px solid rgba(255,255,255,.07);
+  background: rgba(255,255,255,.02);
+  border-radius: 14px;
+  padding: 10px;
+  display:grid;
+  place-items:center;
+  gap: 8px;
+}
+
+.qr-box, .qr-placeholder{
+  width: 150px;
+  height: 150px;
+  display:grid;
+  place-items:center;
+  border-radius: 12px;
+  background: rgba(255,255,255,.03);
+  border: 1px dashed rgba(255,255,255,.12);
+}
+
+.qr-label{
+  color: rgba(245,247,251,.9);
+  font-size: 12px;
+  font-weight: 650;
+  display:flex;
+  align-items:center;
+  gap: 8px;
+}
+.qr-icon{ opacity:.95; }
+
+.qr-text{
+  color: rgba(245,247,251,.55);
+  font-size: 11px;
+  text-align:center;
+  line-height: 1.25;
+  max-width: 220px;
+}
+/* ===== Oficinas en una sola línea (lista horizontal) ===== */
+
+.accordion-content.floor{
+  padding: 10px;              /* un poquito más compacto */
+  gap: 8px;
+}
+
+/* oficina: layout horizontal real */
+.acc-header.office{
+  grid-template-columns: 38px 1fr auto 38px; /* icono | texto | meta | chevron */
+  padding: 10px 12px;
+}
+
+/* bloque texto (nombre + rubro) */
+.acc-header.office .acc-title{
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.acc-header.office .acc-subtitle{
+  margin: 0;
+  font-size: 12px;
+  color: rgba(245,247,251,.62);
+  letter-spacing: .01em;
+}
+
+/* meta derecha (Dpto) */
+.acc-meta{
+  text-align: right;
+  line-height: 1.15;
+  min-width: 110px;
+}
+.acc-meta .meta-top{
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  color: rgba(245,247,251,.40);
+}
+.acc-meta .meta-value{
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(245,247,251,.85);
+}
+
+/* separador visual sutil entre oficinas */
+.acc-header.office{
+  position: relative;
+}
+.acc-header.office::after{
+  content:"";
+  position:absolute;
+  left: 54px;
+  right: 54px;
+  bottom: -6px;
+  height: 1px;
+  background: rgba(255,255,255,.06);
+  opacity: .55;
+  pointer-events:none;
+}
+.accordion-content.floor > .acc-header.office:last-of-type::after{
+  display:none;
+}
+/* pisos un toque más compactos */
+.acc-header.floor{
+  padding: 11px 14px;
+}
+.acc-header.floor .acc-title{ font-size: 15px; }
+.acc-header.floor .acc-subtitle{ font-size: 11px; }
+
+
+/* =========================
+   MEJORA DE CONTRASTE DE TEXTO
+========================= */
+
+.acc-title,
+.acc-subtitle {
+  font-weight: 600;
+  color: rgba(245,247,251,0.95); /* Mayor contraste */
+}
+
+.acc-title {
+  font-size: 16px;  /* Ajustar tamaño de texto */
+  color: rgba(245,247,251,1);  /* Asegura que los títulos sean muy legibles */
+}
+
+.acc-subtitle {
+  font-size: 12px;
+  color: rgba(245,247,251,0.75); /* Acentuar texto secundario */
+  letter-spacing: 0.03em;
+}
+
+.acc-meta {
+  color: rgba(245,247,251,0.85);
+}
+
+.info-value {
+  font-size: 15px;
+  color: rgba(245,247,251,1); /* Color fuerte para valores importantes */
+}
+
+.info-label {
+  color: rgba(245,247,251,0.65);  /* Subtítulos más suaves */
+}
+
+.directory-title, .directory-subtitle {
+  color: rgba(245,247,251,1);
+}
+
+.directory-subtitle {
+  font-size: 14px;
+  margin-top: 4px;
+  color: rgba(245,247,251,0.7);
+}
+
+/* =========================
+   AJUSTES VISUALES PARA LAS TARJETAS DE PISO Y OFICINA
+========================= */
+
+/* Piso - fondo más suave para mayor contraste */
+.acc-header.floor {
+  background: linear-gradient(180deg, rgba(90,140,255,.15), rgba(255,255,255,.03));
+  color: rgba(245,247,251,1);
+}
+
+.acc-header.floor .acc-title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.acc-header.office .acc-title {
+  color: rgba(245,247,251,0.9);
+  font-weight: 650;
+  font-size: 15px;
+}
+
+/* =========================
+   AJUSTES DE TRANSICIONES Y ANIMACIONES
+========================= */
+
+/* Transiciones más suaves para cada acordeón */
+.acc-header {
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.3s ease;
+}
+
+.acc-header:hover {
+  background-color: rgba(255,255,255,0.04);
+  transform: translateY(-2px); /* Sutil para no ser brusco */
+}
+
+.accordion-content {
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding: 0 14px;
+}
+
+.accordion-content.open {
+  max-height: 4000px;
+  opacity: 1;
+  padding: 10px 14px;
+}
+
+.accordion-content.floor.open {
+  background: rgba(255,255,255,0.03);
+  border-radius: 14px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+/* Para las oficinas dentro del acordeón */
+.accordion-content.office.open {
+  background: rgba(255,255,255,0.025);
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* =========================
+   MEJORAS VISUALES PARA QRs
+========================= */
+.qr-label {
+  color: rgba(245,247,251,1);
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+}
+
+.qr-box {
+  background: rgba(255,255,255,.05);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.qr-item {
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+.qr-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+  background: rgba(255,255,255,0.08);
+}
+/* ===== FIX: textos cortados + tarjetas más compactas ===== */
+
+/* Compactar listas */
+.list{ gap: 8px !important; }
+
+/* Piso y oficina: menos padding/alto */
+.acc-header{
+  padding: 10px 12px !important;
+  border-radius: 14px !important;
+  min-height: 54px !important;
+}
+
+/* En oficinas, aún más compacto */
+.acc-header.office{
+  min-height: 50px !important;
+  padding: 9px 12px !important;
+}
+
+/* El bloque de texto (centro) necesita permitir encoger y crecer */
+.acc-header > *{ min-width: 0 !important; } /* clave para ellipsis correcto */
+.acc-header .acc-title{
+  font-size: 14px !important;
+  font-weight: 750 !important;
+  color: rgba(245,247,252,.95) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* Subtítulo más legible y que no “mate” el título */
+.acc-header .acc-subtitle{
+  font-size: 11px !important;
+  color: rgba(245,247,252,.68) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  max-width: 100% !important;
+}
+
+/* IMPORTANTE: si tenías .acc-title con width chica, lo anula */
+.acc-title, .acc-subtitle{
+  width: auto !important;
+}
+
+/* Layout interno: más horizontal y con más lugar para el texto */
+.acc-header{
+  grid-template-columns: 32px 1fr 32px !important;
+  gap: 10px !important;
+}
+
+/* Icono a la izquierda más chico */
+.acc-icon{
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 10px !important;
+}
+
+/* Chevron más chico */
+.acc-chevron{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 10px !important;
+  opacity: .9 !important;
+}
+
+/* Contenedor de oficinas (el recuadro punteado): que no coma tanto */
+.accordion-content.floor.open{
+  padding: 10px 10px 6px !important;
+  border-radius: 14px !important;
+}
+
+/* Asegurar contraste en toda la fila */
+.acc-header{
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+
+
+/* ================================
+   FIX DEFINITIVO: NOMBRES COMPLETOS
+   ================================ */
+
+/* Header base (pisos + oficinas) */
+.acc-header{
+  display: grid !important;
+  grid-template-columns: 28px 1fr 28px !important;
+  align-items: center !important;
+  gap: 10px !important;
+
+  padding: 10px 12px !important;
+  min-height: unset !important;
+
+  border-radius: 14px !important;
+}
+
+/* CLAVE: permitir que el texto use ancho real */
+.acc-header > *{
+  min-width: 0 !important;
+}
+
+/* ===== TÍTULO (NOMBRE COMPLETO) ===== */
+.acc-title{
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+
+  color: #f1f5fb !important;
+
+  /* 🔴 ESTO ES LO IMPORTANTE */
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2;   /* hasta 2 líneas */
+  -webkit-box-orient: vertical;
+
+  max-width: 100% !important;
+}
+
+/* ===== SUBTÍTULO ===== */
+.acc-subtitle{
+  font-size: 11px !important;
+  line-height: 1.2 !important;
+  margin-top: 2px !important;
+
+  color: rgba(240,245,255,.65) !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+/* ===== TARJETAS DE OFICINA MÁS CHICAS ===== */
+.acc-header.office{
+  padding: 9px 12px !important;
+  border-radius: 12px !important;
+}
+
+/* ===== ICONO IZQUIERDO ===== */
+.acc-icon{
+  width: 24px !important;
+  height: 24px !important;
+  border-radius: 10px !important;
+  flex-shrink: 0 !important;
+}
+
+/* ===== BOTÓN DERECHA ===== */
+.acc-chevron{
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 10px !important;
+}
+
+/* ===== ESPACIADO ENTRE FILAS ===== */
+.list{
+  gap: 8px !important;
+}
+
+/* ===== CONTENEDOR DE OFICINAS ===== */
+.accordion-content.floor.open{
+  padding: 10px !important;
+  margin-top: 6px !important;
+  border-radius: 14px !important;
+}
+
+
+/* =========================================
+   FIX LISTA: nombres completos + alineación
+   ========================================= */
+
+.acc-header{
+  display:grid !important;
+  grid-template-columns: 34px 1fr 34px !important;
+  align-items:center !important;
+  gap:12px !important;
+
+  padding: 10px 14px !important;
+  border-radius: 14px !important;
+}
+
+/* para que el texto pueda ocupar el ancho real */
+.acc-text{ min-width:0 !important; }
+
+/* iconito izquierda */
+.acc-icon{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 12px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background: rgba(120,160,255,.10) !important;
+  border: 1px solid rgba(140,170,255,.18) !important;
+  color: rgba(220,235,255,.95) !important;
+  flex-shrink:0 !important;
+  font-size: 14px !important;
+}
+
+/* flecha derecha */
+.acc-chevron{
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 12px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background: rgba(255,255,255,.06) !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  color: rgba(240,245,255,.9) !important;
+}
+
+/* TITULO: NO truncar */
+.acc-title{
+  color: rgba(245,248,255,.96) !important;
+  font-weight: 750 !important;
+  font-size: 14px !important;
+  line-height: 1.25 !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+
+  /* si algún nombre es largo, que corte bien */
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+/* SUBTITULO más legible */
+.acc-subtitle{
+  margin-top: 3px !important;
+  font-size: 11px !important;
+  line-height: 1.25 !important;
+  color: rgba(220,230,245,.70) !important;
+
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+}
+
+/* tarjetas de oficina un poco más compactas */
+.acc-header.office{
+  padding: 9px 14px !important;
+  border-radius: 12px !important;
+}
+
+/* menos distancia entre items */
+.list{ gap: 8px !important; }
+.accordion-content.floor.open{ padding: 10px !important; }
+
+/* =========================================
+   LAYOUT TÓTEM – CONTENIDO CENTRADO
+   ========================================= */
+
+html, body {
+  height: 100%;
+  overflow: hidden; /* ❗ NO scroll global */
+}
+
+.totem {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* main ocupa toda la pantalla */
+main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* layout principal */
+.main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 560px 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.building-panel {
+  height: 100%;
+  overflow-y: auto;    /* ✅ scroll vertical */
+  overflow-x: hidden;
+}
+
+
+/* panel derecho */
+.main-right {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* buscador fijo */
+.search-bar {
+  flex-shrink: 0;
+}
+
+/* contenedor de vistas */
+.views-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* cada vista */
+.view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* SOLO esta parte scrollea */
+.scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+
+/* scroll más suave */
+.scroll {
+  scroll-behavior: smooth;
+}
+
+/* =========================================
+   TARJETAS MÁS COMPACTAS (TÓTEM)
+   ========================================= */
+
+.acc-header {
+  min-height: 54px !important;
+}
+
+.acc-header.floor {
+  min-height: 58px !important;
+}
+
+.acc-header.office {
+  min-height: 50px !important;
+}
+
+.acc-title {
+  font-size: 14px !important;
+}
+
+.acc-subtitle {
+  font-size: 11px !important;
+}
+
+
+/* =========================================
+   FONDO LISO CORPORATIVO
+   ========================================= */
+
+body {
+  background: #0e1116 !important; /* gris negro */
+}
+
+.main-right,
+.views-container,
+.view,
+.scroll {
+  background: transparent !important;
+}
+
+/* panel izquierdo */
+.building-panel {
+  background: #121722 !important;
+  border-right: 1px solid rgba(255,255,255,.08);
+}
+
+/* tarjetas */
+.card,
+.acc-header,
+.accordion-content {
+  background: #161c28 !important;
+}
+
+/* secciones internas */
+.section {
+  background: #1a2030 !important;
+}
+
+
+/* =========================================
+   CENTRADO VISUAL DEL CONTENIDO
+   ========================================= */
+
+.view-main .scroll,
+.view-floor .scroll {
+  padding-top: 12px;
+}
+
+.view-office .scroll {
+  padding-top: 16px;
+}
+
+
+/* ===============================
+   ACCORDION – TRANSICIONES SUAVES
+   =============================== */
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    max-height 360ms cubic-bezier(.2,.8,.2,1),
+    opacity 220ms ease,
+    transform 220ms ease;
+  will-change: max-height, opacity, transform;
+}
+
+.accordion-content.open {
+  opacity: 1;
+  transform: translateY(0);
+  max-height: 1200px; /* suficiente para el contenido */
+}
+
+/* hover/tap feedback sutil */
+.acc-header {
+  transition: transform 140ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.acc-header:active {
+  transform: scale(0.995);
+}
+
+/* chevron suave */
+.acc-chevron {
+  transition: transform 220ms ease;
+}
+.acc-header.open .acc-chevron {
+  transform: rotate(180deg);
+}
+
+
+/* ===============================
+   SEARCH (MEJORA VISUAL)
+   =============================== */
+
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 10px 0 14px;
+  background: transparent;
+}
+
+.search-bar input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(18,22,30,.72);
+  color: rgba(255,255,255,.92);
+  outline: none;
+  font-size: 16px;
+  letter-spacing: .2px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+
+.search-bar input::placeholder {
+  color: rgba(255,255,255,.45);
+}
+
+.search-bar input:focus {
+  border-color: rgba(96,165,250,.45);
+  box-shadow: 0 0 0 4px rgba(96,165,250,.12), 0 10px 30px rgba(0,0,0,.35);
+}
+
+/* Cuando hay resultados de búsqueda, que se vean "lista" */
+#floorsList .office-card {
+  padding: 12px 14px;
+  min-height: unset;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(22,27,38,.62);
+  transition: transform .14s ease, background .14s ease, border-color .14s ease;
+}
+
+#floorsList .office-card:hover {
+  transform: translateY(-1px);
+  background: rgba(30,36,50,.72);
+  border-color: rgba(255,255,255,.16);
+}
+
+#floorsList .office-card-top {
+  gap: 12px;
+}
+
+#floorsList .office-logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.10);
+  font-size: 18px;
+}
+
+#floorsList .office-card-info .card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255,255,255,.92);
+  line-height: 1.15;
+
+  /* IMPORTANTE: que se vea el nombre completo */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+#floorsList .office-card-info .card-subtitle {
+  font-size: 13px;
+  color: rgba(255,255,255,.60);
+  line-height: 1.25;
+
+  /* que no corte tan agresivo */
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+#floorsList .office-card-state .state-badge {
+  font-size: 11px;
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,.10);
+}
+
+/* “chip” tipo header para resultados (lo setea el JS) */
+.view-title.is-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.88);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+/* Mensaje cuando no hay resultados */
+.search-empty {
+  padding: 14px 14px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,255,255,.14);
+  color: rgba(255,255,255,.65);
+  background: rgba(255,255,255,.04);
+}
+
+
+
+/* =========================
+   SEARCH - MEJORAS VISUALES
+========================= */
+
+#mainTitle {
+  margin: 10px 0 4px;
+  font-size: 14px;
+  color: rgba(255,255,255,.80);
+  letter-spacing: .02em;
+}
+
+#mainTitle.is-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  backdrop-filter: blur(8px);
+}
+
+#mainDescription {
+  margin: 6px 0 14px;
+  color: rgba(255,255,255,.55);
+  font-size: 12px;
+   display: none !important;
+}
+
+/* Ajuste del input para que se vea más “pro” */
+.search-bar input {
+  height: 52px;
+  font-size: 16px;
+  padding: 0 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.90);
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255,255,255,.35);
+}
+
+.search-bar input:focus {
+  border-color: rgba(90, 170, 255, .55);
+  box-shadow: 0 0 0 3px rgba(90, 170, 255, .14);
+  background: rgba(255,255,255,.05);
+}
+
+/* Lista de resultados: más centrado y prolijo */
+#floorsList {
+  display: grid;
+  gap: 12px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+/* Tarjetas de resultados (usa tu createOfficeSearchResultCard) */
+#floorsList .office-card {
+  border-radius: 16px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+}
+
+#floorsList .office-card:hover {
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.055);
+  border-color: rgba(255,255,255,.16);
+}
+
+/* Alineación interna si tu card tiene .office-card-top */
+#floorsList .office-card-top {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+/* “Avatar” inicial/logo */
+#floorsList .office-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(255,255,255,.85);
+  font-weight: 700;
+}
+
+/* Textos */
+#floorsList .card-title {
+  font-size: 15px;
+  line-height: 1.15;
+  color: rgba(255,255,255,.92);
+  font-weight: 700;
+}
+
+#floorsList .card-subtitle {
+  font-size: 12px;
+  margin-top: 4px;
+  color: rgba(255,255,255,.55);
+}
+
+/* Badge estado */
+#floorsList .state-badge {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.75);
+}
+
+/* Vacío */
+.search-empty {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px dashed rgba(255,255,255,.18);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.60);
+  text-align: center;
+}
+
+
+.scroll {
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+
+
+.search-results-wrap { display: grid; gap: 12px; }
+.search-results-wrap.hidden { display: none; }
+.floors-list.hidden { display: none; }
+
+.search-bar { position: relative; }
+.search-clear{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+  color:#fff;
+  cursor:pointer;
+}
+.search-clear.hidden{ display:none; }
+
+.search-empty{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.75);
+}
+
+/* =========================
+   SEARCH RESULTS (LISTA)
+========================= */
+
+.floors-list.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.search-result-item {
+  display: grid;
+  grid-template-columns: 44px 1fr auto;
+  gap: 12px;
+  align-items: center;
+
+  padding: 12px 16px;
+  border-radius: 14px;
+
+  background: #161c25;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #e8ecf2;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.search-result-item:hover {
+  background: #1c2430;
+  transform: translateY(-1px);
+}
+
+.search-result-initial {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: #243047;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #cdd6f4;
+}
+
+.search-result-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.search-result-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.search-result-meta {
+  font-size: 12px;
+  color: #9aa4b2;
+}
+
+.search-result-state {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: #cfd6e4;
+}
+
+.search-empty {
+  padding: 20px;
+  text-align: center;
+  color: #9aa4b2;
+}
+
+
+
+
+/* Search results: mismos anchos/espaciados que la lista normal */
+#floorsList.is-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Alineación del “row” en resultados */
+.acc-search-hit .acc-right{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Icono letra como en tu UI */
+.acc-icon-letter{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  opacity: .95;
+}
+
+.acc-panel-office {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 12px 0 20px;
+}
+
+.acc-panel-floor {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.acc-row {
+  max-width: 900px;
+  margin: 0 auto 10px;
+}
+
+.acc-search {
+  border: 1px solid rgba(120,160,255,.25);
+  background: linear-gradient(180deg,#1a1f2a,#161a23);
+}
+
+
+
+
+
+/* ===== LISTA DE OFICINAS – COMPACTA ===== */
+
+.acc-row.acc-office {
+  min-height: 48px;          /* más chica que piso */
+  padding: 8px 14px;
+  margin: 6px auto;
+  max-width: 780px;          /* un poco más angosta que pisos */
+  
+  display: grid;
+  grid-template-columns: 24px 1fr 24px;
+  align-items: center;
+  gap: 12px;
+}
+.acc-office .acc-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  font-size: 10px;
+  display: grid;
+  place-items: center;
+  background: rgba(255,255,255,0.05);
+}
+.acc-office .acc-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: normal;     /* 👈 permite nombre completo */
+}
+
+.acc-office .acc-subtitle {
+  font-size: 11px;
+  opacity: 0.65;
+  margin-top: 2px;
+}
+.acc-office .acc-chevron {
+  width: 22px;
+  height: 22px;
+  font-size: 11px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  opacity: 0.6;
+}
+.acc-panel-office {
+  max-width: 780px;
+  margin: 0 auto 8px auto;
+  padding: 6px 0;
+}
+.acc-panel-floor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.acc-panel-floor.open {
+  border-left: 2px solid rgba(120,160,255,0.35);
+  padding-left: 10px;
+}
+
+
+
+/* ===========================
+   SPLASH / IDLE OVERLAY
+=========================== */
+.idle-splash{
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 18, 0.92);
+  backdrop-filter: blur(6px);
+}
+
+.idle-splash.hidden{
+  display: none !important;
+}
+
+.idle-card{
+  width: min(560px, 88vw);
+  padding: 28px 26px;
+  border-radius: 22px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 22px 60px rgba(0,0,0,.55);
+  text-align: center;
+}
+
+.idle-title{
+  margin-top: 14px;
+  font-weight: 900;
+  letter-spacing: .14em;
+  font-size: 28px;
+}
+
+.idle-subtitle{
+  margin-top: 10px;
+  color: rgba(233,237,246,.75);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+/* Finger simple + animación */
+.idle-finger{
+  width: 64px;
+  height: 64px;
+  margin: 0 auto;
+  border-radius: 18px;
+  border: 2px solid rgba(255,255,255,.25);
+  position: relative;
+  animation: idlePulse 1.2s ease-in-out infinite;
+}
+
+.idle-finger:before{
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: rgba(110,168,255,.9);
+  box-shadow: 0 0 0 10px rgba(110,168,255,.18);
+}
+
+@keyframes idlePulse{
+  0%, 100% { transform: scale(1); opacity: .95; }
+  50% { transform: scale(1.06); opacity: 1; }
+}
+/* =========================
+   REQ CLIENTE: Piso más grande
+========================= */
+.acc-header.floor .acc-title{
+  font-size: 20px !important;
+  font-weight: 900 !important;
+  letter-spacing: .06em !important;
+}
+
+.acc-header.floor .acc-subtitle{
+  font-size: 12px !important;
+  opacity: .75 !important;
+}
+
+/* =========================
+   REQ CLIENTE: Depto resaltado distinto
+========================= */
+.acc-meta .meta-value{
+  color: rgba(110,168,255,.95) !important; /* azul/acento */
+  font-weight: 900 !important;
+}
+
+.acc-meta .meta-top{
+  opacity: .55 !important;
+}
+
+/* REQ CLIENTE: no mostrar rubro/sin rubro */
+.acc-header.office .acc-subtitle{
+  display: none !important;
+}
+
+
+/* Depto + Empresa (lista oficinas) */
+.acc-depto{
+  color: rgba(110,168,255,.95);
+  font-weight: 900;
+}
+
+.acc-company{
+  font-weight: 800;
+}
+
+.acc-sep{
+  opacity: .55;
+}
+
+
+/* =========================
+   PANEL DERECHO / BRANDING
+========================= */
+.brand-card{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px;
+}
+
+.brand-top{
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.brand-logo{
+  width: min(260px, 85%);
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.brand-address{
+  font-size: 14px;
+  opacity: .8;
+  letter-spacing: .04em;
+}
+
+.brand-qr{
+  text-align: center;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.brand-qr-img {
+  width: clamp(110px, 18vw, 150px); /* ✅ mucho más chico y adaptable */
+  height: auto;
+  display: block;
+  margin: 8px auto;
+}
+
+
+.brand-qr-text{
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: .72;
+}
+
+.brand-contact{
+  text-align: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.brand-contact-logo{
+  width: min(170px, 70%);
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+
+.brand-contact-text{
+  font-size: 12px;
+  opacity: .72;
+  margin-bottom: 6px;
+}
+
+.brand-contact-phone{
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+/* Ajuste branding card (mejor lectura) */
+.brand-card{
+  padding: 14px !important;
+  gap: 14px !important;
+}
+
+.brand-top{
+  padding-bottom: 0 !important;
+}
+
+.brand-address{
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: .82;
+}
+
+.brand-qr {
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.brand-qr-text {
+  font-size: 12px;
+  opacity: .8;
+  margin-top: 6px;
+  text-align: center;
+}
+
+
+.brand-contact{
+  padding-top: 8px !important;
+}
+
+.adinnov-contact{
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,.08);
+  text-align: center;
+}
+
+.adinnov-logo{
+  width: min(160px, 70%);
+  height: auto;
+  display: block;
+  margin: 0 auto 8px;
+  opacity: .95;
+}
+
+.adinnov-title{
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+.adinnov-sub{
+  font-size: 12px;
+  opacity: .75;
+  margin-top: 4px;
+}
+
+.adinnov-phone{
+  margin-top: 6px;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+
+/* =========================
+   RESPONSIVE: móvil / tablet
+========================= */
+
+/* Imagen principal: que se adapte sola */
+.building-image{
+  height: clamp(180px, 22vw, 320px);
+  object-fit: contain; /* sin recorte */
+  background: rgba(0,0,0,.25);
+}
+
+/* QR: tamaño adaptable */
+.brand-qr-img{
+  width: clamp(120px, 30vw, 200px);
+  height: auto;
+}
+
+/* 1) Tablet hacia abajo: reduce ancho izquierdo */
+@media (max-width: 1100px){
+  .main-layout{
+    grid-template-columns: 420px 1fr; /* antes 500px */
+  }
+}
+
+/* 2) Celular / pantallas angostas: 1 columna */
+@media (max-width: 820px){
+  .main-layout{
+    grid-template-columns: 1fr;  /* ✅ se apila */
+    gap: 12px;
+  }
+
+  /* el panel izquierdo deja de ser “alto fijo” y se ve completo */
+  .building-panel{
+    height: auto;
+    overflow: visible;
+  }
+
+  /* el panel derecho también */
+  .main-right{
+    height: auto;
+    overflow: visible;
+  }
+
+  /* tarjetas con menos padding para mobile */
+  .card{
+    padding: 14px;
+  }
+
+  /* buscador: más compacto */
+  .search-bar{
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10,12,16,.85);
+    backdrop-filter: blur(10px);
+  }
+
+  /* lista de pisos: que no quede gigante */
+  .floors-list{
+    gap: 10px;
+  }
+}
+
+/* 3) Muy chico: ajustes extra */
+@media (max-width: 420px){
+  .brand-qr-text{
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
+
+@media (max-height: 800px){
+  .building-image{
+    height: 240px;
+  }
+}
+
+/* =========================
+   COMPACTAR TARJETAS DE PISOS
+========================= */
+
+.floor-accordion {
+  margin-bottom: 10px;      /* antes más grande */
+  border-radius: 14px;
+}
+
+.floor-header {
+  padding: 12px 16px;       /* ↓ menos alto */
+  min-height: 56px;         /* controla altura total */
+  gap: 12px;
+}
+
+.acc-icon {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.acc-text {
+  line-height: 1.1;
+}
+
+.acc-title {
+  font-size: 15px;          /* antes más grande */
+  font-weight: 600;
+}
+
+.acc-chevron {
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+}
+
+/* cuando está abierto */
+.floor-accordion.open .floor-header {
+  padding-bottom: 10px;
+}
+@media (min-height: 900px){
+  .floor-header {
+    min-height: 52px;
+    padding: 10px 14px;
+  }
+
+  .acc-title {
+    font-size: 14px;
+  }
+}
+
+
+/* =========================
+   COMPACTAR TARJETAS DE PISOS (SELECTORES REALES)
+========================= */
+
+/* wrapper del piso */
+.acc-wrapper {
+  margin-bottom: 8px; /* antes era más grande */
+}
+
+/* botón del piso */
+.acc-row.acc-floor {
+  padding: 10px 14px;     /* ⬇️ reduce altura */
+  min-height: 54px;       /* ⬇️ controla tamaño total */
+  gap: 12px;
+}
+
+/* icono edificio */
+.acc-row.acc-floor .acc-icon {
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+}
+
+/* título del piso */
+.acc-row.acc-floor .acc-title {
+  font-size: 14px;        /* ⬇️ más compacto */
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+/* flecha */
+.acc-row.acc-floor .acc-chevron {
+  width: 26px;
+  height: 26px;
+  font-size: 13px;
+}
+
+/* panel desplegado */
+.acc-panel.acc-panel-floor {
+  padding: 10px 14px 12px; /* ⬇️ menos aire al abrir */
+}
+
+
+/* =========================
+   RESPONSIVE MOBILE (<= 820px)
+   1 columna: Panel arriba / Directorio abajo
+========================= */
+@media (max-width: 820px){
+
+  /* Contenedor general */
+  .main-layout{
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    padding: 14px !important;
+  }
+
+  /* Orden: primero el panel, después el directorio */
+  .building-panel{
+    grid-column: 1 !important;
+    order: 1;
+  }
+  .main-right{
+    grid-column: 1 !important;
+    order: 2;
+  }
+
+  /* Panel del edificio ocupa todo el ancho */
+  .building-panel{
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* Imagen: que no se corte y sea responsive */
+  .building-image,
+  .building-image img{
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+  /* Buscador full width */
+  .search-bar,
+  .search-input{
+    width: 100% !important;
+  }
+
+  /* Lista de pisos ocupa todo el ancho (saca max-width si existe) */
+  #floorsList{
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* Tarjetas de pisos más compactas en móvil */
+  .acc-row.acc-floor{
+    padding: 12px 12px !important;
+    min-height: 54px !important;
+  }
+
+  /* Panel de oficinas: que use todo el ancho */
+  .acc-panel.acc-panel-floor{
+    width: 100% !important;
+  }
+
+  /* Tarjetas de oficinas (si existen) que no queden enormes */
+  .office-card, .office-item{
+    width: 100% !important;
+  }
+}
+
+/* Extra: celulares chicos */
+@media (max-width: 480px){
+  .main-layout{ padding: 10px !important; }
+  .acc-row.acc-floor{ padding: 10px !important; }
+}
+
+/* =========================
+   MOBILE FIX (<= 900px)
+========================= */
+@media (max-width: 900px){
+
+  html, body{
+    width: 100%;
+    overflow-x: hidden !important; /* mata el scroll lateral */
+  }
+
+  /* Contenedor principal: 1 columna real */
+  .main-layout{
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 12px !important;
+  }
+
+  /* Panel (imagen + nombre) arriba */
+  .building-panel{
+    width: 100% !important;
+    max-width: none !important;
+    grid-column: 1 !important;
+  }
+
+  /* Columna derecha (buscador + pisos) abajo */
+  .main-right{
+    width: 100% !important;
+    max-width: none !important;
+    grid-column: 1 !important;
+  }
+
+  /* Imagen: que nunca se corte */
+  .building-image,
+  .building-image img{
+    width: 100% !important;
+    height: auto !important;
+    max-height: 38vh !important;   /* evita que ocupe toda la pantalla */
+    object-fit: contain !important;
+  }
+
+  /* Buscador full width y sin márgenes raros */
+  .search-bar{
+    width: 100% !important;
+    margin: 8px 0 10px !important;
+  }
+
+  /* Lista de pisos ocupa el ancho completo */
+  #floorsList{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Tarjetas de piso más compactas y sin “separación enorme” */
+  .acc-wrapper{
+    margin: 8px 0 !important;
+  }
+  .acc-row.acc-floor{
+    padding: 12px 12px !important;
+    min-height: 56px !important;
+  }
+
+  /* Evita que el contenido interno “se salga” */
+  .acc-row.acc-floor *{
+    max-width: 100% !important;
+  }
+
+  /* QR: que no invada ni quede gigante */
+  .qr-card, .qr-box, .qr-section{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .qr-card img, .qr-box img, .qr-section img{
+    width: clamp(120px, 40vw, 180px) !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+  }
+
+  /* El “contacto” que no quede tapado */
+  .contact-card{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+/* =========================
+   MOBILE / RESPONSIVE
+   ========================= */
+@media (max-width: 768px) {
+
+  /* 1 columna (panel + contenido abajo) */
+  .main-layout {
+    flex-direction: column;
+    height: auto;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  /* Que el panel izquierdo ocupe todo el ancho */
+  .building-panel {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* En móvil, ocultamos todo lo “extra” del panel izquierdo:
+     - tarjeta de dirección/horarios
+     - contacto
+     (dejamos SOLO header + foto + nombre) */
+  .directory-info-card,
+  .building-panel .section {
+    display: none !important;
+  }
+
+  /* Foto: que NO se corte (contain) */
+  .building-image {
+    height: auto !important;
+    max-height: 260px;
+    object-fit: contain !important;
+    background: rgba(0,0,0,0.2);
+  }
+
+  /* El panel derecho también full ancho */
+  .main-right {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Para que el buscador no quede raro */
+  .search-bar {
+    width: 100%;
+  }
+
+  /* Menos padding general para que entre más contenido */
+  .card {
+    padding: 14px;
+  }
+
+  /* Evitar scrolls “dobles” raros en móvil */
+  .views-scroll {
+    height: auto;
+    overflow: visible;
+  }
+
+  /* La lista principal (pisos/oficinas) que haga scroll natural */
+  .views-container {
+    height: auto;
+    overflow: visible;
+  }
+}
+/* =========================================================
+   MOBILE: layout 1 columna + header compacto + pisos prolijos
+   ========================================================= */
+
+/* Tablet chica / mobile grande */
+@media (max-width: 820px) {
+  .main-layout{
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Se apilan: arriba "panel edificio", abajo "panel derecho" */
+  .building-panel{ order: 0; }
+  .main-right{ order: 1; }
+
+  /* Evitar scroll raro dentro de la tarjeta izquierda */
+  .building-panel{
+    max-height: none;
+    overflow: visible;
+  }
+
+  /* Que el panel derecho no quede con alturas raras */
+  .main-right{
+    min-height: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .totem{
+    padding: 12px;
+    gap: 12px;
+  }
+
+  /* 1 columna, todo a lo ancho */
+  .main-layout{
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ====== PANEL "IZQUIERDO" -> se convierte en HEADER ====== */
+  .building-panel{
+    padding: 14px;
+  }
+
+  /* Ocultamos TODO lo que no querés ver en mobile */
+  .directory-info-card,
+  .building-panel .section{
+    display: none !important;
+  }
+
+  /* Foto sin recorte (antes estaba cover y recortaba) */
+  .building-image{
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: contain;         /* <-- clave */
+    border-radius: 18px;
+    background: rgba(0,0,0,0.15); /* por si la imagen no llena */
+  }
+
+  /* Título/cabecera más compacta */
+  .directory-title{
+    font-size: 22px;
+    letter-spacing: 0.18em;
+  }
+  .directory-subtitle{
+    font-size: 12px;
+    opacity: 0.85;
+  }
+
+  .building-caption{
+    margin-top: 10px;
+    padding: 10px 2px 0;
+  }
+
+  /* ====== BUSCADOR ====== */
+  .search-bar{
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    padding-top: 8px;
+    backdrop-filter: blur(8px);
+  }
+
+  /* ====== LISTA DE PISOS: más compacta ====== */
+  #floorsList{
+    gap: 10px;           /* más pegadas */
+    padding-bottom: 14px;
+  }
+
+  .acc-row{
+    min-height: 56px;    /* antes se veían muy altas */
+    padding: 12px 12px;
+    border-radius: 14px;
+  }
+
+  .acc-title{
+    font-size: 14px;
+  }
+  .acc-subtitle{
+    font-size: 10px;
+    letter-spacing: 0.10em;
+  }
+
+  /* Botón flecha más chico */
+  .acc-action{
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Evitar barras de scroll horizontales en mobile */
+  .views-container,
+  .view,
+  .view-scroll{
+    overflow-x: hidden;
+  }
+}
+/* =========================================================
+   MOBILE FIX REAL – scroll + layout usable
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  /* ====== LIBERAR SCROLL ====== */
+  html, body {
+    height: auto !important;
+    min-height: 100%;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+
+  body {
+    position: relative;
+  }
+
+  /* El contenedor principal del tótem */
+  .totem {
+    min-height: 100%;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 12px;
+  }
+
+  /* ====== LAYOUT EN 1 COLUMNA ====== */
+  .main-layout {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px;
+  }
+
+  /* ====== PANEL IZQUIERDO → HEADER ====== */
+  .building-panel {
+    width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 14px;
+  }
+
+  /* Ocultamos info fija que molesta en mobile */
+  .directory-info-card,
+  .building-panel .section {
+    display: none !important;
+  }
+
+  /* ====== IMAGEN DEL EDIFICIO ====== */
+  .building-image {
+    width: 100%;
+    height: auto !important;
+    max-height: 240px;
+    object-fit: contain;   /* CLAVE: no recorta */
+    border-radius: 18px;
+    background: rgba(0,0,0,0.15);
+  }
+
+  /* ====== TITULOS ====== */
+  .directory-title {
+    font-size: 22px;
+    letter-spacing: 0.15em;
+  }
+
+  .building-caption {
+    margin-top: 10px;
+    padding: 8px 4px 0;
+  }
+
+  /* ====== BUSCADOR ====== */
+  .search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(
+      to bottom,
+      rgba(14,17,22,0.95),
+      rgba(14,17,22,0.85)
+    );
+    padding: 8px 0;
+  }
+
+  /* ====== CONTENEDOR DERECHO ====== */
+  .main-right {
+    width: 100% !important;
+    min-height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* ====== LISTA DE PISOS ====== */
+  .views-container,
+  .view,
+  .view-scroll {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  #floorsList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 40px; /* espacio para scroll */
+  }
+
+  /* Tarjetas más chicas */
+  .acc-row {
+    min-height: 52px;
+    padding: 10px 12px;
+    border-radius: 14px;
+  }
+
+  .acc-title {
+    font-size: 14px;
+  }
+
+  .acc-subtitle {
+    font-size: 10px;
+    opacity: 0.7;
+  }
+
+  .acc-action {
+    width: 28px;
+    height: 28px;
+  }
+}
+@media (max-width: 600px) {
+
+  /* Contenedor de QR: 2 columnas prolijas */
+  .qr-grid,
+  .qrs-grid,
+  .contact-qrs,
+  .contact-qr-grid,
+  .contacto-qrs,
+  [data-qrs] {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  /* Cada tarjeta de QR: alto automático y centrado */
+  .qr-card,
+  .qrs-card,
+  .contact-qr-card,
+  .contacto-qr-card,
+  [data-qr-card] {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+  }
+
+  /* La imagen del QR: cuadrada, sin deformar, nítida */
+  .qr-card img,
+  .qrs-card img,
+  .contact-qr-card img,
+  .contacto-qr-card img,
+  [data-qr-card] img,
+  .qr-grid img,
+  .qrs-grid img,
+  .contact-qrs img,
+  .contacto-qrs img {
+    width: 100% !important;
+    max-width: 140px !important;       /* controla tamaño */
+    aspect-ratio: 1 / 1 !important;    /* SIEMPRE cuadrado */
+    height: auto !important;
+    object-fit: contain !important;    /* no estira */
+    image-rendering: pixelated;        /* se ve más “sharp” */
+    background: #fff !important;       /* QR sobre blanco */
+    border-radius: 12px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Textos abajo del QR: más compactos */
+  .qr-card .qr-title,
+  .qrs-card .qr-title,
+  .contact-qr-card .qr-title,
+  .contacto-qr-card .qr-title,
+  [data-qr-card] .qr-title {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  .qr-card .qr-subtitle,
+  .qrs-card .qr-subtitle,
+  .contact-qr-card .qr-subtitle,
+  .contacto-qr-card .qr-subtitle,
+  [data-qr-card] .qr-subtitle {
+    font-size: 10px !important;
+    opacity: 0.75 !important;
+    text-align: center !important;
+  }
+}
+@media (max-width: 600px) {
+
+  /* Contenedor de QR: 2 columnas prolijas */
+  .qr-grid,
+  .qrs-grid,
+  .contact-qrs,
+  .contact-qr-grid,
+  .contacto-qrs,
+  [data-qrs] {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+
+  /* Cada tarjeta de QR: alto automático y centrado */
+  .qr-card,
+  .qrs-card,
+  .contact-qr-card,
+  .contacto-qr-card,
+  [data-qr-card] {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 12px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+  }
+
+  /* La imagen del QR: cuadrada, sin deformar, nítida */
+  .qr-card img,
+  .qrs-card img,
+  .contact-qr-card img,
+  .contacto-qr-card img,
+  [data-qr-card] img,
+  .qr-grid img,
+  .qrs-grid img,
+  .contact-qrs img,
+  .contacto-qrs img {
+    width: 100% !important;
+    max-width: 140px !important;       /* controla tamaño */
+    aspect-ratio: 1 / 1 !important;    /* SIEMPRE cuadrado */
+    height: auto !important;
+    object-fit: contain !important;    /* no estira */
+    image-rendering: pixelated;        /* se ve más “sharp” */
+    background: #fff !important;       /* QR sobre blanco */
+    border-radius: 12px !important;
+    padding: 8px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Textos abajo del QR: más compactos */
+  .qr-card .qr-title,
+  .qrs-card .qr-title,
+  .contact-qr-card .qr-title,
+  .contacto-qr-card .qr-title,
+  [data-qr-card] .qr-title {
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+  }
+
+  .qr-card .qr-subtitle,
+  .qrs-card .qr-subtitle,
+  .contact-qr-card .qr-subtitle,
+  .contacto-qr-card .qr-subtitle,
+  [data-qr-card] .qr-subtitle {
+    font-size: 10px !important;
+    opacity: 0.75 !important;
+    text-align: center !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE RESPONSIVE (TELÉFONOS)
+   - Saca el "modo kiosco" (sin scroll global)
+   - Deja scroll normal del navegador
+   - Ajusta tamaños / espaciados y QRs
+   ========================================================= */
+
+@media (max-width: 520px){
+  html, body{
+    height: auto !important;
+    overflow-y: auto !important;   /* ✅ scroll global */
+    overflow-x: hidden !important;
+  }
+
+  .totem{
+    height: auto !important;
+    min-height: 100vh !important;
+  }
+
+  main{
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* layout en 1 columna */
+  .main-layout{
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .building-panel,
+  .main-right,
+  .views-container,
+  .view{
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* desactiva el scroll interno (en mobile se vuelve incómodo) */
+  .scroll{
+    overflow: visible !important;
+    -webkit-overflow-scrolling: auto !important;
+    padding-bottom: 24px !important;
+  }
+
+  /* buscador + separaciones más prolijas */
+  .search-bar{
+    margin: 10px 12px !important;
+  }
+
+  /* tarjetas de pisos más "reducidas" */
+  .list{
+    gap: 10px !important;
+  }
+  .acc-row{
+    padding: 10px 12px !important;
+    min-height: 64px !important;
+    border-radius: 14px !important;
+  }
+  .acc-title{
+    font-size: 14px !important;
+  }
+
+  /* ---------- QRs: que no se corten y escalen bien ---------- */
+  .qr-grid{
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* 2 columnas */
+    gap: 10px !important;
+  }
+
+  .qr-item{
+    padding: 10px !important;
+    border-radius: 16px !important;
+  }
+
+  /* El QR ocupa el ancho del item y mantiene cuadrado */
+  .qr-box{
+    width: 100% !important;
+    max-width: 160px !important;
+    margin: 0 auto !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+  }
+
+  /* Si el QR se genera en canvas o img, forzamos que llene el box */
+  .qr-box canvas,
+  .qr-box img{
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+  }
+
+  .qr-label{
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+  }
+  .qr-help{
+    font-size: 11px !important;
+    line-height: 1.25 !important;
+  }
+}
+
+/* Muy angosto: 1 sola columna para los QRs */
+@media (max-width: 360px){
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+.qr-box, .qr-placeholder{
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px dashed rgba(255,255,255,0.12);
+  box-sizing: border-box;
+}
+
+.qr-box img, .qr-box canvas{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border-radius: 10px;
+}
+
+
+@media (max-width: 420px){
+  .qr-grid.qr-count-2, .qr-grid.qr-count-3{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 340px){
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+}
+
+
+
+@media (min-width: 521px){
+  .qr-item{ pointer-events: none; }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*PRUEBA DE COLORES CLARO */
+
+/* =========================
+   THEME LIGHT (Adinnov-ish)
+   Activar: <body class="theme-light">
+   ========================= */
+
+body.theme-light {
+  --bg: #EAF4FA;          /* fondo celeste */
+  --panel: #F3F8FC;       /* paneles */
+  --card: #FFFFFF;        /* tarjetas */
+  --card2: #F6FBFF;       /* tarjetas secundarias */
+  --text: #0B1A2A;         /* texto principal */
+  --muted: #516173;       /* texto secundario */
+  --border: rgba(5,113,175,.18);
+  --shadow: 0 10px 30px rgba(10, 30, 60, .12);
+  --accent: #0571AF;      /* azul Adinnov */
+  --accent2: #388CD1;     /* azul claro */
+}
+
+/* Fondo general */
+body.theme-light,
+body.theme-light .app,
+body.theme-light .totem {
+  background: radial-gradient(1200px 800px at 20% 10%, #F7FCFF 0%, var(--bg) 55%, #DCECF7 100%) !important;
+  color: var(--text) !important;
+}
+
+/* Paneles contenedores (izq/der) */
+body.theme-light .main-left,
+body.theme-light .main-right,
+body.theme-light .panel,
+body.theme-light .card {
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(243,248,252,.88)) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Tarjetas (pisos/oficinas/acordeones) */
+body.theme-light .acc-wrapper,
+body.theme-light .acc-panel,
+body.theme-light .acc-row,
+body.theme-light .office-card,
+body.theme-light .floor-card {
+  background: linear-gradient(180deg, var(--card), var(--card2)) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text) !important;
+}
+
+/* Títulos / labels suaves */
+body.theme-light .muted,
+body.theme-light .subtitle,
+body.theme-light .hint,
+body.theme-light .label {
+  color: var(--muted) !important;
+}
+
+/* Inputs (buscador) */
+body.theme-light input,
+body.theme-light .search-input,
+body.theme-light .search-bar input {
+  background: rgba(255,255,255,.9) !important;
+  border: 1px solid rgba(5,113,175,.22) !important;
+  color: var(--text) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6);
+}
+
+body.theme-light input::placeholder {
+  color: rgba(81,97,115,.75) !important;
+}
+
+/* Botones / chips / tags */
+body.theme-light .chip,
+body.theme-light .tag {
+  background: rgba(56,140,209,.12) !important;
+  border: 1px solid rgba(56,140,209,.25) !important;
+  color: #08304C !important;
+}
+
+/* Iconos/acento */
+body.theme-light .icon,
+body.theme-light .accent,
+body.theme-light .highlight {
+  color: var(--accent) !important;
+}
+
+/* Scrollbar más “clean” (si ya la manejás, esto acompaña) */
+body.theme-light ::-webkit-scrollbar-thumb {
+  background: rgba(5,113,175,.25) !important;
+}
+body.theme-light ::-webkit-scrollbar-track {
+  background: rgba(255,255,255,.35) !important;
+}
+
+/* =========================================================
+   TEMA CLARO (celeste suave) – PEGAR AL FINAL
+   Activación: <body class="theme-light">
+   ========================================================= */
+
+body.theme-light{
+  /* Paleta base */
+  --bg: #e8f4ff;                 /* celeste muy suave */
+  --panel: rgba(255,255,255,.78);
+  --panel2: rgba(255,255,255,.62);
+  --text: #0f2238;
+  --muted: rgba(15,34,56,.65);
+
+  /* Bordes / sombras más suaves */
+  --stroke: rgba(20,65,110,.18);
+  --stroke2: rgba(20,65,110,.12);
+  --shadow: 0 18px 45px rgba(10,30,60,.12);
+
+  /* Acento */
+  --accent: #1a7bd8;
+  --accent2: #2aa7ff;
+  --chip-bg: rgba(26,123,216,.12);
+
+  /* Fondo general */
+  background: radial-gradient(1200px 700px at 20% 0%, #f4fbff 0%, var(--bg) 55%, #deefff 100%);
+  color: var(--text);
+}
+
+/* Paneles principales */
+body.theme-light .sidebar,
+body.theme-light .left-panel,
+body.theme-light .building-panel{
+  background: linear-gradient(180deg, rgba(255,255,255,.85) 0%, rgba(248,252,255,.75) 100%);
+  border-right: 1px solid var(--stroke2);
+  box-shadow: 10px 0 35px rgba(10,30,60,.10);
+}
+
+/* Textos del panel izquierdo */
+body.theme-light .sidebar h1,
+body.theme-light .left-panel h1{
+  color: var(--text);
+}
+body.theme-light .sidebar small,
+body.theme-light .left-panel small{
+  color: var(--muted);
+}
+
+/* Cards / bloques */
+body.theme-light .card,
+body.theme-light .detail-section,
+body.theme-light .acc-panel-floor,
+body.theme-light .acc-panel-office,
+body.theme-light .qr-item{
+  background: var(--panel);
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+}
+
+/* Filas (pisos/oficinas) */
+body.theme-light .acc-row{
+  background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+  border: 1px solid var(--stroke);
+}
+body.theme-light .acc-row:hover{
+  background: rgba(255,255,255,.95);
+}
+
+/* Títulos / subtítulos */
+body.theme-light .acc-title{ color: var(--text); }
+body.theme-light .acc-sub,
+body.theme-light .acc-subtitle{ color: var(--muted); }
+
+/* Puntitos / chevron */
+body.theme-light .acc-dot{
+  background: rgba(26,123,216,.10);
+  border: 1px solid rgba(26,123,216,.25);
+  color: var(--accent);
+}
+body.theme-light .acc-chevron{
+  background: rgba(255,255,255,.75);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+}
+
+/* Chips */
+body.theme-light .chip{
+  background: var(--chip-bg);
+  border: 1px solid rgba(26,123,216,.25);
+  color: #0f2f55;
+}
+
+/* Buscador */
+body.theme-light input,
+body.theme-light .search-input{
+  background: rgba(255,255,255,.85);
+  border: 1px solid var(--stroke);
+  color: var(--text);
+}
+body.theme-light input::placeholder{
+  color: rgba(15,34,56,.45);
+}
+
+/* QRs: evitar “corte” y que se vea nítido */
+body.theme-light .qr-box{
+  width: min(160px, 42vw);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,.95);
+  border: 1px solid var(--stroke);
+  overflow: hidden; /* importante para que nada se salga raro */
+}
+
+body.theme-light .qr-box canvas,
+body.theme-light .qr-box img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  image-rendering: pixelated; /* ayuda a que el QR se lea mejor */
+}
+
+/* Si te quedaron “recuadros”/bordes molestos de pruebas: los suavizamos */
+body.theme-light .views-container,
+body.theme-light .list,
+body.theme-light .acc-wrapper{
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+
+
+/* ===== THEME LIGHT (FORZADO) ===== */
+body.theme-light {
+  background: radial-gradient(1200px 700px at 20% 0%, #f4fbff 0%, #e8f4ff 55%, #deefff 100%) !important;
+  color: #0f2238 !important;
+}
+
+/* Fondo general de la app (pisos/oficinas) */
+body.theme-light .totem,
+body.theme-light .main,
+body.theme-light .main-right,
+body.theme-light .views-container,
+body.theme-light .view,
+body.theme-light .scroll,
+body.theme-light .scroll *:not(.acc-row):not(.card):not(.detail-section) {
+  color: inherit;
+}
+
+/* Paneles */
+body.theme-light .sidebar,
+body.theme-light .left-panel,
+body.theme-light .building-panel {
+  background: rgba(255,255,255,.78) !important;
+  border: 1px solid rgba(20,65,110,.14) !important;
+  box-shadow: 0 18px 45px rgba(10,30,60,.10) !important;
+}
+
+/* Cards y filas */
+body.theme-light .card,
+body.theme-light .acc-row,
+body.theme-light .detail-section,
+body.theme-light .acc-panel-floor,
+body.theme-light .acc-panel-office {
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid rgba(20,65,110,.16) !important;
+  box-shadow: 0 14px 35px rgba(10,30,60,.10) !important;
+}
+
+/* Textos */
+body.theme-light .acc-title,
+body.theme-light .view-title,
+body.theme-light h1, body.theme-light h2, body.theme-light h3 {
+  color: #0f2238 !important;
+}
+
+body.theme-light .acc-sub,
+body.theme-light .view-description,
+body.theme-light .muted,
+body.theme-light small,
+body.theme-light p {
+  color: rgba(15,34,56,.65) !important;
+}
+
+/* Buscador */
+body.theme-light input,
+body.theme-light .search-input {
+  background: rgba(255,255,255,.90) !important;
+  border: 1px solid rgba(20,65,110,.18) !important;
+  color: #0f2238 !important;
+}
+body.theme-light input::placeholder{
+  color: rgba(15,34,56,.45) !important;
+}
+
+
+/* =========================================================
+   THEME LIGHT (Adinnov-ish) – pegar al FINAL del styles.css
+   Activar con: <body class="theme-light">
+   ========================================================= */
+
+body.theme-light{
+  /* Fondo celeste suave, no blanco */
+  background: radial-gradient(1200px 700px at 20% 0%,
+    #eef8ff 0%,
+    #e8f4ff 35%,
+    #d9eefc 100%
+  ) !important;
+
+  color: #0b1a2b !important;
+}
+
+/* Texto general dentro de cards */
+body.theme-light .muted,
+body.theme-light .sub,
+body.theme-light .acc-sub,
+body.theme-light .detail-title{
+  color: rgba(11,26,43,.62) !important;
+}
+
+/* Contenedores grandes */
+body.theme-light .totem,
+body.theme-light .main-right,
+body.theme-light .building-panel{
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid rgba(11,26,43,.10) !important;
+  box-shadow: 0 18px 40px rgba(11,26,43,.12) !important;
+}
+
+/* Barra de búsqueda */
+body.theme-light .search-bar input,
+body.theme-light input[type="search"],
+body.theme-light input[type="text"]{
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(11,26,43,.16) !important;
+  color: #0b1a2b !important;
+}
+body.theme-light .search-bar input::placeholder{
+  color: rgba(11,26,43,.42) !important;
+}
+
+/* Tarjetas acordeón (pisos/oficinas) */
+body.theme-light .acc-row{
+  background: rgba(255,255,255,.86) !important;
+  border: 1px solid rgba(11,26,43,.12) !important;
+  box-shadow: 0 14px 28px rgba(11,26,43,.10) !important;
+}
+body.theme-light .acc-row:hover{
+  background: rgba(255,255,255,.94) !important;
+  border-color: rgba(11,26,43,.18) !important;
+}
+
+body.theme-light .acc-title{
+  color: #0b1a2b !important;
+}
+
+/* “dot” iconitos */
+body.theme-light .acc-dot{
+  background: rgba(12,124,201,.08) !important;
+  border-color: rgba(12,124,201,.18) !important;
+}
+
+/* Panel interior (cuando abrís piso/oficina) */
+body.theme-light .acc-panel-floor{
+  background: rgba(255,255,255,.75) !important;
+  border: 1px solid rgba(11,26,43,.10) !important;
+}
+body.theme-light .acc-panel-office{
+  background: rgba(255,255,255,.78) !important;
+  border: 1px solid rgba(11,26,43,.10) !important;
+}
+
+/* Detalles de oficina (lo de INFORMACIÓN / SERVICIOS / HORARIOS / QRS) */
+body.theme-light .detail-section{
+  background: rgba(255,255,255,.88) !important;
+  border: 1px solid rgba(11,26,43,.12) !important;
+  box-shadow: 0 10px 22px rgba(11,26,43,.08) !important;
+}
+body.theme-light .detail-body{
+  color: rgba(11,26,43,.88) !important;
+}
+
+/* Chips (ej: Cartelería Digital) */
+body.theme-light .tag,
+body.theme-light .chip{
+  background: rgba(12,124,201,.10) !important;
+  border: 1px solid rgba(12,124,201,.18) !important;
+  color: #0b1a2b !important;
+}
+
+/* QR cards */
+body.theme-light .qr-item{
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(11,26,43,.12) !important;
+  box-shadow: 0 10px 20px rgba(11,26,43,.08) !important;
+}
+
+/* QR: evita “cortado” y mejora escalado */
+body.theme-light .qr-box{
+  width: 156px !important;
+  height: 156px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(11,26,43,.10) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  display: grid !important;
+  place-items: center !important;
+}
+body.theme-light .qr-box img,
+body.theme-light .qr-box canvas,
+body.theme-light .qr-box svg{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  image-rendering: pixelated;
+  display: block !important;
+}
+
+/* CONTACTO (parte inferior izquierda) */
+body.theme-light .contact-card,
+body.theme-light #contactCard,
+body.theme-light .contact{
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(11,26,43,.12) !important;
+  box-shadow: 0 12px 26px rgba(11,26,43,.10) !important;
+  color: #0b1a2b !important;
+}
+
+/* Scrollbars suaves (opcional) */
+body.theme-light ::-webkit-scrollbar-thumb{
+  background: rgba(12,124,201,.35) !important;
+}
+body.theme-light ::-webkit-scrollbar-track{
+  background: rgba(12,124,201,.10) !important;
+}
+
+
+/* ===============================
+   FIX FONDO OSCURO – DETALLES
+   =============================== */
+
+body.theme-light{
+  background: linear-gradient(
+    180deg,
+    #f0f7fd 0%,
+    #eaf4fb 100%
+  ) !important;
+  color: #0b1a2b !important;
+}
+
+/* CONTENEDOR GENERAL DE DETALLE DE OFICINA */
+body.theme-light .office-detail,
+body.theme-light .acc-panel-office,
+body.theme-light .office-detail-wrapper{
+  background: #f4f9fd !important;
+  border: 1px solid #c9e1f2 !important;
+  box-shadow: 0 18px 40px rgba(43,127,196,.18) !important;
+}
+
+/* SECCIONES INTERNAS (información / horarios / servicios) */
+body.theme-light .detail-section{
+  background: #ffffffcc !important;
+  border: 1px solid #c9e1f2 !important;
+  color: #0b1a2b !important;
+}
+
+/* TÍTULOS DE BLOQUE */
+body.theme-light .detail-title{
+  color: #2b7fc4 !important;
+  letter-spacing: .08em;
+}
+
+/* TEXTO */
+body.theme-light .detail-body,
+body.theme-light .detail-section p{
+  color: #4b6b86 !important;
+}
+
+/* ===============================
+   CONTACTO / QRS
+   =============================== */
+
+body.theme-light .contact-card,
+body.theme-light .contact,
+body.theme-light .contact-section{
+  background: #f4f9fd !important;
+  border: 1px solid #c9e1f2 !important;
+  box-shadow: 0 12px 30px rgba(43,127,196,.18) !important;
+}
+
+/* CONTENEDOR DE QRS */
+body.theme-light .qr-container{
+  background: transparent !important;
+}
+
+/* TARJETA INDIVIDUAL QR */
+body.theme-light .qr-item{
+  background: #ffffff !important;
+  border: 1px solid #c9e1f2 !important;
+  box-shadow: 0 8px 18px rgba(43,127,196,.15) !important;
+}
+
+/* CAJA DEL QR (evita oscuro y cortes) */
+body.theme-light .qr-box{
+  background: #ffffff !important;
+  border: 1px solid #c9e1f2 !important;
+  border-radius: 18px !important;
+}
+
+/* ICONOS Y LINKS */
+body.theme-light .qr-item .icon,
+body.theme-light a{
+  color: #2b7fc4 !important;
+}
+
+
+/* =========================================================
+   PANEL IZQUIERDO – CONTACTO (VERSIÓN CLARA)
+========================================================= */
+
+/* Contenedor principal de contacto */
+.left-panel .contact-section,
+.left-panel .contact-card,
+.left-panel .contact-box {
+  background: linear-gradient(
+    180deg,
+    #F7F9FB 0%,
+    #EEF1F4 100%
+  );
+  border: 1px solid #D1D6DC;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  color: #2F3440;
+}
+
+/* Título CONTACTO */
+.left-panel .contact-section h4,
+.left-panel .contact-title {
+  color: #4B5563;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+/* Texto descriptivo */
+.left-panel .contact-section p,
+.left-panel .contact-description {
+  color: #6B7280;
+  font-size: 0.9rem;
+}
+
+/* Línea divisoria */
+.left-panel .contact-section hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #CBD5E1,
+    transparent
+  );
+  margin: 12px 0;
+}
+
+/* Logo ADINNOV */
+.left-panel .contact-section img,
+.left-panel .contact-logo {
+  filter: none; /* elimina efecto oscuro */
+  opacity: 0.9;
+}
+
+/* Teléfono / datos */
+.left-panel .contact-phone,
+.left-panel .contact-section small {
+  color: #475569;
+}
+
+/* =========================================================
+   MOBILE – un poco más compacto
+========================================================= */
+@media (max-width: 768px) {
+  .left-panel .contact-section {
+    padding: 14px;
+  }
+}
+
+
+/* =====================================================
+   PANEL IZQUIERDO – CONTACTO (FIX DEFINITIVO)
+===================================================== */
+
+/* Contenedor general de la sección CONTACTO */
+.building-panel .section {
+  background: linear-gradient(
+    180deg,
+    #F7F9FB 0%,
+    #EEF1F4 100%
+  ) !important;
+  border: 1px solid #D1D6DC;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+/* Header "CONTACTO" */
+.building-panel .section-header {
+  background: transparent !important;
+  color: #6B7280;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+/* Cuerpo del contacto */
+.building-panel .section-body {
+  background: transparent !important;
+  color: #4B5563;
+}
+
+/* Texto descriptivo */
+#buildingContactText {
+  color: #6B7280;
+  font-size: 0.9rem;
+}
+
+/* Línea divisoria */
+.building-panel .section-body hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #CBD5E1,
+    transparent
+  );
+  margin: 12px 0;
+}
+
+/* Logo ADINNOV */
+.building-panel .adinnov-contact {
+  background: transparent !important;
+}
+
+.building-panel .adinnov-contact img {
+  opacity: 0.9;
+  filter: none;
+}
+
+/* Teléfono / datos */
+.building-panel .adinnov-contact span,
+.building-panel .adinnov-contact small {
+  color: #475569;
+}
+
+/* =====================================================
+   MOBILE – más compacto
+===================================================== */
+@media (max-width: 768px) {
+  .building-panel .section {
+    padding: 14px;
+  }
+}
+
+
+
+/* ================================
+   TEXTO GLOBAL
+================================ */
+body {
+  color: #1f2933; /* gris casi negro, muy legible */
+}
+
+/* ================================
+   PANEL IZQUIERDO
+================================ */
+.building-panel,
+.directory-info-card,
+.brand-card,
+.section {
+  background: #f7f9fb;
+  border: 1px solid #d6e3ef;
+}
+
+.section-header {
+  color: #475569;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+#buildingContactText {
+  color: #1f2933;
+  font-weight: 500;
+}
+
+/* texto chico debajo del QR */
+.building-panel small,
+.building-panel p {
+  color: #334155;
+}
+
+/* ================================
+   BUSCADOR
+================================ */
+input[type="search"],
+input[type="text"] {
+  color: #0f172a;
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+/* ================================
+   TARJETAS DE PISOS
+================================ */
+.floor-card,
+.floor-item {
+  background: #ffffff;
+  border: 1px solid #dbe7f2;
+}
+
+.floor-card span,
+.floor-item span {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ================================
+   TARJETAS DE OFICINAS
+================================ */
+.office-card,
+.office-item {
+  background: #ffffff;
+  border: 1px solid #dbe7f2;
+}
+
+.office-card strong,
+.office-item strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.office-card span,
+.office-item span {
+  color: #334155;
+}
+
+/* ================================
+   DETALLE DE OFICINA
+================================ */
+.office-detail {
+  background: #f8fafc;
+  border: 1px solid #d6e3ef;
+}
+
+/* títulos internos */
+.office-detail h4,
+.office-detail .section-title {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* contenido */
+.office-detail p,
+.office-detail li {
+  color: #1f2933;
+}
+
+/* ================================
+   BLOQUES (Información / Horarios)
+================================ */
+.info-box,
+.schedule-box,
+.services-box {
+  background: #ffffff;
+  border: 1px solid #dbe7f2;
+}
+
+.info-box p,
+.schedule-box p {
+  color: #1f2933;
+}
+
+/* ================================
+   QR CARDS
+================================ */
+.qr-card {
+  background: #ffffff;
+  border: 1px solid #dbe7f2;
+}
+
+.qr-card strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.qr-card span,
+.qr-card p {
+  color: #334155;
+}
+
+/* ================================
+   ICONOS
+================================ */
+.icon,
+.floor-icon,
+.office-icon {
+  color: #2563eb; /* azul sobrio */
+}
+
+/* ================================
+   SCROLLBAR (opcional)
+================================ */
+::-webkit-scrollbar-thumb {
+  background: #c7d7e6;
+}
+
+
+
+
+/* =========================
+   MOBILE FIXES + CONTRASTE
+   Pegalo al final de tu style.css
+   ========================= */
+
+/* Variables “claras” (gris claro + plateado) */
+:root{
+  --bg: #eef3f7;          /* fondo gris claro */
+  --panel: #f7fafc;       /* tarjetas/paneles */
+  --card: #ffffff;        /* tarjetas internas */
+  --border: #c7d7e6;      /* borde celeste/plateado */
+  --border2:#b6c8da;      /* un poco más fuerte */
+  --text: #111827;        /* negro suave */
+  --text2:#334155;        /* gris oscuro */
+  --muted:#64748b;        /* gris medio */
+  --shadow: 0 10px 30px rgba(15,23,42,.10);
+}
+
+/* Base (para que NO quede todo lavado) */
+body.theme-light,
+body.theme-light .totem,
+body.theme-light .main,
+body.theme-light .main-right,
+body.theme-light .views-container{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Aumentar contraste general de textos en tema claro */
+body.theme-light,
+body.theme-light p,
+body.theme-light span,
+body.theme-light small,
+body.theme-light .muted{
+  color: var(--text2) !important;
+}
+
+/* Títulos/labels más oscuros y legibles */
+body.theme-light .section-header,
+body.theme-light .office-title,
+body.theme-light .floor-title,
+body.theme-light .view-title,
+body.theme-light .acc-title{
+  color: var(--text) !important;
+  font-weight: 700;
+}
+
+/* Inputs / Search bar (quita “fondo negro” y mejora borde) */
+body.theme-light .search-bar,
+body.theme-light .search-bar *,
+body.theme-light input[type="text"],
+body.theme-light input[type="search"]{
+  background: #ffffff !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}
+
+body.theme-light input::placeholder{
+  color: #6b7280 !important;
+}
+
+/* Tarjetas / contenedores claros */
+body.theme-light .card,
+body.theme-light .panel,
+body.theme-light .brand-card,
+body.theme-light .acc-wrapper,
+body.theme-light .acc-panel,
+body.theme-light .office-card,
+body.theme-light .floor-card,
+body.theme-light .section{
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Evita “recuadros” raros extra en listas/detalles */
+body.theme-light .acc-panel,
+body.theme-light .office-details,
+body.theme-light .details,
+body.theme-light .detail-card{
+  outline: none !important;
+}
+
+/* CONTACTO del panel izquierdo: que NO quede oscuro */
+body.theme-light #section,
+body.theme-light .section#section,
+body.theme-light .section.contact,
+body.theme-light .section-contact,
+body.theme-light #section .section-body{
+  background: var(--panel) !important;
+  color: var(--text2) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+body.theme-light #section .section-header{
+  color: var(--text) !important;
+  letter-spacing: .12em;
+}
+
+/* =========================
+   QR: que no se corte + clickable prolijo
+   ========================= */
+.qr-grid{
+  display: grid;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.qr-card{
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(15,23,42,.08);
+  text-align: center;
+}
+
+.qr-card img,
+.qr-card canvas{
+  display: block;
+  margin: 0 auto;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 220px;     /* desktop/tablet */
+  aspect-ratio: 1 / 1;  /* mantiene cuadrado */
+  object-fit: contain;  /* evita recorte */
+  image-rendering: pixelated;
+}
+
+.qr-title{
+  color: var(--text) !important;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.qr-sub{
+  color: var(--muted) !important;
+  margin-top: 4px;
+  font-size: 13px;
+}
+
+/* =========================
+   MOBILE LAYOUT (<= 768px)
+   - Panel izquierdo se “apila”
+   - Tarjetas centradas
+   - QR en 1 columna y sin recorte
+   ========================= */
+@media (max-width: 768px){
+
+  /* Que no “encime” y permita scroll natural */
+  html, body{
+    height: auto !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Ajuste general de padding para que no quede apretado */
+  .totem, .main, .main-right, .views-container{
+    padding: 12px !important;
+  }
+
+  /* El panel izquierdo se convierte en bloque arriba */
+  .main-layout,
+  .main{
+    display: block !important;
+  }
+
+  .main-left,
+  .building-panel{
+    width: 100% !important;
+    max-width: 520px;
+    margin: 0 auto 12px auto !important;
+  }
+
+  /* Buscador centrado y full */
+  .search-bar{
+    width: 100% !important;
+    max-width: 520px;
+    margin: 8px auto 12px auto !important;
+  }
+
+  /* Lista de pisos más “chica” y centrada */
+  #floorsList,
+  .floors-list{
+    width: 100% !important;
+    max-width: 520px;
+    margin: 0 auto !important;
+  }
+
+  .acc-row,
+  .acc-row.acc-floor,
+  .acc-row.acc-office{
+    min-height: 64px !important;
+    padding: 12px 14px !important;
+    border-radius: 16px !important;
+  }
+
+  .acc-row .title,
+  .acc-row .label,
+  .acc-row .name{
+    font-size: 18px !important;
+    color: var(--text) !important;
+    font-weight: 700 !important;
+  }
+
+  /* Detalle oficina: una columna, prolijo */
+  .office-details,
+  .details,
+  .detail-grid{
+    width: 100% !important;
+    max-width: 520px;
+    margin: 0 auto !important;
+  }
+
+  /* QR: una columna en mobile, más chico para que entre */
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  .qr-card img,
+  .qr-card canvas{
+    max-width: 240px !important; /* en mobile que se vea grande y completo */
+  }
+
+  /* Evita que quede “un marco oscuro” detrás del buscador */
+  .search-wrapper,
+  .search-container{
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+/* =========================
+   Tablet/Desktop: QR en 2 o 3 columnas
+   ========================= */
+@media (min-width: 769px) and (max-width: 1100px){
+  .qr-grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1101px){
+  .qr-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+
+
+/* Por defecto (tótem/desktop): no clic */
+.qr-link{ pointer-events: none; }
+
+/* En mobile: sí clic */
+@media (max-width: 768px){
+  .qr-link{ pointer-events: auto; }
+}
+
+
+
+
+
+
+
+
+/* ===============================
+   MOBILE FIX + LIGHT THEME TUNING
+   (pegalo al final de tu CSS)
+================================ */
+
+/* Paleta suave (gris claro + celeste) */
+:root{
+  --bg: #eef5fb;
+  --panel: #f7fbff;
+  --card: #ffffff;
+  --stroke: #bcd8ee;
+  --stroke-2: #d6e7f5;
+
+  --text: #0f172a;     /* más negro */
+  --muted: #334155;    /* más oscuro que antes */
+
+  --chip-bg: #e6f3ff;
+  --chip-text: #0f172a;
+
+  --shadow: 0 10px 24px rgba(15, 23, 42, .08);
+  --shadow-soft: 0 8px 18px rgba(15, 23, 42, .06);
+
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+}
+
+/* Fondo general */
+html, body{
+  background: var(--bg) !important;
+  color: var(--text);
+}
+
+/* OJO: en mobile esas “franjas” suelen ser padding del layout */
+#app, .app, .totem, .main, .main-layout, .view, .views, .views-container{
+  max-width: 100%;
+}
+
+/* Contenedores principales */
+.view, .scroll{
+  background: transparent !important;
+}
+
+/* Cards / paneles */
+.card, .panel, .building-panel-card, .directory-card,
+.acc-row, .acc-panel, .office-detail, .detail-section,
+.qr-item, .section, .section-body{
+  border-radius: var(--radius-md);
+}
+
+/* Texto más legible (lo que pediste: “más negro”) */
+.acc-title,
+.detail-body,
+.section-body,
+.card-title{
+  color: var(--text) !important;
+}
+
+.acc-subtitle,
+.muted,
+.detail-title,
+.section-header{
+  color: var(--muted) !important;
+}
+
+/* Inputs */
+input, .search-input, .searchbar input{
+  background: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--stroke) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ===============================
+   DETALLE OFICINA (la “caja grande”)
+================================ */
+.office-detail{
+  background: linear-gradient(180deg, #f6fbff 0%, #eef6fd 100%) !important;
+  border: 1px solid var(--stroke) !important;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.detail-section{
+  background: var(--card) !important;
+  border: 1px solid var(--stroke-2) !important;
+  box-shadow: var(--shadow-soft);
+}
+
+.detail-title{
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Chips */
+.chip{
+  background: var(--chip-bg) !important;
+  color: var(--chip-text) !important;
+  border: 1px solid var(--stroke) !important;
+  font-weight: 600;
+}
+
+/* ===============================
+   QR: evitar recorte + mejor centrado
+================================ */
+.qr-grid{
+  gap: 12px;
+}
+
+.qr-item{
+  background: var(--card) !important;
+  border: 1px solid var(--stroke-2) !important;
+  box-shadow: var(--shadow-soft);
+  padding: 12px;
+}
+
+.qr-box{
+  width: 100%;
+  aspect-ratio: 1 / 1;          /* siempre cuadrado */
+  max-width: 240px;
+  margin: 0 auto 10px auto;
+  background: #fff !important;
+  border: 1px solid var(--stroke) !important;
+  border-radius: var(--radius-sm);
+  overflow: hidden;             /* para redondeo */
+  display: grid;
+  place-items: center;
+  padding: 12px;                /* clave: que el QR no toque bordes */
+  box-sizing: border-box;
+}
+
+/* si QRCode genera canvas/img adentro */
+.qr-box canvas,
+.qr-box img{
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  object-fit: contain !important;
+  image-rendering: pixelated;   /* se lee mejor */
+}
+
+/* ===============================
+   ACORDEÓN: pisos/oficinas
+================================ */
+.acc-wrapper{
+  margin: 12px 0;
+}
+
+/* filas */
+.acc-row{
+  background: var(--card) !important;
+  border: 1px solid var(--stroke-2) !important;
+  box-shadow: var(--shadow-soft);
+  padding: 14px 14px;
+}
+
+/* icono */
+.acc-icon{
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: #eaf3ff !important;
+  border: 1px solid var(--stroke) !important;
+  display: grid;
+  place-items: center;
+}
+
+/* Título oficina: que corte bien y no “rompa” el layout */
+.acc-title{
+  font-weight: 800;
+  line-height: 1.15;
+  word-break: break-word;
+}
+
+.acc-company{
+  display: inline;
+}
+
+.acc-depto{
+  font-weight: 900;
+}
+
+/* panel abierto */
+.acc-panel{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 10px 0 2px 0;
+}
+
+/* ===============================
+   MOBILE ESPECÍFICO
+================================ */
+@media (max-width: 520px){
+
+  /* sacá márgenes laterales que generan “franjas” */
+  body{
+    overflow-x: hidden;
+  }
+
+  .view, .scroll, .views-container, .main-layout{
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box;
+  }
+
+  /* si tenés un wrapper que mete padding extra */
+  .panel, .card, .directory-card, .building-panel-card{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* la grilla de detalle en 1 columna */
+  .detail-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+  }
+
+  /* QRs en 1 columna (evita recortes laterales) */
+  .qr-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* QR un poco más grande y centrado */
+  .qr-box{
+    max-width: 280px;
+  }
+
+  /* tarjetas de pisos/oficinas: menos “aire” */
+  .acc-wrapper{ margin: 10px 0; }
+  .acc-row{ padding: 12px 12px; border-radius: 18px; }
+  .acc-icon{ width: 40px; height: 40px; border-radius: 14px; }
+
+  /* buscador: evitar ese “marco” raro */
+  input, .search-input, .searchbar input{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+
+
+/* ============================
+   THEME LIGHT (celeste/gris)
+   Pegarlo al FINAL del CSS
+============================ */
+
+/* Paleta */
+:root{
+  --bg: #EAF3FB;            /* celeste muy suave */
+  --panel: #F7FBFF;         /* panel claro */
+  --card: #FFFFFF;          /* tarjetas */
+  --border: #BFD7EA;        /* borde celeste */
+  --border2: rgba(191,215,234,.55);
+  --shadow: 0 14px 28px rgba(8, 35, 55, .10);
+  --shadow-soft: 0 10px 22px rgba(8, 35, 55, .08);
+
+  --text: #0E1A24;          /* más negro (contraste) */
+  --text2: #2B3A46;         /* secundario */
+  --muted: #5B6B77;
+
+  --primary: #1A78B6;       /* azul tipo Adinnov */
+  --primary-soft: #D7ECFB;
+  --chip-bg: #E3F1FC;
+  --chip-border: #B9D9F2;
+
+  --radius: 18px;
+}
+
+/* Fondo general */
+html, body{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Quitar “franjas/marcos” raros y exceso de sombras */
+*{
+  box-shadow: none;
+}
+
+/* Contenedores principales (ajustá si tu layout usa otros nombres) */
+.main-layout,
+.totem,
+#totem,
+.main,
+.container{
+  background: transparent !important;
+}
+
+/* Paneles principales */
+.building-panel.card,
+.directory-info-card,
+.brand-card,
+.section,
+.office-detail,
+.acc-panel{
+  background: var(--panel) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: var(--radius) !important;
+}
+
+/* Tarjetas / filas del acordeón (pisos/oficinas) */
+.acc-wrapper{
+  margin: 14px 0 !important;
+}
+
+/* ✅ En versión TÓTEM: sacar esos bordes “blancos” alrededor de cada piso */
+@media (min-width: 900px){
+  .acc-wrapper{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+  .acc-panel-floor{
+    background: transparent !important;
+    border: 0 !important;
+  }
+}
+
+/* Botón fila (piso / oficina) */
+.acc-row{
+  width: 100% !important;
+  background: var(--card) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-soft) !important;
+
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+
+  padding: 14px 14px !important;
+  text-align: left !important;
+}
+
+/* Iconos */
+.acc-icon{
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 14px !important;
+  background: var(--primary-soft) !important;
+  border: 1px solid var(--border2) !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 auto !important;
+}
+
+/* Texto en filas */
+.acc-text{ min-width: 0 !important; }
+.acc-title{
+  color: var(--text) !important;
+  font-weight: 700 !important;
+  letter-spacing: .2px !important;
+  line-height: 1.15 !important;
+}
+.acc-subtitle{
+  color: var(--muted) !important;
+}
+
+/* 🔧 Evitar que nombres largos se rompan feo */
+.acc-company, .acc-title, .detail-body{
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  hyphens: auto !important;
+}
+
+/* Chevron */
+.acc-chevron{
+  margin-left: auto !important;
+  color: var(--text2) !important;
+  opacity: .9 !important;
+}
+
+/* Panel desplegable */
+.acc-panel.open{
+  margin-top: 10px !important;
+  padding: 14px !important;
+}
+
+/* Detalle de oficina */
+.office-detail{
+  background: var(--panel) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+/* Grid de detalle */
+.detail-grid{
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 12px !important;
+}
+.detail-section{
+  background: var(--card) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 14px !important;
+  padding: 12px 12px !important;
+}
+.detail-title{
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+  text-transform: uppercase !important;
+  font-size: 12px !important;
+  margin-bottom: 6px !important;
+}
+.detail-body{ color: var(--text2) !important; }
+
+/* Chips/tags */
+.chip{
+  display: inline-block !important;
+  background: var(--chip-bg) !important;
+  border: 1px solid var(--chip-border) !important;
+  color: var(--text) !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+}
+
+/* QRs */
+.qr-grid{
+  display: grid !important;
+  gap: 12px !important;
+  margin-top: 10px !important;
+  grid-template-columns: repeat(2, minmax(0,1fr)) !important;
+}
+
+/* Tarjeta QR */
+.qr-item{
+  background: var(--card) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 16px !important;
+  padding: 12px !important;
+  box-shadow: var(--shadow-soft) !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+
+/* Caja QR: que NUNCA se corte */
+.qr-box{
+  width: 100% !important;
+  max-width: 240px !important;
+  aspect-ratio: 1 / 1 !important;
+  background: #fff !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--border2) !important;
+  padding: 10px !important;
+
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden !important;
+}
+
+/* Si el QR se renderiza como canvas o img */
+.qr-box canvas,
+.qr-box img,
+.qr-box svg{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  image-rendering: pixelated;
+}
+
+/* Textos QR */
+.qr-label{
+  margin-top: 10px !important;
+  color: var(--text) !important;
+  font-weight: 800 !important;
+}
+.qr-text{
+  color: var(--muted) !important;
+  font-size: 12.5px !important;
+  margin-top: 6px !important;
+}
+
+/* Buscador */
+input[type="search"],
+input[type="text"],
+.search-input{
+  background: var(--card) !important;
+  border: 1px solid var(--border2) !important;
+  color: var(--text) !important;
+  border-radius: 18px !important;
+}
+input::placeholder{
+  color: rgba(14,26,36,.55) !important;
+}
+
+/* ✅ CONTACTO panel izquierdo (que no quede oscuro) */
+.section{
+  background: var(--panel) !important;
+}
+.section-header{
+  color: var(--primary) !important;
+  font-weight: 900 !important;
+  letter-spacing: .18em !important;
+}
+.section-body{
+  color: var(--text2) !important;
+}
+.adinnov-contact,
+#buildingContactText{
+  color: var(--text2) !important;
+}
+.section .adinnov-contact img{
+  filter: none !important;
+  opacity: 1 !important;
+}
+
+/* ============================
+   MOBILE FIX (lo más importante)
+============================ */
+@media (max-width: 768px){
+
+  /* Eliminar márgenes laterales que te “aplastan” todo */
+  body{
+    padding: 0 !important;
+  }
+
+  .main-layout,
+  .totem,
+  #totem,
+  .building-panel.card,
+  .directory-info-card,
+  .brand-card,
+  .scroll{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Reducir padding interno grande que genera el recorte */
+  .building-panel.card,
+  .directory-info-card,
+  .brand-card{
+    border-radius: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+  }
+
+  /* Grilla detalle a una columna */
+  .detail-grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* QRs en una columna (evita corte) */
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+  .qr-box{
+    max-width: 280px !important;
+  }
+
+  /* Tarjetas piso/oficina más compactas y centradas */
+  .acc-row{
+    border-radius: 18px !important; 
+    margin: 12px auto !important;
+  }
+
+  /* Evitar que el título quede enorme y se parta feo */
+  .acc-title{
+    font-size: 16px !important;
+  }
+
+  /* Mejor scroll y evitar “bleed” */
+  .scroll{
+    overflow-x: hidden !important;
+  }
+}
+
+
+/* ===========================
+   FIXES RESPONSIVE + TEMA CLARO (gris + plateado)
+   PEGAR AL FINAL DEL CSS
+   =========================== */
+
+:root{
+  --bg: #eaf3fb;              /* celeste muy suave */
+  --panel: #f6fbff;           /* panel claro */
+  --surface: #ffffff;         /* tarjetas */
+  --surface-2: #f2f7fc;       /* variantes suaves */
+  --silver: #cfd8e3;          /* plateado/borde */
+  --silver-2:#b9c6d6;         /* plateado más marcado */
+  --text: #0f1e2e;            /* texto principal (más negro) */
+  --muted: #4a5b6d;           /* texto secundario */
+  --accent: #2a86c7;          /* azul marca */
+  --shadow: 0 10px 28px rgba(13, 42, 74, .10);
+  --radius: 18px;
+}
+
+/* Base */
+html, body{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  overflow-x: hidden !important;  /* clave: evita recortes/scroll lateral en mobile */
+}
+
+*{ box-sizing: border-box; }
+
+/* Contenedores generales (ajustá si tus IDs/clases varían) */
+.totem,
+.main-layout,
+.main,
+#app,
+#root{
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Paneles */
+.building-panel.card,
+.directory-panel,
+.panel,
+.left-panel,
+.right-panel{
+  background: var(--panel) !important;
+  border: 1px solid rgba(185,198,214,.65) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* Tarjetas (pisos/oficinas) */
+.card,
+.floor-card,
+.office-card,
+.list-card,
+.item-card{
+  background: var(--surface) !important;
+  border: 1px solid rgba(185,198,214,.70) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 22px rgba(13,42,74,.10) !important;
+}
+
+/* ===== 1) SACAR “CAJA” EXTRA ALREDEDOR DE LOS PISOS (TÓTEM/DESKTOP) =====
+   Esa caja suele ser el contenedor de cada item (wrap) que tiene border/background.
+   Esto lo deja transparente y sin borde, pero NO toca la tarjeta real. */
+.floors-list > div,
+.floorsContainer > div,
+.floor-list > div,
+#floorsList > div,
+#floorList > div,
+.floor-item-wrap,
+.floor-wrap,
+.floor-block,
+.floor-row{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 14px 0 !important;
+}
+
+/* ===== 2) TEXTO MÁS OSCURO (panel izquierdo + tarjetas) ===== */
+h1, h2, h3, .title, .header-title, .directory-title,
+.floor-title, .office-title, .acc-title, .detail-title{
+  color: var(--text) !important;
+  font-weight: 700 !important;
+}
+
+p, .subtitle, .muted, .acc-text, .detail-body, .detail-section, .qr-text{
+  color: var(--muted) !important;
+}
+
+/* Inputs / buscador */
+input, .search, .search-input, .searchbar input{
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(185,198,214,.75) !important;
+  color: var(--text) !important;
+  border-radius: 16px !important;
+}
+input::placeholder{ color: rgba(74,91,109,.70) !important; }
+
+/* Chips */
+.chip, .chips .chip{
+  background: rgba(42,134,199,.10) !important;
+  border: 1px solid rgba(42,134,199,.25) !important;
+  color: var(--text) !important;
+}
+
+/* ===== 3) DETALLE DE OFICINA (TARJETAS INTERNAS) ===== */
+.office-detail,
+.detail-grid,
+.detail-section{
+  background: transparent !important;
+}
+
+/* Contenedor general de detalles */
+.office-detail{
+  border-radius: var(--radius) !important;
+}
+
+/* Tarjetitas internas de Información/Servicios/Horarios/Qrs */
+.detail-section,
+.detail-title,
+.detail-body{
+  border-radius: 14px !important;
+}
+
+.detail-section{
+  background: var(--surface) !important;
+  border: 1px solid rgba(185,198,214,.75) !important;
+  box-shadow: 0 8px 22px rgba(13,42,74,.08) !important;
+}
+
+/* ===== 4) QR: que no se corte y mantenga cuadrado ===== */
+.qr-grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.qr-item{
+  background: var(--surface) !important;
+  border: 1px solid rgba(185,198,214,.75) !important;
+  border-radius: 16px !important;
+  padding: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 22px rgba(13,42,74,.08) !important;
+}
+
+/* Esta clase la vi en tu templates.js */
+.qr-box{
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;     /* CUADRADO perfecto */
+  display: grid !important;
+  place-items: center !important;
+  background: #fff !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(185,198,214,.75) !important;
+  overflow: hidden !important;
+}
+
+/* Si el QR es <img> dentro */
+.qr-box img,
+.qr-item img{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;     /* evita corte */
+  image-rendering: pixelated;         /* ayuda a nitidez si viene chico */
+}
+
+/* Labels debajo del QR */
+.qr-label{ color: var(--text) !important; font-weight: 700 !important; }
+.qr-text{ color: rgba(74,91,109,.85) !important; }
+
+/* ===== 5) MOBILE: ARREGLAR ESCALA / RECORTES / COLUMNAS ===== */
+@media (max-width: 820px){
+
+  /* Stack: panel izq arriba, lista abajo */
+  .main-layout,
+  .layout,
+  .totem{
+    display: block !important;
+  }
+
+  .building-panel.card,
+  .directory-panel,
+  .left-panel,
+  .right-panel{
+    width: calc(100% - 24px) !important;
+    max-width: 560px !important;
+    margin: 12px auto !important;
+  }
+
+  /* bajar el “aire” y evitar que quede todo encimado */
+  .floors-list,
+  .floor-list,
+  #floorsList,
+  #floorList{
+    padding: 10px 10px 18px !important;
+  }
+
+  /* Tarjetas (pisos/oficinas) un poco más compactas */
+  .card,
+  .floor-card,
+  .office-card,
+  .list-card,
+  .item-card{
+    border-radius: 16px !important;
+  }
+
+  /* Detalles a 1 columna */
+  .detail-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* QR a 1 columna para que no se achique ni se corte */
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Evitar que algo “se vaya” por el costado */
+  .office-detail,
+  .detail-section,
+  .qr-item{
+    max-width: 100% !important;
+  }
+}
+
+/* ===== 6) EXTRA: si te queda “marco” raro en mobile por padding/margin global ===== */
+@media (max-width: 820px){
+  body{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+
+/* =========================
+   THEME + FIXES (TOTEM + MOBILE)
+   ========================= */
+
+:root{
+  /* paleta celeste/gris (tipo Adinnov) sin ser blanco puro */
+  --bg: #eaf3fb;          /* fondo general */
+  --panel: #f7fbff;       /* paneles */
+  --card: #ffffff;        /* tarjetas */
+  --line: #bcd6ea;        /* bordes */
+  --line-soft: #d7e7f5;
+  --accent: #2a86c6;      /* celeste */
+  --accent-2:#1f6fa8;
+  --text: #1c2b36;        /* negro azulado */
+  --muted:#556775;
+  --shadow: 0 10px 26px rgba(16, 45, 78, .10);
+}
+
+html, body{
+  background: var(--bg) !important;
+  color: var(--text);
+  overflow-x: hidden; /* evita “corrimientos” en mobile */
+}
+
+/* Inputs y textos más legibles */
+input, textarea, select{
+  color: var(--text) !important;
+}
+::placeholder{ color: rgba(28,43,54,.45) !important; }
+
+/* ---------- Quitar “caja blanca” alrededor de cada piso (TOTEM) ---------- */
+/* Esa caja suele venir del wrapper/panel. Las tarjetas (acc-row) se quedan. */
+.acc-wrapper,
+.acc-panel-floor,
+.acc-panel{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Si te queda un borde extra alrededor del “contenido del piso” */
+.acc-panel-floor{
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ---------- Cards (pisos/oficinas) ---------- */
+.acc-row{
+  background: var(--card) !important;
+  border: 1px solid var(--line-soft) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.acc-title,
+.acc-subtitle,
+.acc-row .acc-text{
+  color: var(--text) !important;
+}
+
+.acc-chevron{
+  color: var(--accent-2) !important;
+}
+
+/* ---------- Paneles / contenedores principales ---------- */
+.building-panel-card,
+.right-panel,
+.directory-panel,
+.office-detail,
+.detail-section{
+  background: var(--panel) !important;
+  border-color: var(--line-soft) !important;
+}
+
+/* ---------- Detalle de oficina: fondo claro (antes oscuro) ---------- */
+.office-detail{
+  background: linear-gradient(180deg, #f4faff 0%, #eaf3fb 100%) !important;
+  border: 1px solid var(--line-soft) !important;
+  box-shadow: var(--shadow) !important;
+  border-radius: 22px !important;
+}
+
+/* cajas internas del detalle */
+.detail-section{
+  background: rgba(255,255,255,.75) !important;
+  border: 1px solid var(--line-soft) !important;
+  border-radius: 18px !important;
+}
+
+.detail-title{
+  color: var(--accent-2) !important;
+  letter-spacing: .08em;
+}
+
+.detail-body,
+.qr-text,
+.muted{
+  color: var(--muted) !important;
+}
+
+.chip{
+  background: rgba(42,134,198,.12) !important;
+  border: 1px solid rgba(42,134,198,.25) !important;
+  color: var(--text) !important;
+}
+
+/* ---------- QRs: que NO se corten y escalen bien ---------- */
+.qr-grid{
+  gap: 14px !important;
+}
+
+.qr-item{
+  background: var(--card) !important;
+  border: 1px solid var(--line-soft) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+  overflow: hidden; /* clave para que no “corte” raro */
+}
+
+.qr-box{
+  width: 100% !important;
+  max-width: 240px;
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;      /* siempre cuadrado */
+  display: grid;
+  place-items: center;
+  border-radius: 18px !important;
+  border: 1px solid var(--line-soft) !important;
+  background: #ffffff !important;
+  overflow: hidden;
+}
+
+/* Si renderizás QR en canvas o img, lo fuerza a encajar */
+.qr-box canvas,
+.qr-box img,
+.qr-box svg{
+  width: 92% !important;
+  height: 92% !important;
+  max-width: 92% !important;
+  max-height: 92% !important;
+  object-fit: contain !important;
+  display: block;
+}
+
+.qr-label{
+  color: var(--text) !important;
+  font-weight: 700 !important;
+}
+
+.qr-icon{
+  filter: saturate(1.1);
+}
+
+/* =========================
+   MOBILE FIX (escala y layout)
+   ========================= */
+@media (max-width: 820px){
+
+  /* que todo ocupe el ancho real */
+  .main-layout,
+  .totem,
+  .directory-layout{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* saca márgenes/padding que generan bandas laterales */
+  body{
+    padding: 0 !important;
+  }
+
+  /* apila paneles y elimina “fondos laterales” */
+  .main-layout{
+    display: block !important;
+  }
+
+  /* panel derecho e izquierdo full width */
+  .building-panel-card,
+  .right-panel,
+  .directory-panel{
+    width: calc(100% - 24px) !important;
+    max-width: 680px;
+    margin: 12px auto !important;
+  }
+
+  /* reduce paddings internos */
+  .building-panel-card,
+  .right-panel,
+  .directory-panel{
+    padding: 12px !important;
+  }
+
+  /* input buscar sin recuadro raro y sin overflow */
+  .search-input,
+  input[type="search"],
+  .searchbar input{
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Acordeón más “chico” y centrado */
+  .acc-wrapper{
+    width: 100% !important;
+    margin: 12px auto !important;
+  }
+
+  .acc-row{
+    width: 100% !important;
+    min-height: 74px;
+  }
+
+  /* títulos de oficina que se cortaban: permitir salto */
+  .acc-title{
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+    line-height: 1.15 !important;
+  }
+
+  /* Detalle: en mobile que el grid sea 1 columna */
+  .detail-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* QRs en una columna y más grandes */
+  .qr-grid.qr-count-2,
+  .qr-grid.qr-count-3,
+  .qr-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .qr-box{
+    max-width: 300px !important;
+  }
+}
+
+/* =========================
+   MOBILE: sacar recuadro del buscador (wrapper)
+   ========================= */
+@media (max-width: 820px){
+
+  /* contenedores típicos del buscador */
+  .searchbar,
+  .search-bar,
+  .search-wrap,
+  .search-wrapper,
+  .search-container,
+  .search-box,
+  .search-panel,
+  .search-area,
+  .search-shell,
+  .search-holder{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: 0 !important;
+    padding: 0 !important;
+    margin: 0 0 12px 0 !important;
+  }
+
+  /* por si el recuadro lo da un "card" contenedor del buscador */
+  .searchbar-card,
+  .search-card,
+  .search-panel-card{
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  /* el input: que quede prolijo y SIN caja extra afuera */
+  .searchbar input,
+  .search-input,
+  input[type="search"]{
+    width: 100% !important;
+    box-sizing: border-box !important;
+    background: #ffffff !important;
+    border: 1px solid var(--line-soft) !important;
+    box-shadow: var(--shadow) !important;
+    border-radius: 18px !important;
+    padding: 14px 16px !important;
+    outline: none !important;
+  }
+
+  /* si hay un borde por focus raro */
+  .searchbar input:focus,
+  .search-input:focus,
+  input[type="search"]:focus{
+    border-color: var(--line) !important;
+    box-shadow: 0 0 0 4px rgba(42,134,198,.12) !important;
+  }
+}
+
+
+
+
+/* ==============================
+   OVERRIDES LIGHT + MOBILE FIX
+   (pegar al FINAL del styles.css)
+================================= */
+
+:root{
+  --bg: #eaf4ff;              /* celeste claro */
+  --bg2:#f6fbff;              /* casi blanco */
+  --panel:#f8fcff;
+  --card:#ffffff;
+  --border:#bcd8f3;
+  --border2:#d7e9f9;
+  --text:#0f172a;             /* más negro */
+  --muted:#334155;
+  --accent:#2b7bbb;
+  --shadow: 0 10px 30px rgba(15, 23, 42, .10);
+  --shadowSoft: 0 8px 20px rgba(15, 23, 42, .08);
+}
+
+/* Fondo general */
+html, body{
+  background: linear-gradient(180deg, var(--bg), var(--bg2)) !important;
+  color: var(--text) !important;
+}
+
+/* Evitar “bandas” o fondos raros detrás en desktop */
+.main-layout,
+.main,
+#app,
+#view-main{
+  background: transparent !important;
+}
+
+/* Paneles/card base */
+.card,
+.left-panel,
+.right-panel,
+.building-panel,
+.panel{
+  background: var(--panel) !important;
+  border: 1px solid var(--border2) !important;
+  box-shadow: var(--shadowSoft) !important;
+}
+
+/* Tipografías más oscuras (lo que pediste: “más negras”) */
+h1, h2, h3, h4,
+.floor-title,
+.office-title,
+.office-name,
+.office-location,
+.office-sector,
+label,
+.section-title{
+  color: var(--text) !important;
+}
+
+p, .muted, .help, .subtle{
+  color: var(--muted) !important;
+}
+
+/* =========================
+   SACAR “RECUADROS” MOLESTOS
+   (Search + contenedores list)
+========================= */
+
+/* Search: que no aparezca ese marco/caja externa */
+.search-area,
+.search-wrap,
+.search-container,
+.search-bar{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Input: que quede prolijo */
+#searchInput{
+  width: 100% !important;
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 18px !important;
+  color: var(--text) !important;
+  box-shadow: 0 6px 16px rgba(15,23,42,.08) !important;
+}
+#searchInput::placeholder{ color: rgba(15,23,42,.45) !important; }
+
+/* Listas: que NO haya caja externa alrededor del piso */
+.scroll,
+.list,
+#floorsList,
+#officesList{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Tarjetas de PISO y OFICINA */
+.floor-card,
+.office-card{
+  background: rgba(255,255,255,.94) !important;
+  border: 1px solid var(--border2) !important;
+  box-shadow: var(--shadowSoft) !important;
+}
+
+/* Ajuste visual: menos “altura” y más centrado */
+.floor-card{
+  padding: 14px 16px !important;
+  border-radius: 18px !important;
+}
+.office-card{
+  padding: 14px 16px !important;
+  border-radius: 18px !important;
+}
+
+/* =========================
+   DETALLE OFICINA (panel derecho)
+========================= */
+.office-detail-panel,
+.office-details,
+.office-details-card{
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 22px !important;
+  box-shadow: var(--shadow) !important;
+}
+
+/* QR: que no se corte */
+.qr-grid{
+  gap: 14px !important;
+}
+.qr-item{
+  background: rgba(255,255,255,.94) !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+.qr-box{
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+  height: auto !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background: #fff !important;
+  border: 1px solid var(--border2) !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+}
+.qr-box img, .qr-box canvas{
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  image-rendering: crisp-edges;
+}
+
+/* =========================
+   MOBILE: escala + centrado + orden
+========================= */
+@media (max-width: 820px){
+  /* layout: una sola columna real, sin márgenes raros */
+  .main-layout{
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    padding: 12px !important;
+  }
+
+  /* ocultar panel izquierdo en mobile (si vos lo ocultás por JS, igual no molesta) */
+  .left-panel{
+    display: none !important;
+  }
+
+  .right-panel{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 12px !important;
+    border-radius: 18px !important;
+  }
+
+  /* que nada se “salga” del ancho */
+  .right-panel *{
+    max-width: 100% !important;
+  }
+
+  /* tarjetas más compactas y centradas */
+  .floor-card,
+  .office-card{
+    margin: 0 auto 12px auto !important;
+    width: 100% !important;
+  }
+
+  /* Detalle oficina: que respire */
+  .office-details-card{
+    padding: 14px !important;
+  }
+
+  /* QR en mobile: 1 columna para que no se corte */
+  .qr-grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* título oficina: evitar cortes raros */
+  .office-title{
+    line-height: 1.15 !important;
+    word-break: break-word !important;
+  }
+}
+
+/* =========================
+   TOTEM: sacar “caja”/marcos extra alrededor de cada piso
+   (si usás body con clase totem o kiosk)
+========================= */
+body.totem .scroll,
+body.totem .list,
+body.totem #floorsList{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+
+/* =========================================================
+   FIX MOBILE + FIX BORDES PISOS + MEJORAS QR/INPUTS
+   PEGAR AL FINAL DE styles.css
+   ========================================================= */
+
+/* --- 1) Sacar “caja/borde” alrededor de cada piso (TÓTEM y general) --- */
+.acc-panel-floor,
+.acc-panel-floor.open,
+.accordion-content.floor,
+.accordion-content.floor.open{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.acc-panel-floor.open{
+  border-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+/* Quitar padding extra que arma el “recuadro” */
+.accordion-content.floor.open{
+  padding: 10px 0 !important;
+}
+
+/* --- 2) Inputs (evitar el recuadro/box raro en mobile) --- */
+.search-bar,
+.search-bar *{
+  box-sizing: border-box;
+}
+
+.search-bar input,
+.search-input,
+#officeSearchInput{
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* --- 3) QR: que no se corte y mantenga proporción --- */
+.qr-card,
+.qrItem,
+.qr-item{
+  overflow: hidden !important;
+}
+
+.qr-img,
+.qrImage,
+.qrCanvas,
+.qr{
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+  image-rendering: auto;
+}
+
+/* Si tu QR está en un contenedor con tamaño fijo, esto lo centra */
+.qr-box,
+.qrBox,
+.qrWrap{
+  display: grid !important;
+  place-items: center !important;
+}
+
+/* =========================================================
+   4) MOBILE: desactivar “modo tótem” que rompe el scroll/escala
+   ========================================================= */
+@media (max-width: 900px){
+
+  /* IMPORTANTÍSIMO: esto arregla el “todo mal” en móvil */
+  html, body{
+    height: auto !important;
+    overflow: auto !important;   /* el tótem lo tenía bloqueado */
+  }
+
+  .totem{
+    height: auto !important;
+    min-height: 100dvh;
+  }
+
+  main{
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  /* layout pasa a 1 columna */
+  .main-layout{
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  .building-panel,
+  .main-right,
+  .views-container,
+  .view{
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* el scroll “interno” en móvil suele romperse: lo hacemos natural */
+  .scroll{
+    overflow: visible !important;
+    padding: 12px 14px 28px !important;
+  }
+
+  /* buscador prolijo y que no quede “encajonado” */
+  .search-bar{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 10px 12px !important;
+    backdrop-filter: blur(6px);
+  }
+
+  /* tarjetas centradas y con ancho coherente */
+  .acc-header.floor,
+  .acc-header.office{
+    width: 100% !important;
+    max-width: 560px !important;
+    margin: 0 auto !important;
+  }
+
+  .accordion-content.floor.open{
+    width: 100% !important;
+    max-width: 560px !important;
+    margin: 8px auto 0 !important;
+  }
+
+  /* QR en 1 columna en móvil */
+  .qr-grid,
+  .qrGrid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* el QR en móvil: tamaño estable y centrado */
+  .qr-card,
+  .qrItem,
+  .qr-item{
+    max-width: 360px !important;
+    margin: 0 auto !important;
+  }
+
+  .qr-img,
+  .qrImage{
+    max-width: 240px !important;
+  }
+}
+
+/* =========================================================
+   5) Texto un poco más oscuro (mejor lectura)
+   ========================================================= */
+body.theme-light,
+.theme-light{
+  color: #111827 !important;
+}
+
+.theme-light .acc-title,
+.theme-light .acc-subtitle,
+.theme-light .section-body,
+.theme-light .section-header,
+.theme-light .building-caption,
+.theme-light .building-panel,
+.theme-light .directory-panel{
+  color: #111827 !important;
+}
+
+.theme-light .muted,
+.theme-light .hint,
+.theme-light .small{
+  color: #334155 !important;
+}
+
+
+/* =========================================================
+   PATCH FINAL (Totem + Mobile)
+   Pegarlo AL FINAL del CSS para pisar estilos viejos
+========================================================= */
+
+/* 0) Utilidad: si JS pone "hidden", que realmente desaparezca */
+.hidden { display: none !important; }
+
+/* 1) Base light: mejor contraste (letras más negras) */
+:root{
+  --bg: #eaf3fb;            /* celeste muy suave */
+  --panel: #f7fbff;         /* paneles */
+  --card: #ffffff;          /* tarjetas */
+  --stroke: #b8d7ee;        /* bordes celestes */
+  --stroke-soft:#d7e9f6;
+  --text: #0f2233;          /* texto principal (más negro) */
+  --muted:#3b556a;          /* texto secundario */
+  --title:#0b1a28;
+  --shadow: 0 10px 24px rgba(10, 35, 60, .12);
+}
+
+/* Si tenés body.theme-light ya, esto te asegura contraste */
+body.theme-light, body{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* 2) Quitar “caja blanca” / recuadros raros alrededor de pisos (TOTEM) */
+.acc-wrapper{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 14px 0 !important;
+}
+
+/* Las filas (piso/oficina) quedan como tarjeta prolija */
+.acc-row{
+  background: var(--card) !important;
+  border: 1px solid var(--stroke) !important;
+  box-shadow: var(--shadow) !important;
+  border-radius: 18px !important;
+}
+
+/* Evita que se vean “marcos” extra en el contenedor de la lista */
+.scroll,
+.acc-panel,
+.acc-panel-floor,
+.acc-panel-office{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* 3) Tipografías más negras / legibles en panel izquierdo y tarjetas */
+.section-header,
+.acc-title,
+.acc-subtitle,
+#buildingContactText,
+.building-caption,
+.brand-card,
+.qr-label,
+.qr-hint{
+  color: var(--text) !important;
+}
+
+.acc-subtitle,
+#buildingContactText,
+.qr-hint{
+  color: var(--muted) !important;
+}
+
+/* 4) BUSCADOR: sacar el “recuadro” molesto en mobile y que quede prolijo */
+.search-wrap,
+.search-container,
+.search-box,
+.searchbar,
+.search{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+input[type="search"],
+input.search-input,
+#searchInput{
+  width: 100% !important;
+  background: var(--card) !important;
+  border: 1px solid var(--stroke) !important;
+  color: var(--text) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+  outline: none !important;
+}
+
+input[type="search"]::placeholder,
+input.search-input::placeholder,
+#searchInput::placeholder{
+  color: rgba(15,34,51,.55) !important;
+}
+
+/* 5) QRs: evitar que se corten (canvas/img se adaptan al contenedor) */
+.qr-item{
+  background: var(--card) !important;
+  border: 1px solid var(--stroke) !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+}
+
+.qr-box{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #fff !important;
+  border: 1px solid var(--stroke-soft) !important;
+  border-radius: 16px !important;
+  padding: 10px !important;
+}
+
+/* Si el QR es canvas (librería), esto es CLAVE */
+.qr-box canvas,
+.qr-box img{
+  width: 100% !important;
+  height: auto !important;
+  max-width: 220px;   /* desktop */
+  image-rendering: pixelated;
+}
+
+/* 6) CONTACTO panel izquierdo: que quede en la paleta clara */
+.section{
+  background: var(--panel) !important;
+  border: 1px solid var(--stroke) !important;
+  border-radius: 18px !important;
+  box-shadow: var(--shadow) !important;
+}
+
+.section-header{
+  letter-spacing: .18em !important;
+  color: var(--title) !important;
+}
+
+/* =========================================================
+   7) MOBILE: acá está lo más importante (layout y escala)
+========================================================= */
+@media (max-width: 900px){
+
+  /* que el layout NO reserve columnas raras */
+  .main-layout{
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    margin: 0 !important;
+  }
+
+  .building-panel,
+  .directory-panel{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 14px 0 !important;
+  }
+
+  /* el scroll interno en mobile suele romper la escala: dejamos que scrollee la página */
+  .scroll{
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Tarjetas más compactas y centradas */
+  .acc-row{
+    border-radius: 18px !important;
+    padding: 14px 14px !important;
+  }
+
+  .acc-icon{
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 14px !important;
+  }
+
+  /* QRs en columna para que no se corten */
+  .qr-grid{
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .qr-box canvas,
+  .qr-box img{
+    max-width: 260px !important; /* más grande en mobile */
+  }
+
+  /* detalles oficina: que no quede “angosto” con bordes gigantes */
+  .office-detail,
+  .detail-card,
+  .office-details{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* Evita “bandas” o márgenes enormes laterales */
+  body, html{
+    overflow-x: hidden !important;
+  }
+}
+
+
+
+
+
+
+
+
+/* =========================
+   THEME LIGHT (celeste/gris)
+   + FIXES TÓTEM + MOBILE
+   ========================= */
+
+:root{
+  --bg: #eaf4ff;              /* fondo celeste muy suave */
+  --panel: #f7fbff;           /* paneles */
+  --card: #ffffff;            /* tarjetas */
+  --border: rgba(60, 120, 180, .25);
+  --border-strong: rgba(60, 120, 180, .35);
+  --shadow: 0 14px 26px rgba(10, 40, 80, .10);
+  --shadow-soft: 0 10px 18px rgba(10, 40, 80, .08);
+
+  --text: #0f1f2e;            /* texto principal MÁS NEGRO */
+  --text-2: #2a3a4c;          /* texto secundario */
+  --muted: #5b6b7a;           /* ayudita */
+  --brand: #2f7bbd;           /* azul estilo Adinnov */
+  --brand-2: #1f5f98;         /* azul más fuerte */
+}
+
+/* Fondo general */
+html, body{
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Evita “escala rara” y cortes */
+*{ box-sizing: border-box; }
+img, canvas, svg{ max-width: 100%; height: auto; }
+
+/* Paneles / cards */
+.building-panel,
+.building-panel.card,
+.directory-panel,
+.right-panel,
+.left-panel,
+.section,
+.detail-section,
+.office-detail{
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+/* Cards blancas */
+.card,
+.floor-card,
+.office-card,
+.detail-section,
+.qr-item{
+  background: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+/* =========================
+   2) SACAR “CAJA/BORDE” BLANCA EN CADA PISO (TÓTEM)
+   ========================= */
+/* Esto apunta al contenedor que te está haciendo el “recuadro grande” alrededor */
+.floor-wrap,
+.floor-container,
+.floor-group,
+.floor-list > li,
+.floor-list-item,
+.floor-slot{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* La tarjeta del piso sí queda (prolija) */
+.floor-card,
+.floor-item,
+.floor-row{
+  border: 1px solid var(--border) !important;
+  background: var(--card) !important;
+  border-radius: 18px !important;
+}
+
+/* Separación más prolija (menos “encimado”) */
+.floor-list,
+.office-list{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Texto más negro (lo que pediste) */
+h1,h2,h3,h4,
+.detail-title,
+.section-header,
+.building-caption,
+.floor-title,
+.office-title{
+  color: var(--text) !important;
+}
+.detail-body,
+.qr-text,
+.building-body,
+.muted{
+  color: var(--text-2) !important;
+}
+.section-header,
+.detail-title{
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--brand-2) !important;
+}
+
+/* Buscador: elimina “recuadro alrededor” en mobile */
+.search-wrap,
+.search-container,
+.search-box,
+.search-frame{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+input[type="search"],
+input.search,
+#searchInput{
+  width: 100%;
+  background: #ffffff !important;
+  border: 1px solid var(--border-strong) !important;
+  color: var(--text) !important;
+  border-radius: 18px !important;
+  padding: 14px 16px !important;
+  box-shadow: var(--shadow-soft) !important;
+}
+
+/* =========================
+   3) QRs: que NO se corten y se vean centrados
+   ========================= */
+.qr-grid{
+  display: grid;
+  gap: 16px;
+}
+
+/* desktop: 2 columnas cuando hay 2 QRs */
+.qr-grid.qr-count-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.qr-grid.qr-count-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.qr-grid.qr-count-1{
+  grid-template-columns: 1fr;
+}
+
+.qr-item{
+  border-radius: 18px !important;
+  padding: 16px !important;
+}
+
+.qr-box{
+  width: min(220px, 70vw);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 12px auto;
+  border-radius: 14px;
+  border: 1px solid var(--border-strong);
+  background: #fff;
+  overflow: hidden; /* importante: NO recorta si el QR ocupa 100% */
+  display: grid;
+  place-items: center;
+}
+
+/* Si tu render mete <canvas> o <img>, lo estiramos bien */
+.qr-box canvas,
+.qr-box img,
+.qr-box svg{
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* =========================
+   4) MOBILE: layout 1 columna + ancho real (sin cortes)
+   ========================= */
+@media (max-width: 900px){
+  /* El problema típico: algún contenedor queda con width fijo o min-width enorme */
+  body, .totem, .main, .main-layout, .directory, .directory-root{
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* 1 sola columna (se termina el “angosto con franjas”) */
+  .totem,
+  .main-layout,
+  .directory-layout{
+    display: block !important;
+  }
+
+  .left-panel,
+  .right-panel{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* padding más chico y centrado */
+  .right-panel,
+  .left-panel,
+  .building-panel{
+    padding: 14px !important;
+    margin: 0 auto !important;
+  }
+
+  /* Pisos y oficinas: full width */
+  .floor-card,
+  .office-card,
+  .floor-item,
+  .office-item{
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* QRs en mobile: 1 columna (no se corta) */
+  .qr-grid.qr-count-2,
+  .qr-grid.qr-count-3{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Evita que textos largos rompan */
+  .office-title,
+  .floor-title{
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+}
+
+.qr-item[hidden] { display: none !important; }
+
+
+/* =========================
+   MOBILE FIX (layout/escala)
+   ========================= */
+@media (max-width: 768px), (pointer: coarse) {
+
+  /* que no haya “marcos”/bordes raros alrededor del buscador */
+  .search-wrap, .search-frame, .search-container {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  /* evitar que el contenido quede “en una columna angosta” */
+  .view, .scroll, .views-container, .view-main, .view-office, .view-floor {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* filas de pisos/oficinas */
+  .acc-row {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* texto: que no corte feo */
+  .acc-title, .acc-subtitle, .office-title, .office-subtitle {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  /* detalle oficina: que no quede gigante y cortado */
+  .detail-grid, .detail, .detail-section {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* QRs en mobile: 1 columna, centrado, y QR cuadrado sin recortes */
+  [data-qr-grid] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    justify-items: center !important;
+  }
+
+  .qr-item {
+    width: 100% !important;
+    max-width: 360px !important;
+  }
+
+  /* el contenedor donde renderizás el QR */
+  .qr-box, [data-qr="main"], [data-qr="whats"], [data-qr="extra"] {
+    width: 100% !important;
+    max-width: 280px !important;
+    aspect-ratio: 1 / 1 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+}

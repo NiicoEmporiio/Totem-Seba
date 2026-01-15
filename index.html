@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Totem Edificio</title>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body class="theme-light">
+
+  <!-- SPLASH / IDLE -->
+<div id="idleSplash" class="idle-splash">
+  <div class="idle-card">
+    <div class="idle-finger" aria-hidden="true"></div>
+    <div class="idle-title">TOQUE LA PANTALLA</div>
+    <div class="idle-subtitle">Para obtener información de los profesionales y empresas del edificio</div>
+  </div>
+</div>
+
+
+
+
+<div class="totem">
+
+  <!-- HEADER -->
+  <header>
+   
+  </header>
+
+<main>
+
+  <div class="main-layout">
+
+    <!-- PANEL IZQUIERDO: DIRECTORIO + FOTO + INFO EDIFICIO -->
+    <div class="building-panel card">
+      <!-- Encabezado del directorio -->
+      <div class="directory-header">
+        <h1 class="directory-title">DIRECTORIO</h1>
+        <p class="directory-subtitle">
+          Guía de oficinas y profesionales
+        </p>
+      </div>
+
+      <!-- Imagen del edificio (en el futuro podés cambiar por video) -->
+      <img
+        src="public/img/edificio.jpeg"
+        alt="Foto del edificio"
+        class="building-image"
+      />
+
+      <!-- Nombre y slogan (desde Strapi) -->
+      <div class="building-caption">
+        <strong id="buildingNameCaption"></strong>
+        <span id="buildingSloganCaption"></span>
+      </div>
+
+<!-- PANEL INFO (Branding) -->
+<div class="directory-info-card brand-card">
+
+  <!-- LOGO DEL EDIFICIO -->
+  <div class="brand-top">
+    <img
+      id="brandLogoImg"
+      class="brand-logo"
+      src="/public/img/logo vectorizado.png"
+      alt="Logo edificio"
+    >
+    <div id="brandAddress" class="brand-address">Membrillar 74, CABA</div>
+  </div>
+
+  <!-- QR GENERAL -->
+  <div class="brand-qr">
+    <img
+      id="brandQrImg"
+      class="brand-qr-img"
+      src=""
+      alt="QR Directorio"
+    >
+    <div id="brandQrText" class="brand-qr-text">
+      Escaneá para ver el directorio en tu celular
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+    <div class="section">
+  <div class="section-header">CONTACTO</div>
+
+  <div class="section-body" id="buildingContactText"></div>
+
+  <!-- ADINNOV dentro de CONTACTO -->
+  <div class="adinnov-contact">
+    <img class="adinnov-logo" src="/public/img/LOGO DEFINITIVO.png" alt="">
+    <div class="adinnov-title"></div>
+    <div class="adinnov-sub">Directorio y Publicidades</div>
+    <div class="adinnov-phone">+54 11 5478 9803</div>
+  </div>
+</div>
+
+
+
+      <!-- En lugar de la img, o además de ella (con JS manejando qué mostrar) -->
+       <!--  <video
+          class="building-video"
+            src=""
+            autoplay
+              muted
+              loop
+              playsinline
+            ></video>
+
+-->
+    </div>
+
+    <!-- PANEL DERECHO: BUSCADOR + VISTAS -->
+   <div class="main-right">
+
+  <!-- 🔎 Buscador -->
+  <div class="search-bar">
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Buscar oficina por nombre, rubro..."
+    >
+  </div>
+
+  <!-- ======================================= -->
+  <!-- 🔹 NUEVO CONTENEDOR QUE ARREGLA EL ISSUE -->
+  <!--    VIEWS APILADAS SIN TAPAR EL BUSCADOR   -->
+  <!-- =============SOLAPA======================== -->
+
+
+
+
+
+  <div class="views-container">
+
+    <!-- ============================= -->
+    <!-- 🏢 VISTA PRINCIPAL (LISTA PISOS) -->
+    <!-- ============================= -->
+    <section id="view-main" class="view">
+
+      <div class="view-title" id="mainTitle"></div>
+      <div class="view-description" id="mainDescription"></div>
+
+      <div class="scroll">
+        <div class="list" id="floorsList"></div>
+      </div>
+
+    </section>
+
+    <!-- ============================= -->
+    <!-- 🏬 VISTA PISO (LISTA OFICINAS) -->
+    <!-- ============================= -->
+    <section id="view-floor" class="view hidden">
+
+      <div class="view-header-row">
+        <div class="left-row">
+          <button class="btn btn-secondary btn-small" id="btnBackToMain">← Inicio</button>
+
+          <div>
+            <div class="view-title" id="floorTitle"></div>
+            <div class="view-description" id="floorDescription"></div>
+          </div>
+        </div>
+
+        <span class="badge" id="floorBadge"></span>
+      </div>
+
+      <div class="scroll">
+        <div class="offices-list-wrapper">
+          <div class="offices-list">
+            <div id="officesGrid"></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============================= -->
+    <!-- 🧩 VISTA OFICINA (DETALLE) -->
+    <!-- ============================= -->
+ <section id="view-office" class="view hidden">
+
+  <!-- Barra superior: botón volver + título -->
+  <div class="view-header-row">
+    <div class="left-row">
+      <button class="btn btn-secondary btn-small" id="btnBackToFloor">← Piso</button>
+
+     
+    </div>
+  </div>
+
+  <div class="scroll">
+    <div class="office-content">
+
+      <!-- 1) HEADER: ICONO + NOMBRE -->
+      <div class="office-header">
+        <div class="office-logo" id="officeLogo"></div>
+
+        <div class="office-info-main">
+          <div class="office-name" id="officeName"></div>
+          <div class="office-location" id="officeLocation"></div>
+
+          <!-- Chips de rubro principal si los cargás desde JS -->
+          <div class="" id="">
+            <!-- Ej: <span class="sector-chip">Estudio Jurídico</span> -->
+          </div>
+        </div>
+      </div>
+
+     <!-- INFORMACIÓN -->
+<div class="section">
+  
+  <div class="section-header">Informacion</div>
+  
+   <div>
+        
+        <div class="view-description" id="officeDescription"></div>
+      </div>
+  
+ <div id="officeInfoBody"></div>
+
+</div>
+
+      <!-- 3) RUBRO / SERVICIOS -->
+      <section class="section">
+        <div class="section-header">Servicios / Rubros</div>
+        <div class="chips" id="officeTags">
+          <!-- Ej: <span class="chip">Oftalmología</span> -->
+        </div>
+      </section>
+
+      <!-- 4) HORARIOS -->
+      <section class="section">
+        <div class="section-header">Horarios</div>
+        <div class="section-body" id="officeSchedule">
+          <!-- Podés cargar esto por JS o dejarlo fijo:
+               Lunes a viernes 9:00–18:00 · Sábados 9:00–13:00 -->
+        </div>
+      </section>
+
+      <!-- 5) CONTACTO / QRs -->
+      <section class="section">
+        <div class="section-header">Contacto / QRs</div>
+
+        <div class="qr-grid" id="officeQrGrid">
+
+          <!-- QR principal -->
+          <div class="qr-item">
+            <div class="qr-placeholder" id="officeQrPlaceholder">
+              QR no disponible
+            </div>
+            <div class="qr-label">
+ 
+  Sitio web / Ficha completa
+</div>
+
+            <div class="qr-text">
+              Escaneá para ver más información de la oficina.
+            </div>
+          </div>
+
+          <!-- QR WhatsApp -->
+          <div class="qr-item">
+            <div class="qr-placeholder" id="officeQrWhatsApp">
+              QR WhatsApp
+            </div>
+            <div class="qr-label">
+  
+  WhatsApp / Turnos
+</div>
+
+            <div class="qr-text">
+              Escaneá para chatear, solicitar turnos o hacer consultas.
+            </div>
+          </div>
+
+          <!-- QR extra opcional -->
+          <div class="qr-item">
+            <div class="qr-placeholder" id="officeQrExtra">
+              Otro QR
+            </div>
+           <div class="qr-label">
+ 
+  Otro enlace
+</div>
+
+            <div class="qr-text">
+              Podés usar este espacio para redes sociales, formulario, etc.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+  </div> <!-- /views-container -->
+
+</div> <!-- /main-right -->
+
+
+</main>
+
+
+
+
+  <!-- FOOTER -->
+  <footer>
+   <div id="refreshToast" class="refresh-toast hidden">Contenido actualizado</div>
+
+</div>
+
+    <span id="footerLeft">Totem Edificio</span>
+    <span id="footerRight">Pantalla táctil</span>
+  </footer>
+
+</div>
+
+
+
+<!-- ============================= -->
+<!-- SCRIPTS (ORDEN ES IMPORTANTE) -->
+<!-- ============================= -->
+
+<!-- ARCHIVOS BASE -->
+<!-- Librería para generar códigos QR -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- ARCHIVOS BASE -->
+<script src="assets/js/data.js"></script>
+<script src="assets/js/api.js"></script>
+
+<!-- TEMPLATES -->
+<script src="assets/js/templates.js"></script>
+
+<!-- VISTAS -->
+<script src="assets/js/view-main.js"></script>
+<script src="assets/js/view-floor.js"></script>
+<script src="assets/js/view-office.js"></script>
+
+<!-- APP PRINCIPAL -->
+<script src="assets/js/app.js"></script>
+
+
+
+</body>
+</html>
