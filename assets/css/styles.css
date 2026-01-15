@@ -6255,3 +6255,71 @@ html { -webkit-text-size-adjust: 100%; }
     padding: 8px;
   }
 }
+
+
+.office-detail,
+.detail-grid,
+.detail-section {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.detail-grid {
+  overflow: hidden;
+}
+.qr-item {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.qr-box {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.qr-box canvas,
+.qr-box img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+}
+@media (max-width: 768px) {
+  .detail-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .qr-item {
+    padding: 12px;
+  }
+
+  .qr-box canvas,
+  .qr-box img {
+    max-width: 150px;
+  }
+}
+.acc-title,
+.acc-subtitle {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.acc-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
