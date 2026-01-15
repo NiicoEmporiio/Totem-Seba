@@ -81,48 +81,51 @@ function centerInScroll(el, offset = 0, behavior = "smooth") {
 function renderQrTo(container, url) {
   if (!container) return;
 
-  // limpiar SIEMPRE
+  const clean = (url || "").toString().trim();
   container.innerHTML = "";
-  container.classList.remove("qr-ready");
-
-  const clean = (url || "").trim();
   if (!clean) return;
 
-  // layout fijo y centrado
-  container.style.display = "flex";
-  container.style.alignItems = "center";
-  container.style.justifyContent = "center";
+  // 🔒 Contenedor limpio y controlado
+  container.style.display = "grid";
+  container.style.placeItems = "center";
   container.style.boxSizing = "border-box";
 
-  // tamaño RESPONSIVE real
-  const maxSize = window.innerWidth < 600 ? 140 : 180;
+  const size = 160; // tamaño estable (CSS manda el responsive)
 
-  const qrWrap = document.createElement("div");
-  qrWrap.style.width = `${maxSize}px`;
-  qrWrap.style.height = `${maxSize}px`;
-  qrWrap.style.display = "flex";
-  qrWrap.style.alignItems = "center";
-  qrWrap.style.justifyContent = "center";
+  try {
+    const qrHost = document.createElement("div");
+    qrHost.style.width = `${size}px`;
+    qrHost.style.height = `${size}px`;
+    qrHost.style.display = "grid";
+    qrHost.style.placeItems = "center";
 
-  container.appendChild(qrWrap);
+    container.appendChild(qrHost);
 
-  new QRCode(qrWrap, {
-    text: clean,
-    width: maxSize,
-    height: maxSize,
-    correctLevel: QRCode.CorrectLevel.H
-  });
+    new QRCode(qrHost, {
+      text: clean,
+      width: size,
+      height: size,
+      correctLevel: QRCode.CorrectLevel.H,
+    });
 
-  // asegurar que NO se desborde
-  const qrEl = qrWrap.querySelector("img, canvas");
-  if (qrEl) {
-    qrEl.style.width = "100%";
-    qrEl.style.height = "100%";
-    qrEl.style.display = "block";
+    // 🔥 LIMPIEZA DEFINITIVA: si hay img, se elimina
+    const imgs = qrHost.querySelectorAll("img");
+    imgs.forEach(img => img.remove());
+
+    // 🔒 Solo canvas visible
+    const canvas = qrHost.querySelector("canvas");
+    if (canvas) {
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      canvas.style.display = "block";
+    }
+
+  } catch (err) {
+    console.error("[QR] Error:", err);
+    container.textContent = clean;
   }
-
-  container.classList.add("qr-ready");
 }
+
 
 
 
