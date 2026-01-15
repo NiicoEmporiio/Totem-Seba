@@ -6424,3 +6424,68 @@ html { -webkit-text-size-adjust: 100%; }
 .qr-item{
   overflow: visible !important;
 }
+
+/* =========================
+   QR – SOLUCIÓN DEFINITIVA
+   ========================= */
+
+/* El item del QR */
+.qr-item {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center !important;
+  justify-content: center;
+  width: 100%;
+  text-align: center;
+}
+
+/* Caja del QR */
+.qr-box {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* desktop */
+  width: 180px;
+  height: 180px;
+
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: visible !important;
+}
+
+/* QR renderizado (canvas o img) */
+.qr-box canvas,
+.qr-box img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  display: block;
+  margin: 0 auto;
+}
+
+/* =========================
+   MOBILE: QR MÁS CHICO
+   ========================= */
+@media (max-width: 768px) {
+
+  /* grid de QRs: una sola columna */
+  .qr-grid {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* achicamos fuerte el QR */
+  .qr-box {
+    width: 130px !important;
+    height: 130px !important;
+  }
+
+  /* separaciones prolijas */
+  .qr-item {
+    margin-bottom: 20px;
+  }
+}
