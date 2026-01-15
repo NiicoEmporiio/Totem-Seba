@@ -6219,3 +6219,39 @@ html { -webkit-text-size-adjust: 100%; }
     gap: 12px;
   }
 }
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+}
+.qr-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.qr-box canvas,
+.qr-box img {
+  display: block;
+  margin: 0 auto;
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+}
+
+@media (max-width: 480px) {
+  .qr-box canvas,
+  .qr-box img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .qr-item {
+    padding: 8px;
+  }
+}
