@@ -6220,109 +6220,7 @@ html { -webkit-text-size-adjust: 100%; }
   }
 }
 
-.qr-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  text-align: center;
-}
-.qr-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
 
-.qr-box canvas,
-.qr-box img {
-  display: block;
-  margin: 0 auto;
-  width: 180px;
-  height: 180px;
-  max-width: 100%;
-}
-
-@media (max-width: 480px) {
-  .qr-box canvas,
-  .qr-box img {
-    width: 150px;
-    height: 150px;
-  }
-
-  .qr-item {
-    padding: 8px;
-  }
-}
-
-
-.office-detail,
-.detail-grid,
-.detail-section {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.detail-grid {
-  overflow: hidden;
-}
-.qr-item {
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-.qr-box {
-  width: 100%;
-  max-width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-}
-.qr-box canvas,
-.qr-box img {
-  width: 100%;
-  max-width: 180px;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  display: block;
-}
-@media (max-width: 768px) {
-  .detail-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .qr-item {
-    padding: 12px;
-  }
-
-  .qr-box canvas,
-  .qr-box img {
-    max-width: 150px;
-  }
-}
-.acc-title,
-.acc-subtitle {
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.acc-title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
 
 
 
@@ -6413,5 +6311,109 @@ html { -webkit-text-size-adjust: 100%; }
 
   .qr-box {
     max-width: 200px;
+  }
+}
+
+
+/* ============================
+   FIX DEFINITIVO: QRs centrados + responsive
+   (PEGAR AL FINAL DEL CSS)
+============================ */
+
+/* Contenedor del grid de QRs */
+.qr-grid{
+  display: grid;
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* Por defecto: 2 columnas cuando hay lugar */
+.qr-grid.qr-count-2,
+.qr-grid.qr-count-3{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* 1 QR: centrado */
+.qr-grid.qr-count-1{
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+
+/* Cada tarjeta/ítem de QR */
+.qr-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  width: 100%;
+}
+
+/* Caja donde se renderiza el QR (canvas o img) */
+.qr-box{
+  /* tamaño responsive y estable */
+  width: clamp(150px, 42vw, 220px);
+  aspect-ratio: 1 / 1;
+
+  /* centrado real */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* que no lo recorte */
+  overflow: visible;
+
+  /* si tenés borde/radio en la caja, dejalo así */
+  border-radius: 18px;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+/* IMPORTANTÍSIMO: el QR que genera la lib */
+.qr-box canvas,
+.qr-box img{
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  margin: 0 auto !important;
+  object-fit: contain;
+
+  /* mejora visual del QR (nítido) */
+  image-rendering: pixelated;
+}
+
+/* Si tu QR se monta dentro de un wrapper extra, también lo centramos */
+.qr-box > *{
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* Labels centrados */
+.qr-label,
+.qr-caption{
+  text-align: center;
+  width: 100%;
+}
+
+/* ============================
+   MOBILE: 1 columna y centrado
+============================ */
+@media (max-width: 720px){
+  .qr-grid,
+  .qr-grid.qr-count-2,
+  .qr-grid.qr-count-3{
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+  }
+
+  .qr-item{
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .qr-box{
+    width: min(78vw, 240px);
   }
 }
