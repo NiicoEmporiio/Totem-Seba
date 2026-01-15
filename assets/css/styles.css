@@ -6685,3 +6685,74 @@ body {
 .acc-panel-office {
   overflow-x: hidden;
 }
+
+/* ============================= */
+/*        CONTACTO / QRS         */
+/* ============================= */
+
+.contact-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .contact-qr-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CARD DEL QR */
+.qr-card {
+  background: #ffffff;
+  border: 1px solid #cfe3f6;
+  border-radius: 18px;
+  padding: 16px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* CONTENEDOR DEL QR */
+.qr-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;        /* 🔑 siempre cuadrado */
+  max-width: 220px;           /* desktop */
+  background: #ffffff;
+  border: 1px solid #cfe3f6;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;        /* 🔑 centrado real */
+  overflow: hidden;
+}
+
+/* QR (canvas o img) */
+.qr-box img,
+.qr-box canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  display: block;
+}
+
+/* MOBILE: QR más chico y centrado */
+@media (max-width: 768px) {
+  .qr-box {
+    max-width: 160px;          /* 🔑 más chico en mobile */
+  }
+}
+
+/* TEXTO */
+.qr-title {
+  font-weight: 600;
+  text-align: center;
+}
+
+.qr-desc {
+  font-size: 14px;
+  text-align: center;
+  opacity: 0.8;
+}
