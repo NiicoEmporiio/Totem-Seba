@@ -6553,3 +6553,135 @@ html { -webkit-text-size-adjust: 100%; }
     padding: 12px;
   }
 }
+/* =========================================================
+   FIX GLOBAL – OBLIGATORIO
+   ========================================================= */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   CONTENEDORES PADRE (evita desborde lateral)
+   ========================================================= */
+.section,
+.section *,
+.office-detail,
+.office-detail *,
+.detail-grid,
+.detail-grid *,
+.acc-panel,
+.acc-panel * {
+  max-width: 100%;
+}
+
+/* =========================================================
+   BLOQUE CONTACTO / QRS
+   ========================================================= */
+.contact-qrs,
+.section.contact-qrs {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* =========================================================
+   GRID DE QRS
+   ========================================================= */
+.contact-qr-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* MOBILE: una sola columna */
+@media (max-width: 600px) {
+  .contact-qr-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   CARD DEL QR
+   ========================================================= */
+.qr-card {
+  width: 100%;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* =========================================================
+   CONTENEDOR DEL QR (ANTI “QR FANTASMA”)
+   ========================================================= */
+.qr-placeholder {
+  width: 100%;
+  max-width: 100%;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* =========================================================
+   QR REAL (canvas o img)
+   ========================================================= */
+.qr-placeholder canvas,
+.qr-placeholder img {
+  width: 150px;
+  height: 150px;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  border-radius: 12px;
+}
+
+/* MOBILE: QR MÁS CHICO Y CENTRADO */
+@media (max-width: 600px) {
+  .qr-placeholder {
+    min-height: 140px;
+  }
+
+  .qr-placeholder canvas,
+  .qr-placeholder img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+/* =========================================================
+   TEXTO DEL QR
+   ========================================================= */
+.qr-card h4,
+.qr-card p {
+  text-align: center;
+  margin: 8px 0 0;
+  width: 100%;
+}
+
+/* =========================================================
+   SEGURIDAD EXTRA (corta cualquier desborde residual)
+   ========================================================= */
+.acc-panel,
+.acc-panel-floor,
+.acc-panel-office {
+  overflow-x: hidden;
+}
