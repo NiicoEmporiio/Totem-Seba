@@ -80,60 +80,68 @@ function centerInScroll(el, offset = 0, behavior = "smooth") {
 // -------------------------------
 function renderQrTo(container, url) {
   if (!container) return;
-  container.innerHTML = "";
 
   const clean = (url || "").toString().trim();
+
+  // limpieza fuerte (evita duplicados)
+  while (container.firstChild) {
+    container.removeChild(container.firstChild);
+  }
+
   if (!clean) return;
 
-  // margen interno para que nunca quede "al borde"
-  const pad = 10;
-
-  // aseguramos que el contenedor pueda centrar bien
-  container.style.display = "grid";
-  container.style.placeItems = "center";
-  container.style.padding = `${pad}px`;
+  // contenedor centrado SIEMPRE
+  container.style.display = "flex";
+  container.style.justifyContent = "center";
+  container.style.alignItems = "center";
   container.style.boxSizing = "border-box";
+  container.style.padding = "16px";
 
-  // size real disponible
-  const available = Math.min(container.clientWidth || 150, container.clientHeight || 150) - pad * 2;
-  const size = Math.max(120, Math.min(available, 220)); // clamp: 120..220 aprox
+  // tamaño RESPONSIVE real
+  const isMobile = window.innerWidth <= 768;
+  const size = isMobile ? 110 : 140; // 👈 clave
 
   if (!window.QRCode) {
-    const fallback = createEl("div", "qr-fallback-text", clean);
-    container.appendChild(fallback);
+    container.textContent = clean;
     return;
   }
 
-  try {
-    const qrDiv = document.createElement("div");
-    qrDiv.style.width = `${size}px`;
-    qrDiv.style.height = `${size}px`;
-    qrDiv.style.display = "grid";
-    qrDiv.style.placeItems = "center";
-    container.appendChild(qrDiv);
+  const qrWrapper = document.createElement("div");
+  qrWrapper.style.width = `${size}px`;
+  qrWrapper.style.height = `${size}px`;
+  qrWrapper.style.display = "flex";
+  qrWrapper.style.justifyContent = "center";
+  qrWrapper.style.alignItems = "center";
 
-    new QRCode(qrDiv, {
-      text: clean,
-      width: size,
-      height: size,
-      colorDark: "#000000",
-      colorLight: "#ffffff",
-      correctLevel: QRCode.CorrectLevel.H,
+  container.appendChild(qrWrapper);
+
+  new QRCode(qrWrapper, {
+    text: clean,
+    width: size,
+    height: size,
+    colorDark: "#000000",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.M, // suficiente, menos ruido visual
+  });
+
+  // asegurar UN SOLO QR y bien ajustado
+  setTimeout(() => {
+    const qrs = qrWrapper.querySelectorAll("canvas, img");
+    qrs.forEach((el, i) => {
+      if (i > 0) el.remove();
+      el.style.width = "100%";
+      el.style.height = "100%";
+      el.style.display = "block";
+      el.style.borderRadius = "8px";
     });
+  }, 0);
+}
 
-    // 🔧 fuerza que el canvas/img se adapte PERFECTO al box
-    const qrEl = qrDiv.querySelector("img, canvas");
-    if (qrEl) {
-      qrEl.style.width = "100%";
-      qrEl.style.height = "100%";
-      qrEl.style.display = "block";
-      qrEl.style.borderRadius = "8px";
-    }
-  } catch (err) {
-    console.error("[QR] Error generando QR:", err);
-    const fallback = createEl("div", "qr-fallback-text", clean);
-    container.appendChild(fallback);
-  }
+
+
+/* helper seguro */
+function MathClamp(v, min, max) {
+  return Math.min(max, Math.max(min, v));
 }
 
 
