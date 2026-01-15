@@ -7087,3 +7087,155 @@ body {
     line-height: 1.2 !important;
   }
 }
+/* =====================================================
+   MOBILE UX – BOTONES EN VEZ DE QR
+   ===================================================== */
+@media (max-width: 768px) {
+
+  /* ❌ OCULTAMOS QRs */
+  .qr-box,
+  .qr-box canvas,
+  .qr-box img {
+    display: none !important;
+  }
+
+  /* 📱 CONTENEDOR DE BOTONES */
+  .qr-actions {
+    display: flex !important;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  /* 🔘 BOTÓN BASE */
+  .qr-btn {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+
+  .qr-btn:active {
+    transform: scale(0.97);
+  }
+
+  /* 🌐 BOTÓN WEB */
+  .qr-btn-web {
+    background: #e8f3ff;
+    color: #0b5ed7;
+    border: 1px solid #b6d4fe;
+  }
+
+  /* 💬 BOTÓN WHATSAPP */
+  .qr-btn-wa {
+    background: #e7f8f0;
+    color: #198754;
+    border: 1px solid #a3e4c5;
+  }
+}
+
+
+/* =====================================================
+   QR – BASE
+   ===================================================== */
+
+.qr-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.qr-item {
+  background: #fff;
+  border: 1px solid #cfe2ff;
+  border-radius: 16px;
+  padding: 14px;
+  text-align: center;
+}
+
+/* CONTENEDOR QR */
+.qr-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+  margin-bottom: 8px;
+}
+
+/* QR generado */
+.qr-placeholder canvas,
+.qr-placeholder img {
+  width: 100%;
+  height: 100%;
+  max-width: 180px;
+  max-height: 180px;
+  border-radius: 12px;
+}
+
+/* Textos */
+.qr-label {
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.qr-text {
+  font-size: 13px;
+  opacity: .75;
+  margin-top: 4px;
+}
+
+/* =====================================================
+   BOTONES MOBILE (OCULTOS EN DESKTOP)
+   ===================================================== */
+
+.qr-btn {
+  display: none;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.qr-btn-web {
+  background: #e8f3ff;
+  color: #0b5ed7;
+}
+
+.qr-btn-wa {
+  background: #e7f8f0;
+  color: #198754;
+}
+
+.qr-btn-extra {
+  background: #f3f4f6;
+  color: #333;
+}
+
+/* =====================================================
+   MOBILE – CAMBIO TOTAL DE UX
+   ===================================================== */
+
+@media (max-width: 768px) {
+
+  /* ❌ ocultamos QR */
+  .qr-placeholder {
+    display: none;
+  }
+
+  /* 📱 mostramos botones */
+  .qr-btn {
+    display: block;
+  }
+
+  /* una columna */
+  .qr-grid {
+    grid-template-columns: 1fr;
+  }
+}
