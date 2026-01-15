@@ -6504,3 +6504,52 @@ html { -webkit-text-size-adjust: 100%; }
     min-height: 160px;
   }
 }
+
+
+.contact-qr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+
+.qr-card {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.qr-placeholder {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+.qr-placeholder canvas,
+.qr-placeholder img {
+  width: 160px;
+  height: 160px;
+  max-width: 100%;
+}
+@media (max-width: 600px) {
+  .contact-qr-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .qr-placeholder canvas,
+  .qr-placeholder img {
+    width: 130px;
+    height: 130px;
+  }
+
+  .qr-card {
+    padding: 12px;
+  }
+}
